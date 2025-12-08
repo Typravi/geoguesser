@@ -1,15 +1,15 @@
 <template>
-  <div class="outerWrapper">
-    <div
-      class="mapWrapper"
-      :style="{ transform: `scale(${scale})` }"
-    >
-      <div
-        class="map"
-        ref="map"
-        :style="mapStyle"
-        @click="onClick"
-      ></div>
+  <div
+    class="outerWrapper"
+    :style="{
+      '--map-width': mapConfig.originalWidth + 'px',
+      '--map-height': mapConfig.originalHeight + 'px',
+      '--map-image': `url(${mapConfig.image})`,
+      '--map-scale': scale,
+    }"
+  >
+    <div class="mapWrapper">
+      <div class="map" ref="map" @click="onClick"></div>
     </div>
   </div>
 </template>
@@ -19,65 +19,58 @@ export default {
   name: "GeoMap",
 
   props: {
-    scale: {
-      type: Number,
-      default: 0.35
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
+    scale: Number,
+    disabled: Boolean,
     mapConfig: {
       type: Object,
-      required: true // { image, originalWidth, originalHeight, cities: [...] }
-    }
-  },
-
-  computed: {
-    mapStyle() {
-      return {
-        width: this.mapConfig.originalWidth + "px",
-        height: this.mapConfig.originalHeight + "px",
-        backgroundImage: `url(${this.mapConfig.image})`,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        border: "20px solid red"
-      };
-    }
+      required: true,
+    },
   },
 
   methods: {
     onClick(event) {
       if (this.disabled) return;
-      const mapEl = this.$refs.map;
-      const rect = mapEl.getBoundingClientRect();
 
-      const clickXScaled = event.clientX - rect.left;
-      const clickYScaled = event.clientY - rect.top;
+      const rect = this.$refs.map.getBoundingClientRect();
 
-      const clickX = clickXScaled / this.scale;
-      const clickY = clickYScaled / this.scale;
+      const xScaled = event.clientX - rect.left;
+      const yScaled = event.clientY - rect.top;
 
-      this.$emit("map-click", {
-        x: clickX,
-        y: clickY
-      });
-    }
-  }
+      const x = xScaled / this.scale;
+      const y = yScaled / this.scale;
+
+      this.$emit("map-click", { x, y });
+    },
+  },
 };
 </script>
 
 <style scoped>
 .outerWrapper {
   display: flex;
-  justify-content: center;
+  justify-content: center; /* ← detta fungerar nu */
+  align-items: flex-start;
   width: 100%;
-  overflow: hidden;
+  height: 100%;
+  overflow: auto; /* scroll här */
+  background-color: aqua;
 }
 
 .mapWrapper {
+  display: inline-block;
+  width: calc(var(--map-width) * var(--map-scale)); /* ← kritiskt */
+  height: calc(var(--map-height) * var(--map-scale)); /* ← kritiskt */
   transform-origin: top left;
-  overflow: hidden;
-  border: 20px solid black;
+  transform: scale(var(--map-scale));
+  border: 20px solid pink;
+  /* NO overflow here */
+}
+
+.map {
+  width: var(--map-width);
+  height: var(--map-height);
+  background-image: var(--map-image);
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 </style>
