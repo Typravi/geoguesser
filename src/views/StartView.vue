@@ -4,9 +4,9 @@
          v-on:click="toggleNav">
     </div>
     <div class="logo">
-      <img src="/img/logo.png">
-      Polly polling tool 
-      <img src="../assets/logo.svg">
+      <img src="/img/jordklot.jpg">
+      Geoguesser 
+      <img src="/img/jordklot.jpg">
     </div>
   </header>
   <ResponsiveNav v-bind:hideNav="hideNav">
@@ -24,8 +24,8 @@
   <h1>{{ uiLabels["sales-pitch"] }}</h1>
   <h2>{{ uiLabels.subHeading }}</h2>
   <label>
-    Write poll id: 
-    <input type="text" v-model="newPollId">
+    Gå med i lobby: 
+    <input type="text" v-model="newPollId" placeholder="Skriv in Lobby ID">
   </label>
   <router-link v-bind:to="'/lobby/' + newPollId">
     {{ uiLabels.participatePoll }}
