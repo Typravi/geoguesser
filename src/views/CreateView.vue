@@ -28,10 +28,25 @@
     <button v-on:click="runQuestion">
       Run question
     </button>
+    <p>Antal frågor: {{ numberOfQuestions }}
+                  <button @click="decreaseAmount">-</button>
+                  <button @click="increaseAmount">+</button>
+  </p>
+
+
+  <p>
+    <label for="name">Name</label><br>
+    <input type="text" id="name" name="fn" required="required" placeholder="Enter your name">
+</p>
+<p>
+<button v-on:click="getLobbyID">
+      Create lobby
+  </button>
+</p>
     <router-link v-bind:to="'/result/' + pollId">Check result</router-link>
     Data: {{ pollData }}
   </div>
-  
+
 </template>
 
 <script>
@@ -49,6 +64,7 @@ export default {
       questionNumber: 0,
       pollData: {},
       uiLabels: {},
+      numberOfQuestions: 0,
     }
   },
   created: function () {
@@ -62,6 +78,13 @@ export default {
       socket.emit("createPoll", {pollId: this.pollId, lang: this.lang })
       socket.emit("joinPoll", this.pollId);
     },
+
+    getLobbyID() {
+    const lobbyID = Math.floor(Math.random() * 1000000);
+    console.log(lobbyID);
+    return lobbyID;
+    },
+
     startPoll: function () {
       socket.emit("startPoll", this.pollId)
     },
@@ -73,7 +96,15 @@ export default {
     },
     runQuestion: function () {
       socket.emit("runQuestion", {pollId: this.pollId, questionNumber: this.questionNumber})
-    }
+    },
+    increaseAmount() {
+    if (this.numberOfQuestions < 10) {
+    this.numberOfQuestions++;}
+    },
+    decreaseAmount() {
+    if (this.numberOfQuestions > 0) {
+      this.numberOfQuestions--;}
+  }
   }
 }
 </script>
