@@ -1,33 +1,6 @@
 <template>
   <div>
-    Poll link: 
-    <input type="text" v-model="pollId">
-    <button v-on:click="createPoll">
-      Create poll
-    </button>
-    <div>
-      {{ uiLabels.question }}:
-      <input type="text" v-model="question">
-      <div>
-        Answers:
-        <input v-for="(_, i) in answers" 
-               v-model="answers[i]" 
-               v-bind:key="'answer' + i">
-        <button v-on:click="addAnswer">
-          Add answer alternative
-        </button>
-      </div>
-    </div>
-    <button v-on:click="addQuestion">
-      Add question
-    </button>
-    <input type="number" v-model="questionNumber">
-    <button v-on:click="startPoll">
-      Start poll
-    </button>
-    <button v-on:click="runQuestion">
-      Run question
-    </button>
+
     <p>Antal frågor: {{ numberOfQuestions }}
                   <button @click="decreaseAmount">-</button>
                   <button @click="increaseAmount">+</button>
@@ -39,13 +12,14 @@
     <input type="text" id="name" name="fn" required="required" placeholder="Enter your name">
 </p>
 <p>
-<button v-on:click="getLobbyID">
-      Create lobby
+
+<button v-on:click="goToLobby">
+  {{ uiLabels.createLobby}}
   </button>
+
 </p>
-    <router-link v-bind:to="'/result/' + pollId">Check result</router-link>
-    Data: {{ pollData }}
   </div>
+
 
 </template>
 
@@ -58,11 +32,7 @@ export default {
   data: function () {
     return {
       lang: localStorage.getItem("lang") || "en",
-      pollId: "",
-      question: "",
-      answers: ["", ""],
-      questionNumber: 0,
-      pollData: {},
+      name:"",
       uiLabels: {},
       numberOfQuestions: 0,
     }
@@ -81,22 +51,21 @@ export default {
 
     getLobbyID() {
     const lobbyID = Math.floor(Math.random() * 1000000);
-    console.log(lobbyID);
     return lobbyID;
     },
 
-    startPoll: function () {
-      socket.emit("startPoll", this.pollId)
-    },
-    addQuestion: function () {
-      socket.emit("addQuestion", {pollId: this.pollId, q: this.question, a: this.answers } )
-    },
-    addAnswer: function () {
-      this.answers.push("");
-    },
-    runQuestion: function () {
-      socket.emit("runQuestion", {pollId: this.pollId, questionNumber: this.questionNumber})
-    },
+    goToLobby() {
+  const lobbyID = this.getLobbyID(); 
+  socket.emit("goToLobby", {
+    lobbyID: lobbyID,
+    lang: this.lang,
+    name: this.name,
+    numberOfQuestions: this.numberOfQuestions
+  });
+
+  this.$router.push(`/lobby/${lobbyID}`);
+
+  },
     increaseAmount() {
     if (this.numberOfQuestions < 10) {
     this.numberOfQuestions++;}
