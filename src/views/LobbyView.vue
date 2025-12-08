@@ -1,37 +1,44 @@
 <template>
+  
   <div>
+    <h1>Lobby {{ lobbyID }}</h1>
+    <p>Namn: {{ name }}</p>
+    <p>Antal frågor: {{ numberOfQuestions }}</p>
+  </div>
+
+
+
     {{lobbyID}}
-    <div v-if="!joined">
-      <input type="text" v-model="userName">
-      <button v-on:click="participateGame">
-        {{ this.uiLabels.participateInPoll }}
-      </button>
-    </div>
-    <div v-if="joined">
+    <div>
       <p>Waiting for host to start poll</p>
       {{ participants }}
   </div>
-  </div>
+
 </template>
 
 <script>
 import io from 'socket.io-client';
 const socket = io("localhost:3000");
 
+
 export default {
+  props: ['lobbyID', 'name', 'numberOfQuestions'], // tar emot props från route
+  mounted() {
+    console.log('LobbyID:', this.lobbyID);
+    console.log('Namn:', this.name);
+    console.log('Antal frågor:', this.numberOfQuestions);},
   name: 'LobbyView',
   data: function () {
     return {
       userName: "",
       lobbyID: "inactive lobby",
       uiLabels: {},
-      joined: false,
       lang: localStorage.getItem("lang") || "en",
       participants: []
     }
   },
   created: function () {
-    this.pollId = this.$route.params.id;
+    this.lobbyID = this.$route.params.lobbyID;
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.on( "participantsUpdate", p => this.participants = p );
     socket.on( "startPoll", () => this.$router.push("/poll/" + this.pollId) );

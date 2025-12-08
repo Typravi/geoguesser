@@ -44,10 +44,6 @@ export default {
     socket.emit( "getUILabels", this.lang );
   },
   methods: {
-    createPoll: function () {
-      socket.emit("createPoll", {pollId: this.pollId, lang: this.lang })
-      socket.emit("joinPoll", this.pollId);
-    },
 
     getLobbyID() {
     const lobbyID = Math.floor(Math.random() * 1000000);
