@@ -8,7 +8,7 @@
 
   <p>
       <label for="lobbyID">Lobby</label><br>
-      <input type="text" maxlength=6 id="lobbyID" v-model="lobbyID" placeholder="LobbyID"> 
+      <input type="text" @input="lobbyID = lobbyID.replace(/\D/g, '')" maxlength=6 id="lobbyID" v-model="lobbyID" placeholder="LobbyID"> 
          <!-- Hitta sätt att endast tillåta siffror -->
   </p>
 
