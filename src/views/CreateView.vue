@@ -31,6 +31,7 @@
     <router-link v-bind:to="'/result/' + pollId">Check result</router-link>
     Data: {{ pollData }}
   </div>
+  
 </template>
 
 <script>
