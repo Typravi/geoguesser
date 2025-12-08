@@ -48,22 +48,27 @@ export default {
 <style scoped>
 .outerWrapper {
   display: flex;
-  justify-content: center; /* ← detta fungerar nu */
+  justify-content: center;
   align-items: flex-start;
   width: 100%;
   height: 100%;
-  overflow: auto; /* scroll här */
+  overflow: auto; /* verkar som att auto/scroll gör samma här, är lite osäker dock */
   background-color: aqua;
 }
 
 .mapWrapper {
   display: inline-block;
-  width: calc(var(--map-width) * var(--map-scale)); /* ← kritiskt */
-  height: calc(var(--map-height) * var(--map-scale)); /* ← kritiskt */
+  width: calc(
+    var(--map-width) * var(--map-scale)
+  ); /* OBS viktigt!! detta sätter till orginalstorlek så flex kan centrera */
+  height: calc(
+    var(--map-height) * var(--map-scale)
+  ); /*!!! samma som ovan (orginal flr centrering men visas endå scaled rent visuellt) */
   transform-origin: top left;
   transform: scale(var(--map-scale));
   border: 20px solid pink;
-  /* NO overflow here */
+  /* rosa border ligger kvar för CSS förståelse, man ser bara ena hörnet pga resten täcks av annat */
+  /* OBS sätt inget overflow här*/
 }
 
 .map {
