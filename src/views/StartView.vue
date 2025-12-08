@@ -23,7 +23,7 @@
   <h2>{{ uiLabels.subHeading }}</h2>
   
   <div class="menu-buttons">
-    <router-link to="/join/" class="button join-button">
+    <router-link to="/JoinGameView/" class="button join-button">
       {{ uiLabels.joinGame }}
     </router-link>
     <router-link to="/create/" class="button create-button">

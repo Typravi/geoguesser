@@ -1,9 +1,9 @@
 <template>
   <div>
-    {{pollId}}
+    {{lobbyID}}
     <div v-if="!joined">
       <input type="text" v-model="userName">
-      <button v-on:click="participateInPoll">
+      <button v-on:click="participateGame">
         {{ this.uiLabels.participateInPoll }}
       </button>
     </div>
@@ -23,7 +23,7 @@ export default {
   data: function () {
     return {
       userName: "",
-      pollId: "inactive poll",
+      lobbyID: "inactive lobby",
       uiLabels: {},
       joined: false,
       lang: localStorage.getItem("lang") || "en",
@@ -39,8 +39,8 @@ export default {
     socket.emit( "getUILabels", this.lang );
   },
   methods: {
-    participateInPoll: function () {
-      socket.emit( "participateInPoll", {pollId: this.pollId, name: this.userName} )
+    participateGame: function () {
+      socket.emit( "participateGame", {lobbyID: this.lobbyID, name: this.Name} )
       this.joined = true;
     }
   }
