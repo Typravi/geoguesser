@@ -14,8 +14,7 @@
 <p>
 
 <button v-on:click="goToLobby">
-  {{ uiLabels.createGame }}
-      Create lobby
+  {{ uiLabels.createLobby}}
   </button>
 
 </p>
