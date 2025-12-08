@@ -5,12 +5,6 @@
       <p>Aktiv region: {{ region }}</p>
     </header>
 
-    <div class="mapConatiner">
-      <div class="box1">HEJ1</div>
-      <div class="box2">HEJ2</div>
-      <div class="box3">HEJ3</div>
-    </div>
-
     <main class="map-area">
       <GeoMap
         v-if="currentMap"
@@ -72,43 +66,24 @@ export default {
   flex-direction: column; /* header överst, karta i mitten, coords nederst */
 }
 
-/* Rubrik + aktiv region-text */
+/* Rubrik + current region-text */
 .header {
   text-align: center;
   padding: 16px 16px 0;
 }
 
-/* Här sker magin: kartan centreras i det flex:1-området */
+/*I CSS koden nedan centreras kartan*/
 .map-area {
   flex: 1; /* tar upp allt ledigt utrymme mellan header och footer */
   display: flex; /* flex-container */
-  justify-content: center; /* centrera horisontellt */
-  align-items: center; /* centrera vertikalt */
+  justify-content: center; /* centrerar horisontellt */
+  align-items: center; /* centrerar vertikalt */
   padding: 16px;
 }
 
-/* Koordinater längst ner */
+/* Koordinaterna längst ner på sidan */
 .coords {
   text-align: center;
   padding: 0 16px 16px;
-}
-
-/*från template:
-    <div class="mapConatiner">
-      <div class="box1">HEJ</div>
-      <div class="box2">HEJ</div>
-      <div class="box3">HEJ</div>
-    </div>
-*/
-.mapConatiner {
-  display: flex;
-  flex-direction: row; /*detta är default*/
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.box3 {
-  font-size: larger;
 }
 </style>
