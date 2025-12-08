@@ -54,6 +54,11 @@ const router = createRouter({
       name: "ResultView",
       component: () => import("../views/ResultView.vue"),
     },
+    {
+      path: "/GeoMapView",
+      name: "GeoMapView",
+      component: () => import("../views/NewViews/GeoMapView.vue"),
+    },
   ],
 });
 
