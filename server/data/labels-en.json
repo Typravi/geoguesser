@@ -1,9 +1,9 @@
 {
-	"sales-pitch": "Simply. Great. Polling.",
-	"subHeading": "A simple polling tool",
+	"sales-pitch": "Guess the location and beat your friends!",
+	"subHeading": "Join a game or start your own challenge.",
 	"invite": "Invite participants with this link:",
-	"createPoll": "Create game",
-	"participatePoll": "Join game",
+	"createGame": "Create game",
+	"joinGame": "Join game",
 	"question": "Question",
 	"changeLanguage": "Byt till svenska",
 	"about": "About us",

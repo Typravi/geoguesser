@@ -13,9 +13,7 @@
     <button v-on:click="switchLanguage">
       {{ uiLabels.changeLanguage }}
     </button>
-    <router-link to="/create/">
-      {{ uiLabels.createPoll }}
-    </router-link>
+   
     <a href="">
       {{ uiLabels.about }}
     </a>
@@ -23,13 +21,20 @@
   </ResponsiveNav>
   <h1>{{ uiLabels["sales-pitch"] }}</h1>
   <h2>{{ uiLabels.subHeading }}</h2>
-  <label>
-    Gå med i lobby: 
-    <input type="text" v-model="newPollId" placeholder="Skriv in Lobby ID">
-  </label>
-  <router-link v-bind:to="'/lobby/' + newPollId">
-    {{ uiLabels.participatePoll }}
-  </router-link>
+  
+  <div class="menu-buttons">
+    <router-link to="/join/" class="button join-button">
+      {{ uiLabels.joinGame }}
+    </router-link>
+    <router-link to="/create/" class="button create-button">
+     {{ uiLabels.createGame }}
+    </router-link>
+
+    
+
+  </div>
+
+
 </template>
 
 <script>
@@ -104,6 +109,33 @@ export default {
     font-size: 1.5rem;
   }
 
+  .menu-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    
+  }
+  .button{
+    display: inline-block;
+    width: 10rem;  
+    padding: 0.8rem 2rem;      
+    background-color: rgb(57, 142, 57);
+    color: white;
+    border-radius: 10px;       
+    text-decoration: none;      /* tar bort blå underline */
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: 0.2s ease;
+}
+
+.create-button{
+  background-color: #7f8280;
+}
+  
+
+
 @media screen and (max-width:50em) {
   .logo {
     font-size: 5vw;
@@ -120,5 +152,8 @@ export default {
   .hide {
     left:-12em;
   }
+  
+  
+  
 }
 </style>
