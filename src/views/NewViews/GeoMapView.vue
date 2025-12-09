@@ -16,11 +16,17 @@
       />
     </main>
     <footer v-if="lastClick">
-      <!--ta bort denna när ej behövs mer, anv för att få koord utskrivna till mina städer-->
+      <!--ta bort footern när ej behövs mer, anv för att få koord utskrivna så jag ser vad som händer-->
+      <!--notera att även ur data och handlemapclick behövs det städas när footern tas bort -->
       <p>
         Postition klickad: X = {{ lastClick.x.toFixed(0) }}, Y =
         {{ lastClick.y.toFixed(0) }}
       </p>
+      <p>
+        Korrekt position: X = {{ correctLocation.x.toFixed(0) }}, Y =
+        {{ correctLocation.y.toFixed(0) }}
+      </p>
+      <p>Avstånd i pixlar: {{ this.distance }}</p>
     </footer>
   </div>
 </template>
@@ -28,6 +34,7 @@
 <script>
 import GeoMap from "../../components/GeoMap.vue";
 import mapsConfig from "../../assets/maps.json";
+import { calculateDistance } from "../../assets/logic";
 
 export default {
   name: "GeoMapView",
@@ -43,6 +50,7 @@ export default {
       cityToFind: "Stockholm",
       lastClick: null,
       correctLocation: null, //sätts null först och sedan först efter man klickat ger vi den ett värde
+      distance: null,
     };
   },
 
@@ -57,6 +65,7 @@ export default {
       //in hit ska vårt mapclick komma från GeoMap sen
       this.lastClick = pos; //ta bort denna när ej behövs mer, anv för att få koord utskrivna till mina städer
       this.correctLocation = this.currentMap.cities[this.cityToFind]; // tillagd för att sätta correctLocation till Sthlm vid tryck (sen rätt men nu sthlm sålänge)
+      this.distance = calculateDistance(this.lastClick, this.correctLocation);
     },
   },
 };
