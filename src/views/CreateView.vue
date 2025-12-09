@@ -47,7 +47,7 @@ export default {
   methods: {
 
     getLobbyID() {
-    const lobbyID = Math.floor(Math.random() * 1000000);
+    const lobbyID = Math.floor(100000 + Math.random() * 900000);;
     return lobbyID;
     },
 
