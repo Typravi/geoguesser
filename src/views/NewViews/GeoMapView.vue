@@ -1,5 +1,5 @@
 <template>
-  <div class="geo-view">
+  <div class="GeoMapView">
     <header class="header">
       <h1>GeoMap demo</h1>
       <p>Aktiv region: {{ region }}</p>
@@ -26,6 +26,7 @@
 <script>
 import GeoMap from "../../components/GeoMap.vue";
 import mapsConfig from "../../assets/maps.json";
+//varför import av mapsConfig?
 
 export default {
   name: "GeoMapView",
@@ -57,7 +58,7 @@ export default {
 </script>
 
 <style scoped>
-.geo-view {
+.GeoMapView {
   background-color: #111;
   color: #eee;
   min-height: 100vh;
