@@ -24,10 +24,10 @@
   
   <div class="menu-buttons">
     <router-link to="/JoinGameView/" class="button join-button">
-      {{ uiLabels.joinGame }}
+      {{ uiLabels.joinLobby }}
     </router-link>
     <router-link to="/create/" class="button create-button">
-     {{ uiLabels.createGame }}
+     {{ uiLabels.createLobby }}
     </router-link>
 
     
@@ -50,7 +50,7 @@ export default {
   data: function () {
     return {
       uiLabels: {},
-      newPollId: "",
+      newlobbyID: "",
       lang: localStorage.getItem( "lang") || "en",
       hideNav: true
     }

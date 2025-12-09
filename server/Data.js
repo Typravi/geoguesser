@@ -3,8 +3,8 @@ import {readFileSync} from "fs";
 
 // Store data in an object to keep the global namespace clean. In an actual implementation this would be interfacing a database...
 function Data() {
-  this.polls = {};
-  this.polls['test'] = {
+  this.lobbies = {};
+  this.lobbies['test'] = {
     lang: "en",
     questions: [
       {q: "How old are you?", 
@@ -26,8 +26,8 @@ prototype of the Data object/class
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
 ***********************************************/
 
-Data.prototype.pollExists = function (pollId) {
-  return typeof this.polls[pollId] !== "undefined"
+Data.prototype.lobbyExists = function (lobbyID) {
+  return typeof this.lobbies[lobbyID] !== "undefined"
 }
 
 Data.prototype.getUILabels = function (lang) {
@@ -38,52 +38,52 @@ Data.prototype.getUILabels = function (lang) {
   return JSON.parse(labels);
 }
 
-Data.prototype.createPoll = function(pollId, lang="en") {
-  if (!this.pollExists(pollId)) {
-    let poll = {};
-    poll.lang = lang;  
-    poll.questions = [];
-    poll.answers = [];
-    poll.participants = [];
-    poll.currentQuestion = 0;              
-    this.polls[pollId] = poll;
-    console.log("poll created", pollId, poll);
+Data.prototype.createLobby = function(lobbyID, lang="en") {
+  if (!this.lobbyExists(lobbyID)) {
+    let lobby = {};
+    lobby.lang = lang;  
+    lobby.questions = [];
+    lobby.answers = [];
+    lobby.participants = [];
+    lobby.currentQuestion = 0;              
+    this.lobbies[lobbyID] = lobby;
+    console.log("lobby created", lobbyID, lobby);
   }
-  return this.polls[pollId];
+  return this.lobbies[lobbyID];
 }
 
-Data.prototype.getPoll = function(pollId) {
-  if (this.pollExists(pollId)) {
-    return this.polls[pollId];
+Data.prototype.getLobby = function(lobbyID) {
+  if (this.lobbyExists(lobbyID)) {
+    return this.lobbies[lobbyID];
   }
   return {};
 }
 
-Data.prototype.participateInPoll = function(pollId, name) {
-  console.log("participant will be added to", pollId, name);
-  if (this.pollExists(pollId)) {
-    this.polls[pollId].participants.push({name: name, answers: []})
+Data.prototype.participateInPoll = function(lobbyID, name) {
+  console.log("participant will be added to", lobbyID, name);
+  if (this.lobbyExists(lobbyID)) {
+    this.lobbies[lobbyID].participants.push({name: name, answers: []})
   }
 }
 
-Data.prototype.getParticipants = function(pollId) {
-  const poll = this.polls[pollId];
-  console.log("participants requested for", pollId);
-  if (this.pollExists(pollId)) { 
-    return this.polls[pollId].participants
+Data.prototype.getParticipants = function(lobbyID) {
+  const poll = this.lobbies[lobbyID];
+  console.log("participants requested for", lobbyID);
+  if (this.lobbyExists(lobbyID)) { 
+    return this.lobbies[lobbyID].participants
   }
   return [];
 }
 
-Data.prototype.addQuestion = function(pollId, q) {
-  if (this.pollExists(pollId)) {
-    this.polls[pollId].questions.push(q);
+Data.prototype.addQuestion = function(lobbyID, q) {
+  if (this.lobbyExists(lobbyID)) {
+    this.lobbies[lobbyID].questions.push(q);
   }
 }
 
-Data.prototype.activateQuestion = function(pollId, qId = null) {
-  if (this.pollExists(pollId)) {
-    const poll = this.polls[pollId];
+Data.prototype.activateQuestion = function(lobbyID, qId = null) {
+  if (this.lobbyExists(lobbyID)) {
+    const poll = this.lobbies[lobbyID];
     if (qId !== null) {
       poll.currentQuestion = qId;
     }
@@ -92,9 +92,9 @@ Data.prototype.activateQuestion = function(pollId, qId = null) {
   return {}
 }
 
-Data.prototype.getSubmittedAnswers = function(pollId) {
-  if (this.pollExists(pollId)) {
-    const poll = this.polls[pollId];
+Data.prototype.getSubmittedAnswers = function(lobbyID) {
+  if (this.lobbyExists(lobbyID)) {
+    const poll = this.lobbies[lobbyID];
     const answers = poll.answers[poll.currentQuestion];
     if (typeof poll.questions[poll.currentQuestion] !== 'undefined') {
       return answers;
@@ -103,9 +103,9 @@ Data.prototype.getSubmittedAnswers = function(pollId) {
   return {}
 }
 
-Data.prototype.submitAnswer = function(pollId, answer) {
-  if (this.pollExists(pollId)) {
-    const poll = this.polls[pollId];
+Data.prototype.submitAnswer = function(lobbyID, answer) {
+  if (this.lobbyExists(lobbyID)) {
+    const poll = this.lobbies[lobbyID];
     let answers = poll.answers[poll.currentQuestion];
     // create answers object if no answers have yet been submitted
     if (typeof answers !== 'object') {

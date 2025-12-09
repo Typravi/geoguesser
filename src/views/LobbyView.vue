@@ -41,8 +41,8 @@ export default {
     this.lobbyID = this.$route.params.lobbyID;
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.on( "participantsUpdate", p => this.participants = p );
-    socket.on( "startPoll", () => this.$router.push("/poll/" + this.pollId) );
-    socket.emit( "joinGame", this.lobbyID );
+    socket.on( "startPoll", () => this.$router.push("/poll/" + this.lobbyID) );
+    socket.emit( "joinLobby", this.lobbyID );
     socket.emit( "getUILabels", this.lang );
   },
   methods: {
