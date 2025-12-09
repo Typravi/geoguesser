@@ -13,13 +13,6 @@
         @map-click="handleMapClick"
       />
     </main>
-
-    <footer v-if="lastClick" class="coords">
-      <p>
-        Senaste klick (originalpixlar): x: {{ lastClick.x.toFixed(0) }}, y:
-        {{ lastClick.y.toFixed(0) }}
-      </p>
-    </footer>
   </div>
 </template>
 
@@ -39,7 +32,6 @@ export default {
     return {
       region: "europe",
       scale: 0.35,
-      lastClick: null,
     };
   },
 
@@ -51,7 +43,7 @@ export default {
 
   methods: {
     handleMapClick(pos) {
-      this.lastClick = pos;
+      //in hit ska vårt mapclick komma från GeoMap sen
     },
   },
 };
@@ -80,11 +72,5 @@ export default {
   justify-content: center; /* centrerar horisontellt */
   align-items: center; /* centrerar vertikalt */
   padding: 16px;
-}
-
-/* Koordinaterna längst ner på sidan */
-.coords {
-  text-align: center;
-  padding: 0 16px 16px;
 }
 </style>
