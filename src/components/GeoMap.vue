@@ -21,6 +21,14 @@
             top: locationGuess.y + 'px',
           }"
         ></div>
+        <div
+          v-if="correctLocation"
+          class="correctMarker"
+          v-bind:style="{
+            left: correctLocation.x + 'px',
+            top: correctLocation.y + 'px',
+          }"
+        ></div>
       </div>
     </div>
   </div>
@@ -37,6 +45,7 @@ export default {
       type: Object,
       required: true,
     },
+    correctLocation: Object, //tillagd för att ta emot korrekta koordinater från vår förälder GeoMapView
   },
   data() {
     return {
@@ -112,5 +121,14 @@ export default {
   /*transform ovan centrerar punkten i klicket, se referens: https://stackoverflow.com/questions/46184458/transform-translate-50-50*/
   pointer-events: none;
   /*Raden ovan gör pricken "genomskinlig för klick" dvs fångar ej klick, vet ej om de behövs sen men tänker kan va bra till när flera gamers är med?*/
+}
+.correctMarker {
+  position: absolute;
+  width: 5%;
+  height: 5%;
+  background-color: greenyellow;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 </style>

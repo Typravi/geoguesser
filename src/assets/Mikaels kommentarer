@@ -25,4 +25,4 @@ Fördelar: push/pop lite enklare, slumpar lättare
 börja med en, prova annars byt
 
 bra ide spara avstånd, men summera inte i början!! summera i slutet
-(slutet: reduce funktion)
+(slutet: reduce funktion) kolla upp hur reduce funkar var tipset från mikael!
