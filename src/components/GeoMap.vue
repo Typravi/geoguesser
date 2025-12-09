@@ -60,9 +60,9 @@ export default {
 
       this.locationGuess = { x, y };
 
-      this.$emit("map-click", { x, y });
-
       this.hasGuessed = true;
+
+      this.$emit("map-click", { x, y });
     },
   },
 };
