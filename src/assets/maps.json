@@ -3,25 +3,10 @@
     "image": "/img/Europe_map.png",
     "originalWidth": 2395,
     "originalHeight": 2049,
-    "cities": [
-      {
-        "id": "stockholm",
-        "names": { "en": "Stockholm", "sv": "Stockholm" },
-        "x": 0.60,
-        "y": 0.21
-      },
-      {
-        "id": "paris",
-        "names": { "en": "Paris", "sv": "Paris" },
-        "x": 0.44,
-        "y": 0.41
-      },
-      {
-        "id": "berlin",
-        "names": { "en": "Berlin", "sv": "Berlin" },
-        "x": 0.51,
-        "y": 0.35
-      }
-    ]
+    "cities": {
+      "Stockholm": { "x": 0.6, "y": 1.1 },
+      "Paris": { "x": 0.6, "y": 1.1 },
+      "Berlin": { "x": 0.6, "y": 1.1 }
+    }
   }
 }
