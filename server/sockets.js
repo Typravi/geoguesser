@@ -4,9 +4,9 @@ function sockets(io, socket, data) {
     socket.emit('uiLabels', data.getUILabels(lang));
   });
 
-  socket.on('createPoll', function(d) {
-    data.createPoll(d.pollId, d.lang)
-    socket.emit('pollData', data.getPoll(d.pollId));
+  socket.on('createGame', function(d) {
+    data.createGame(d.lobbyID, d.lang)
+    socket.emit('goToLobby', data.goToLobby(d.lobbyID));
   });
 
   socket.on('addQuestion', function(d) {
@@ -14,10 +14,10 @@ function sockets(io, socket, data) {
     socket.emit('questionUpdate', data.activateQuestion(d.pollId));
   });
 
-  socket.on('joinPoll', function(pollId) {
-    socket.join(pollId);
-    socket.emit('questionUpdate', data.activateQuestion(pollId))
-    socket.emit('submittedAnswersUpdate', data.getSubmittedAnswers(pollId));
+  socket.on('joinGame', function(lobbyID) {
+    socket.join(lobbyID);
+    socket.emit('questionUpdate', data.activateQuestion(lobbyID));
+    socket.emit('submittedAnswersUpdate', data.getSubmittedAnswers(lobbyID));
   });
 
   socket.on('participateInPoll', function(d) {

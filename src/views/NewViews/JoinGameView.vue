@@ -49,7 +49,8 @@
       name: this.name,
     });
   
-    this.$router.push(`/lobby/${lobbyID}`);
+    this.$router.push(`/lobby/${this.lobbyID}`);
+    
   
     },
   }}

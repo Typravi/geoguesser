@@ -42,7 +42,7 @@ export default {
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.on( "participantsUpdate", p => this.participants = p );
     socket.on( "startPoll", () => this.$router.push("/poll/" + this.pollId) );
-    socket.emit( "joinPoll", this.pollId );
+    socket.emit( "joinGame", this.lobbyID );
     socket.emit( "getUILabels", this.lang );
   },
   methods: {

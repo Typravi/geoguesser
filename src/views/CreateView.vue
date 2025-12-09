@@ -42,6 +42,7 @@ export default {
     socket.on( "pollData", data => this.pollData = data );
     socket.on( "participantsUpdate", p => this.pollData.participants = p );
     socket.emit( "getUILabels", this.lang );
+   
   },
   methods: {
 
