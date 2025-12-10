@@ -19,16 +19,13 @@
             :y1="correctLocation.y"
             :x2="locationGuess.x"
             :y2="locationGuess.y"
-            stroke="red"
-            stroke-dasharray="2 2"
-            stroke-width="6"
           />
-          <!--stroke osv ovan kan flyttas till CSS om man vill om man anv klassnamnet för linjen-->
         </svg>
       </div>
       <div id="dots">
         <!--skillnad från burger:
-    1. v-if gör så att ingen markör skrivs ut om klick ej skett (i burger va den uppe t vänster)-->
+    1. v-if gör så att ingen markör skrivs ut om klick ej skett (i burger va den uppe t vänster)
+    ? Jag undrar om man bör använda svg circle nedan istället för en vanlig div med border radius 50%?? (se CSS)-->
         <div
           v-if="locationGuess.x !== null"
           class="guessMarker"
@@ -155,5 +152,11 @@ export default {
   width: 100%;
   height: 100%;
   pointer-events: none;
+}
+
+.lineBetweenDots {
+  stroke: red;
+  stroke-dasharray: 2 2;
+  stroke-width: 6;
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="GeoMapView">
     <header class="header">
       <h1>GeoMap (under utveckling hehe)</h1>
-      <p>Spelad region: {{ region }}</p>
+      <p>Spelad världsdel: {{ continent }}</p>
       <h2>Klicka på: {{ cityToFind }}</h2>
     </header>
 
@@ -45,7 +45,7 @@ export default {
 
   data() {
     return {
-      region: "europe",
+      continent: "europe",
       scale: 0.35,
       cityToFind: "Stockholm",
       lastClick: null,
@@ -56,7 +56,7 @@ export default {
 
   computed: {
     currentMap() {
-      return mapsConfig[this.region] || null;
+      return mapsConfig[this.continent] || null;
     },
   },
 
@@ -81,7 +81,7 @@ export default {
   flex-direction: column; /* header överst, karta i mitten, coords nederst */
 }
 
-/* Rubrik + current region-text */
+/* Rubrik + current continent-text */
 .header {
   text-align: center;
   padding: 16px 16px 0;
