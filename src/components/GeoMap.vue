@@ -25,7 +25,8 @@
       <div id="dots">
         <!--skillnad från burger:
     1. v-if gör så att ingen markör skrivs ut om klick ej skett (i burger va den uppe t vänster)
-    ? Jag undrar om man bör använda svg circle nedan istället för en vanlig div med border radius 50%?? (se CSS)-->
+    ? Jag undrar om man bör använda svg circle nedan istället för en vanlig div med border radius 50%??
+    https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/circle-->
         <div
           v-if="locationGuess.x !== null"
           class="guessMarker"

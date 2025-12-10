@@ -8,3 +8,12 @@ export function calculateDistance(guess, corr) {
   return Math.hypot(A, B);
 }
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/hypot
+
+export function getRandomCity(continent) {
+  const continentsCities = Object.keys(continent.cities);
+  const randomCity =
+    continentsCities[Math.floor(Math.random() * continentsCities.length)];
+  //raden ovan hämtar värdet på continentsCities[index], och index ges av ett random heltal från/mellan [0,(antalstäder-1)] från randomiseringen
+  //kort å gott: de är raden ovan där den random staden väljs
+  return { name: randomCity, coordinates: continent.cities[randomCity] };
+}
