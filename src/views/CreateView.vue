@@ -9,11 +9,12 @@
 
   <p>
     <label for="name">Name</label><br>
-    <input type="text" id="name" name="fn" required="required" placeholder="Enter your name">
-</p>
+    <input type="text"  v-model="name" id ="name" placeholder="Enter your name">
+  </p>
+
 <p>
 
-<button v-on:click="goToLobby">
+<button v-on:click="goToLobby" :disabled="!name.trim() || numberOfQuestions < 1">
   {{ uiLabels.createLobby}}
   </button>
 
