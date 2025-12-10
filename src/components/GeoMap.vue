@@ -9,7 +9,23 @@
     }"
   >
     <div class="mapWrapper">
-      <div class="map" ref="map" @click="onClick"></div>
+      <div class="map" ref="map" @click="onClick">
+        <svg class="svgLayerOnMap">
+          <!--"v if" nedan för å kolla att vi har klickat(o har en korrekt koordinat med)-->
+          <line
+            class="lineBetweenDots"
+            v-if="hasGuessed && correctLocation"
+            :x1="correctLocation.x"
+            :y1="correctLocation.y"
+            :x2="locationGuess.x"
+            :y2="locationGuess.y"
+            stroke="red"
+            stroke-dasharray="2 2"
+            stroke-width="6"
+          />
+          <!--stroke osv ovan kan flyttas till CSS om man vill om man anv klassnamnet för linjen-->
+        </svg>
+      </div>
       <div id="dots">
         <!--skillnad från burger:
     1. v-if gör så att ingen markör skrivs ut om klick ej skett (i burger va den uppe t vänster)-->
@@ -109,6 +125,7 @@ export default {
   background-image: var(--map-image);
   background-size: cover;
   background-repeat: no-repeat;
+  position: relative;
 }
 
 .guessMarker {
@@ -129,6 +146,14 @@ export default {
   background-color: greenyellow;
   border-radius: 50%;
   transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.svgLayerOnMap {
+  position: absolute;
+  inset: 0; /*ist för å manuellt sätta top,bottom,left, right till 0*/
+  width: 100%;
+  height: 100%;
   pointer-events: none;
 }
 </style>
