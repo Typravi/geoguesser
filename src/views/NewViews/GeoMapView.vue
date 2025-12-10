@@ -10,7 +10,7 @@
       <GeoMap
         v-if="currentMap"
         :scale="scale"
-        :map-config="currentMap"
+        :continent-data="currentMap"
         :correct-location="correctLocation"
         @map-click="handleMapClick"
       />
@@ -33,7 +33,7 @@
 
 <script>
 import GeoMap from "../../components/GeoMap.vue";
-import mapsConfig from "../../assets/maps.json";
+import continentData from "../../assets/maps.json";
 import { calculateDistance } from "../../assets/logic";
 
 export default {
@@ -45,9 +45,9 @@ export default {
 
   data() {
     return {
-      continent: "europe",
+      continent: "africa", //när denna ändras så ändras kartan ! :)
       scale: 0.35,
-      cityToFind: "Stockholm",
+      cityToFind: "Kairo",
       lastClick: null,
       correctLocation: null, //sätts null först och sedan först efter man klickat ger vi den ett värde
       distance: null,
@@ -56,7 +56,7 @@ export default {
 
   computed: {
     currentMap() {
-      return mapsConfig[this.continent] || null;
+      return continentData[this.continent] || null;
     },
   },
 

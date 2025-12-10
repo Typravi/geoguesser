@@ -2,9 +2,9 @@
   <div
     class="outerMapWrapper"
     :style="{
-      '--map-width': mapConfig.originalWidth + 'px',
-      '--map-height': mapConfig.originalHeight + 'px',
-      '--map-image': `url(${mapConfig.image})`,
+      '--map-width': continentData.originalWidth + 'px',
+      '--map-height': continentData.originalHeight + 'px',
+      '--map-image': `url(${continentData.image})`,
       '--map-scale': scale,
     }"
   >
@@ -55,7 +55,7 @@ export default {
   props: {
     scale: Number,
     disabled: Boolean,
-    mapConfig: {
+    continentData: {
       type: Object,
       required: true,
     },
