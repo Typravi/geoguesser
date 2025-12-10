@@ -17,3 +17,10 @@ export function getRandomCity(continent) {
   //kort å gott: de är raden ovan där den random staden väljs
   return { name: randomCity, coordinates: continent.cities[randomCity] };
 }
+
+export function getRandomContinent(allContinents) {
+  const continentNames = Object.keys(allContinents);
+  const randomContinent =
+    continentNames[Math.floor(Math.random() * continentNames.length)];
+  return { name: randomContinent, map: allContinents[randomContinent] };
+}
