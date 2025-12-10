@@ -14,9 +14,9 @@
     "originalWidth": 1500,
     "originalHeight": 1522,
     "cities": {
-      "Kairo": { "x": 1100, "y": 705 },
-      "Kapstaden": { "x": 595, "y": 1262 },
-      "Addis Adeba": { "x": 998, "y": 1098 }
+      "Kairo": { "x": 1036, "y": 164 },
+      "Kapstaden": { "x": 776, "y": 1495 },
+      "Addis Adeba": { "x": 1196, "y": 598 }
     }
   }
 }
