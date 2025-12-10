@@ -3,7 +3,7 @@
   <div>
     <p>
       <label for="name">Name</label><br>
-      <input type="text"  v-model="name" id ="name" required="required" placeholder="Enter your name">
+      <input type="text"  v-model="name" id ="name" placeholder="Enter your name">
   </p>
 
   <p>
@@ -15,7 +15,7 @@
       <!--  lägg till felmedellande här-->
   </p>
       <p>
-  <button v-on:click="joinLobby" :disabled="!lobbyExists || !gameIsChecked">
+  <button v-on:click="joinLobby" :disabled="!lobbyExists || !gameIsChecked || !name.trim()">
     {{ uiLabels.joinLobby}}
     </button>
   </p>

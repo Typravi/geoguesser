@@ -4,7 +4,7 @@ import { Server } from "socket.io";
 const httpServer = createServer();
 const io = new Server(httpServer, {
     cors: {
-      origin: "http://localhost:5173",
+      origin: "http://localhost:5173", // byt 5173 till * när ni typ är klara och testar med olika klienter / från mikael
       methods: ["GET"],
       credentials: true
   }
