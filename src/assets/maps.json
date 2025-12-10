@@ -8,5 +8,15 @@
       "Paris": { "x": 595, "y": 1262 },
       "Berlin": { "x": 998, "y": 1098 }
     }
+  },
+  "africa": {
+    "image": "/img/africa.png",
+    "originalWidth": 1500,
+    "originalHeight": 1522,
+    "cities": {
+      "Kairo": { "x": 1100, "y": 705 },
+      "Kapstaden": { "x": 595, "y": 1262 },
+      "Addis Adeba": { "x": 998, "y": 1098 }
+    }
   }
 }
