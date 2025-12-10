@@ -3,7 +3,10 @@
     <header class="header">
       <h1>GeoMap (under utveckling hehe)</h1>
       <p>Spelad världsdel: {{ continent }}</p>
-      <h2>Klicka på: {{ cityToFind }}</h2>
+      <p>Klicka på: {{ cityToFind }}</p>
+      <div class="initiateNew">
+        <!--obs lägg in knapp här (för skojs skull)-->
+      </div>
     </header>
 
     <main class="map-area">
@@ -35,6 +38,8 @@
 import GeoMap from "../../components/GeoMap.vue";
 import continentData from "../../assets/maps.json";
 import { calculateDistance } from "../../assets/logic";
+import { getRandomContinent } from "../../assets/logic";
+import { getRandomCity } from "../../assets/logic";
 
 export default {
   name: "GeoMapView",
@@ -44,12 +49,16 @@ export default {
   },
 
   data() {
+    const randomContinent = getRandomContinent(continentData);
+    const randomCity = getRandomCity(randomContinent.map); //obs .map måste ligga kvar pga vad getrandomCity förväntar sig
+
+    //detta uppdateras varje gång man refreshar sidan
     return {
-      continent: "africa", //när denna ändras så ändras kartan ! :)
+      continent: randomContinent.name,
+      cityToFind: randomCity.name,
       scale: 0.35,
-      cityToFind: "Kairo",
       lastClick: null,
-      correctLocation: null, //sätts null först och sedan först efter man klickat ger vi den ett värde
+      correctLocation: null,
       distance: null,
     };
   },
