@@ -31,30 +31,39 @@ export default {
       lang: localStorage.getItem("lang") || "en",
       participants: [],
       hostName: "",
-numberOfQuestions: 0,
+      numberOfQuestions: 0,
     }
   },
-  created: function () {
+  created() {
     this.lobbyID = this.$route.params.lobbyID;
-    
+
     socket.on('lobbyData', lobby => {
-        console.log('Lobby data received:', lobby);
-      
-  this.hostName = lobby.hostName;    
-  this.numberOfQuestions = lobby.numberOfQuestions;
+      console.log('Lobby data received:', lobby);
+      this.hostName = lobby.hostName;
+      this.numberOfQuestions = lobby.numberOfQuestions;
+    });
+
+    socket.on("uiLabels", labels => this.uiLabels = labels);
+    socket.on("participantsUpdate", p => {this.participants = p; 
+    console.log("Received participants:", p);
 });
-    socket.on( "uiLabels", labels => this.uiLabels = labels );
-    socket.on( "participantsUpdate", p => this.participants = p );
-    socket.on( "startPoll", () => this.$router.push("/lobby/" + this.lobbyID) );
-    socket.emit( "joinLobby", this.lobbyID );
-    socket.emit( "getUILabels", this.lang );
+
+    socket.on("startPoll", () => this.$router.push("/lobby/" + this.lobbyID));
+
+    socket.emit("getUILabels", this.lang);
+  
+    socket.emit("joinLobby", this.lobbyID);
     
-  },
-  methods: {
-    participateInGame: function () {
-      socket.emit( "participateInGame", {lobbyID: this.lobbyID, userName: this.userName} )
-      this.joined = true;
-    }
   }
 }
+
+
+   
+    
+  
+  methods: {
+    
+    }
+  
+
 </script>

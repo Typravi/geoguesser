@@ -66,19 +66,16 @@
     },
   
     joinLobby() {
-  // 1. Gå med i lobbyn (så servern skickar lobbyData, questionUpdate, etc)
-  socket.emit("joinLobby", this.lobbyID);
 
-  // 2. RegistreraR spelaren som deltagare
-  socket.emit("participateInGame", {
-    lobbyID: this.lobbyID,
-    userName: this.userName
-  });
+      socket.emit("participateInGame", {
+        lobbyID: this.lobbyID,
+        userName: this.userName
+      });
 
-  // 3. Navigera till LobbyView där allt visas
-  this.$router.push(`/lobby/${this.lobbyID}`);
+      this.$router.push(`/lobby/${this.lobbyID}`);
+
+      }
+  
+  }
 }
-
-
-  }}
   </script>

@@ -9,11 +9,10 @@ function sockets(io, socket, data) {
     d.lang,
     d.name,
     d.numberOfQuestions);
-    data.participateInGame(d.lobbyID, d.name);
+    
+
     socket.emit('lobbyData', data.getLobby(d.lobbyID));
     console.log("lobbyData sent for", d.lobbyID);
-    socket.emit('participantsUpdate', data.getParticipants(d.lobbyID));
-
 
 
   });

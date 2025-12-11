@@ -14,7 +14,7 @@
 
 <p>
 
-<button v-on:click="goToLobby" :disabled="!name.trim() || numberOfQuestions < 1">
+<button v-on:click="goToLobby" :disabled="!name.trim()">
   {{ uiLabels.createLobby}}
   </button>
 
@@ -35,15 +35,14 @@ export default {
       lang: localStorage.getItem("lang") || "en",
       name:"",
       uiLabels: {},
-      numberOfQuestions: 0,
+      numberOfQuestions: 1,
     }
   },
   created: function () {
     socket.on( "uiLabels", labels => this.uiLabels = labels );
-    socket.on( "pollData", data => this.pollData = data );
-    socket.on( "participantsUpdate", p => this.lobbyData.participants = p );
+    
     socket.emit( "getUILabels", this.lang );
-    socket.emit("createLobby", {gameId: this.lobbyID, lang: this.lang });
+
    
   },
   methods: {
@@ -62,6 +61,11 @@ export default {
     numberOfQuestions: this.numberOfQuestions
   });
 
+  socket.emit("participateInGame", {
+        lobbyID,
+        userName: this.name
+         });
+
   this.$router.push(`/lobby/${lobbyID}`);
 
   },
@@ -70,7 +74,7 @@ export default {
     this.numberOfQuestions++;}
     },
     decreaseAmount() {
-    if (this.numberOfQuestions > 0) {
+    if (this.numberOfQuestions > 1) {
       this.numberOfQuestions--;}
   }
   }
