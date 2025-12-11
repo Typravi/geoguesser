@@ -38,19 +38,22 @@ Data.prototype.getUILabels = function (lang) {
   return JSON.parse(labels);
 }
 
-Data.prototype.createLobby = function(lobbyID, lang="en") {
+Data.prototype.createLobby = function(lobbyID, lang = "en", hostName = null, numberOfQuestions = 0) {
   if (!this.lobbyExists(lobbyID)) {
-    let lobby = {};
-    lobby.lang = lang;  
-    lobby.questions = [];
-    lobby.answers = [];
-    lobby.participants = [];
-    lobby.currentQuestion = 0;              
+    const lobby = {
+      lang: lang,
+      hostName: hostName,
+      numberOfQuestions: numberOfQuestions,
+      questions: [],
+      answers: [],
+      participants: [],
+      currentQuestion: 0
+    };
     this.lobbies[lobbyID] = lobby;
     console.log("lobby created", lobbyID, lobby);
   }
   return this.lobbies[lobbyID];
-}
+};
 
 Data.prototype.getLobby = function(lobbyID) {
   if (this.lobbyExists(lobbyID)) {
@@ -59,15 +62,15 @@ Data.prototype.getLobby = function(lobbyID) {
   return {};
 }
 
-Data.prototype.participateInPoll = function(lobbyID, name) {
-  console.log("participant will be added to", lobbyID, name);
+Data.prototype.participateInGame = function(lobbyID, userName) {
+  console.log("participant will be added to", lobbyID, userName);
   if (this.lobbyExists(lobbyID)) {
-    this.lobbies[lobbyID].participants.push({name: name, answers: []})
+    this.lobbies[lobbyID].participants.push({name: userName, answers: []})
   }
 }
 
 Data.prototype.getParticipants = function(lobbyID) {
-  const poll = this.lobbies[lobbyID];
+  const lobby = this.lobbies[lobbyID];
   console.log("participants requested for", lobbyID);
   if (this.lobbyExists(lobbyID)) { 
     return this.lobbies[lobbyID].participants

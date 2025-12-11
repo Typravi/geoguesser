@@ -5,8 +5,12 @@ function sockets(io, socket, data) {
   });
 
   socket.on('createLobby', function(d) {
-    data.createLobby(d.lobbyID, d.lang)
-    socket.emit('lobbyData', data.createLobby(d.lobbyID));
+    data.createLobby(d.lobbyID,
+    d.lang,
+    d.name,
+    d.numberOfQuestions);
+    socket.emit('lobbyData', data.getLobby(d.lobbyID));
+    console.log("lobbyData sent for", d.lobbyID);
   });
 
   socket.on('addQuestion', function(d) {
@@ -16,12 +20,14 @@ function sockets(io, socket, data) {
 
   socket.on('joinLobby', function(lobbyID) {
     socket.join(lobbyID);
+    socket.emit('lobbyData', data.getLobby(lobbyID));
     socket.emit('questionUpdate', data.activateQuestion(lobbyID));
     socket.emit('submittedAnswersUpdate', data.getSubmittedAnswers(lobbyID));
   });
 
-  socket.on('participateInPoll', function(d) {
-    data.participateInPoll(d.lobbyID, d.name);
+  socket.on('participateInGame', function(d) {
+    console.log("adding participant", d.userName, "to", d.lobbyID);
+    data.participateInGame(d.lobbyID, d.userName);
     io.to(d.lobbyID).emit('participantsUpdate', data.getParticipants(d.lobbyID));
   });
   socket.on('startPoll', function(lobbyID) {

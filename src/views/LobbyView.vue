@@ -2,7 +2,7 @@
   
   <div>
     <h1>Lobby {{ lobbyID }}</h1>
-    <p>Namn: {{ name }}</p>
+    <p>Namn: {{ hostName }}</p>
     <p>Antal frågor: {{ numberOfQuestions }}</p>
   </div>
 
@@ -11,7 +11,11 @@
     {{lobbyID}}
     <div>
       <p>Waiting for host to start poll</p>
-      {{ participants }}
+      <ul>
+      <li v-for="p in participants" :key="p.name">
+        {{ p.name }}
+      </li>
+    </ul>
   </div>
 
 </template>
@@ -22,32 +26,38 @@ const socket = io("localhost:3000");
 
 
 export default {
-  props: ['lobbyID', 'name', 'numberOfQuestions'], // tar emot props från route
-  mounted() {
-    console.log('LobbyID:', this.lobbyID);
-    console.log('Namn:', this.name);
-    console.log('Antal frågor:', this.numberOfQuestions);},
   name: 'LobbyView',
   data: function () {
     return {
       userName: "",
-      lobbyID: "inactive lobby",
+      lobbyID: "inactive poll",
       uiLabels: {},
+      joined: false,
       lang: localStorage.getItem("lang") || "en",
-      participants: []
+      participants: [],
+      hostName: "",
+numberOfQuestions: 0,
     }
   },
   created: function () {
     this.lobbyID = this.$route.params.lobbyID;
+    
+    socket.on('lobbyData', lobby => {
+        console.log('Lobby data received:', lobby);
+      
+  this.hostName = lobby.hostName;    
+  this.numberOfQuestions = lobby.numberOfQuestions;
+});
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.on( "participantsUpdate", p => this.participants = p );
-    socket.on( "startPoll", () => this.$router.push("/poll/" + this.lobbyID) );
+    socket.on( "startPoll", () => this.$router.push("/lobby/" + this.lobbyID) );
     socket.emit( "joinLobby", this.lobbyID );
     socket.emit( "getUILabels", this.lang );
+    
   },
   methods: {
-    participateGame: function () {
-      socket.emit( "participateGame", {lobbyID: this.lobbyID, name: this.Name} )
+    participateInGame: function () {
+      socket.emit( "participateInGame", {lobbyID: this.lobbyID, userName: this.userName} )
       this.joined = true;
     }
   }

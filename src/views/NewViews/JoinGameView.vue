@@ -3,7 +3,7 @@
   <div>
     <p>
       <label for="name">Name</label><br>
-      <input type="text"  v-model="name" id ="name" placeholder="Enter your name">
+      <input type="text"  v-model="userName" id ="userName" placeholder="Enter your name">
   </p>
 
   <p>
@@ -15,7 +15,7 @@
       <!--  lägg till felmedellande här-->
   </p>
       <p>
-  <button v-on:click="joinLobby" :disabled="!lobbyExists || !gameIsChecked || !name.trim()">
+  <button v-on:click="joinLobby" :disabled="!lobbyExists || !gameIsChecked || !userName.trim()">
     {{ uiLabels.joinLobby}}
     </button>
   </p>
@@ -33,7 +33,7 @@
     data: function () {
       return {
         lang: localStorage.getItem("lang") || "en",
-        name:"",
+        userName:"",
         lobbyID: "",  
         uiLabels: {},
         lobbyExists: false,
@@ -66,17 +66,18 @@
     },
   
     joinLobby() {
-    socket.emit("joinLobby", {
-      lobbyID: this.lobbyID,
-      lang: this.lang,
-      name: this.name,
-      
-    });
-  
-    this.$router.push(`/lobby/${this.lobbyID}`);
-    
-  
-    }
+  // 1. Gå med i lobbyn (så servern skickar lobbyData, questionUpdate, etc)
+  socket.emit("joinLobby", this.lobbyID);
+
+  // 2. RegistreraR spelaren som deltagare
+  socket.emit("participateInGame", {
+    lobbyID: this.lobbyID,
+    userName: this.userName
+  });
+
+  // 3. Navigera till LobbyView där allt visas
+  this.$router.push(`/lobby/${this.lobbyID}`);
+}
 
 
   }}

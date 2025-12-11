@@ -41,7 +41,7 @@ export default {
   created: function () {
     socket.on( "uiLabels", labels => this.uiLabels = labels );
     socket.on( "pollData", data => this.pollData = data );
-    socket.on( "participantsUpdate", p => this.pollData.participants = p );
+    socket.on( "participantsUpdate", p => this.lobbyData.participants = p );
     socket.emit( "getUILabels", this.lang );
     socket.emit("createLobby", {gameId: this.lobbyID, lang: this.lang });
    
