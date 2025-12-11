@@ -2,15 +2,10 @@
   
   <div>
     <h1>Lobby {{ lobbyID }}</h1>
-    <p>Namn: {{ hostName }}</p>
+    <p>Hostname: {{ hostName }}</p>
     <p>Antal frågor: {{ numberOfQuestions }}</p>
   </div>
-
-
-
-    {{lobbyID}}
     <div>
-      <p>Waiting for host to start poll</p>
       <ul>
       <li v-for="p in participants" :key="p.name">
         {{ p.name }}

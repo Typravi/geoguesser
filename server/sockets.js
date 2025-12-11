@@ -9,8 +9,13 @@ function sockets(io, socket, data) {
     d.lang,
     d.name,
     d.numberOfQuestions);
+    data.participateInGame(d.lobbyID, d.name);
     socket.emit('lobbyData', data.getLobby(d.lobbyID));
     console.log("lobbyData sent for", d.lobbyID);
+    socket.emit('participantsUpdate', data.getParticipants(d.lobbyID));
+
+
+
   });
 
   socket.on('addQuestion', function(d) {
@@ -23,6 +28,8 @@ function sockets(io, socket, data) {
     socket.emit('lobbyData', data.getLobby(lobbyID));
     socket.emit('questionUpdate', data.activateQuestion(lobbyID));
     socket.emit('submittedAnswersUpdate', data.getSubmittedAnswers(lobbyID));
+    socket.emit('participantsUpdate', data.getParticipants(lobbyID));
+
   });
 
   socket.on('participateInGame', function(d) {
