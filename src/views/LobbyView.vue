@@ -13,6 +13,13 @@
     </ul>
   </div>
 
+  <div>
+    <button @click = "startGame"> <!--start knapp - (synlig för alla)-->
+      {{ uiLabels.startGame }}
+    </button>
+  </div>
+
+
 </template>
 
 <script>
@@ -53,17 +60,28 @@ export default {
     socket.emit("getUILabels", this.lang);
   
     socket.emit("joinLobby", this.lobbyID);
+
     
+    socket.on("gameStart", lobbyID => { //startar spelet - från servern 
+      console.log("Game start for lobby", lobbyID); //check
+      this.$router.push("/GeoMapView"); //pushar alla spelare till GeoMapView
+    })
+    
+  },
+  methods: {
+    startGame() {
+      console.log("Start game by clicking"); //check
+      socket.emit("startGame", this.lobbyID); //skickar "startGame" till server med aktuell lobby
+    }
   }
+
 }
 
 
    
     
   
-  methods: {
-    
-    }
+  
   
 
 </script>

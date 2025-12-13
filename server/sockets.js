@@ -61,6 +61,11 @@ function sockets(io, socket, data) {
     
     callback(lobbyExists);
   });
+
+  socket.on("startGame", lobbyID => { //starta spelet 
+    console.log("startGame to server", lobbyID); //check
+    io.to(lobbyID).emit("gameStart", lobbyID); //skickar gameStart till alla i lobbyn
+  });
 }
 
 export { sockets };
