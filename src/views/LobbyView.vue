@@ -7,10 +7,15 @@
   </div>
     <div>
       <ul>
-      <li v-for="p in participants" :key="p.playerName">
-        {{ p.playerName }}
-      </li>
-    </ul>
+  <li
+    v-for="p in participants"
+    :key="p.playerName"
+    class="participant"
+  >
+    <span class="color-dot" :style="{ '--player-color': p.playerColor }"></span>
+    {{ p.playerName }}
+  </li>
+</ul>
   </div>
 
   <div>
@@ -39,10 +44,19 @@ export default {
       participants: [],
       hostName: "",
       numberOfQuestions: 0,
+      playerRole: "",
     }
   },
   created() {
     this.lobbyID = this.$route.params.lobbyID;
+    
+
+     socket.on("playerRoleAssigned", (role) => {
+      console.log("Assigned role:", role);
+      this.playerRole = role;
+      sessionStorage.setItem("playerRole", role);
+      this.joined = true;
+    });
 
     socket.on('lobbyData', lobby => {
       console.log('Lobby data received:', lobby);
@@ -54,8 +68,6 @@ export default {
     socket.on("participantsUpdate", p => {this.participants = p; 
     console.log("Received participants:", p);
 });
-
-    socket.on("startPoll", () => this.$router.push("/lobby/" + this.lobbyID));
 
     socket.emit("getUILabels", this.lang);
   
@@ -75,12 +87,20 @@ export default {
   }
 
 }
-
-
-   
-    
-  
-  
   
 
 </script>
+<style scoped>
+.participant {
+  display: flex;
+  align-items: center;
+}
+
+.color-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 6px;
+  background-color: var(--player-color);
+}
+</style>

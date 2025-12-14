@@ -43,6 +43,11 @@
     created: function () {
       socket.on( "uiLabels", labels => this.uiLabels = labels );
       socket.emit( "getUILabels", this.lang );
+
+      socket.on("lobbyError", msg => {
+        console.log("Lobby error:", msg);
+      alert(msg); 
+});
     },
     methods: {
 
@@ -52,7 +57,7 @@
 
       console.log('[JoinGameView] checkgameID, lobbyID=', this.lobbyID);
 
-      if(this.lobbyID.length >= 0 && this.lobbyID.length < 6) {
+      if(this.lobbyID.length < 6) {
         this.gameIsChecked = false
       }
       if (this.lobbyID.length === 6) {
