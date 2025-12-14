@@ -61,10 +61,9 @@ export default {
   
     socket.emit("joinLobby", this.lobbyID);
 
-    
     socket.on("gameStart", lobbyID => { //startar spelet - från servern 
       console.log("Game start for lobby", lobbyID); //check
-      this.$router.push("/GeoMapView"); //pushar alla spelare till GeoMapView
+      this.$router.push(`/GeoMapView/${this.lobbyID}`); //pushar alla spelare till GeoMapView
     })
     
   },
