@@ -62,10 +62,10 @@ Data.prototype.getLobby = function(lobbyID) {
   return {};
 }
 
-Data.prototype.participateInGame = function(lobbyID, userName) {
-  console.log("participant will be added to", lobbyID, userName);
+Data.prototype.participateInGame = function(lobbyID, playerName) {
+  console.log("participant will be added to", lobbyID, playerName);
   if (this.lobbyExists(lobbyID)) {
-    this.lobbies[lobbyID].participants.push({name: userName, answers: []})
+    this.lobbies[lobbyID].participants.push({playerName: playerName, answers: []})
   }
 }
 

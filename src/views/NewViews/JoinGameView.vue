@@ -3,7 +3,7 @@
   <div>
     <p>
       <label for="name">Name</label><br>
-      <input type="text"  v-model="userName" id ="userName" placeholder="Enter your name">
+      <input type="text"  v-model="playerName" id ="playerName" placeholder="Enter your name">
   </p>
 
   <p>
@@ -15,7 +15,7 @@
       <!--  lägg till felmedellande här-->
   </p>
       <p>
-  <button v-on:click="joinLobby" :disabled="!lobbyExists || !gameIsChecked || !userName.trim()">
+  <button v-on:click="joinLobby" :disabled="!lobbyExists || !gameIsChecked || !playerName.trim()">
     {{ uiLabels.joinLobby}}
     </button>
   </p>
@@ -33,7 +33,7 @@
     data: function () {
       return {
         lang: localStorage.getItem("lang") || "en",
-        userName:"",
+        playerName:"",
         lobbyID: "",  
         uiLabels: {},
         lobbyExists: false,
@@ -69,7 +69,7 @@
 
       socket.emit("participateInGame", {
         lobbyID: this.lobbyID,
-        userName: this.userName
+        playerName: this.playerName
       });
 
       this.$router.push(`/lobby/${this.lobbyID}`);

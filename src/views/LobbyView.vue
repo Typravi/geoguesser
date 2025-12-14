@@ -7,8 +7,8 @@
   </div>
     <div>
       <ul>
-      <li v-for="p in participants" :key="p.name">
-        {{ p.name }}
+      <li v-for="p in participants" :key="p.playerName">
+        {{ p.playerName }}
       </li>
     </ul>
   </div>
@@ -31,7 +31,7 @@ export default {
   name: 'LobbyView',
   data: function () {
     return {
-      userName: "",
+      playerName: "",
       lobbyID: "inactive poll",
       uiLabels: {},
       joined: false,

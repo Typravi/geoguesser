@@ -7,7 +7,7 @@ function sockets(io, socket, data) {
   socket.on('createLobby', function(d) {
     data.createLobby(d.lobbyID,
     d.lang,
-    d.name,
+    d.playerName,
     d.numberOfQuestions);
     
 
@@ -32,8 +32,8 @@ function sockets(io, socket, data) {
   });
 
   socket.on('participateInGame', function(d) {
-    console.log("adding participant", d.userName, "to", d.lobbyID);
-    data.participateInGame(d.lobbyID, d.userName);
+    console.log("adding participant", d.playerName, "to", d.lobbyID);
+    data.participateInGame(d.lobbyID, d.playerName);
     io.to(d.lobbyID).emit('participantsUpdate', data.getParticipants(d.lobbyID));
   });
   socket.on('startPoll', function(lobbyID) {

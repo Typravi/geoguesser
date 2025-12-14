@@ -9,12 +9,12 @@
 
   <p>
     <label for="name">Name</label><br>
-    <input type="text"  v-model="name" id ="name" placeholder="Enter your name">
+    <input type="text"  v-model="playerName" id ="playerName" placeholder="Enter your name">
   </p>
 
 <p>
 
-<button v-on:click="goToLobby" :disabled="!name.trim()">
+<button v-on:click="goToLobby" :disabled="!playerName.trim()">
   {{ uiLabels.createLobby}}
   </button>
 
@@ -33,7 +33,7 @@ export default {
   data: function () {
     return {
       lang: localStorage.getItem("lang") || "en",
-      name:"",
+      playerName:"",
       uiLabels: {},
       numberOfQuestions: 1,
     }
@@ -57,13 +57,13 @@ export default {
   socket.emit("createLobby", {
     lobbyID: lobbyID,
     lang: this.lang,
-    name: this.name,
+    playerName: this.playerName,
     numberOfQuestions: this.numberOfQuestions
   });
 
   socket.emit("participateInGame", {
         lobbyID,
-        userName: this.name
+        playerName: this.playerName
          });
 
   this.$router.push(`/lobby/${lobbyID}`);
