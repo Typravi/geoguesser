@@ -1,116 +1,120 @@
 <template>
-  
   <div>
-    <h1>Lobby {{ lobbyID }}</h1>
-    <p>Hostname: {{ hostName }}</p>
-    <p>Antal frågor: {{ numberOfQuestions }}</p>
-  </div>
-    <div>
-      <ul>
-  <li
-    v-for="p in participants"
-    :key="p.playerName"
-    class="participant"
-  >
-    <span class="color-dot" :style="{ '--player-color': p.playerColor }"></span>
-    {{ p.playerName }}
-  </li>
+   <h1>Lobby {{ lobbyID }}</h1>
+   <p>Hostname: {{ hostName }}</p>
+   <p>Antal frågor: {{ numberOfQuestions }}</p>
+ </div>
+   <div>
+     <ul>
+ <li
+   v-for="p in participants"
+   :key="p.playerName"
+   class="participant"
+ >
+   <span class="color-dot" :style="{ '--player-color': p.playerColor }"></span>
+   {{ p.playerName }}
+ </li>
 </ul>
-  </div>
+ </div>
 
-  <div>
-    <button @click = "startGame"> <!--start knapp - (synlig för alla)-->
-      {{ uiLabels.startGame }}
-    </button>
-  </div>
+
+ <div>
+   <button @click = "startGame"> <!--start knapp - (synlig för alla)-->
+     {{ uiLabels.startGame }}
+   </button>
+ </div>
+
+
 
 
 </template>
+
 
 <script>
 import io from 'socket.io-client';
 const socket = io("localhost:3000");
 
 
+
+
 export default {
-  name: 'LobbyView',
-  data: function () {
-    return {
-      playerName: "",
-      lobbyID: "inactive poll",
-      uiLabels: {},
-      joined: false,
-      lang: localStorage.getItem("lang") || "en",
-      participants: [],
-      hostName: "",
-      numberOfQuestions: 0,
-      playerRole: "",
-    }
-  },
-  created() {
-    this.lobbyID = this.$route.params.lobbyID;
-    
+ name: 'LobbyView',
+ data: function () {
+   return {
+     playerName: "",
+     lobbyID: "inactive poll",
+     uiLabels: {},
+     lang: localStorage.getItem("lang") || "en",
+     participants: [],
+     hostName: "",
+     numberOfQuestions: 0,
+     playerRole: "",
+   }
+ },
+ created() {
+   this.lobbyID = this.$route.params.lobbyID;
+  
+
 
     socket.on("playerRoleAssigned", (role) => {
-      console.log("Assigned role:", role);
-      this.playerRole = role;
-      sessionStorage.setItem("playerRole", role);
-      this.joined = true;
-    });
-
-    socket.on("lobbyError", msg => {
-      console.error("Lobby Error:", msg);
-      alert(msg); // felmeddelande kanske inte så snyggt
-      // tryck tillbaka till startsidan
-      this.$router.push('/'); 
-    });
-
-    socket.on('participantsUpdate', p => {
-    this.participants = p; 
-    console.log("Received participants:", p);
-    });
-
-    socket.on('lobbyData', lobby => {
-      console.log('Lobby data received:', lobby);
-      this.hostName = lobby.hostName;
-      this.numberOfQuestions = lobby.numberOfQuestions;
-    });
-
-    socket.on("uiLabels", labels => this.uiLabels = labels);
+     console.log("Assigned role:", role);
+     this.playerRole = role;
+     sessionStorage.setItem("playerRole", role);
     
+   });
 
-    socket.emit("getUILabels", this.lang);
+
+   socket.on('lobbyData', lobby => {
+     console.log('Lobby data received:', lobby);
+     this.hostName = lobby.hostName;
+     this.numberOfQuestions = lobby.numberOfQuestions;
+   });
+
+
+   socket.on("uiLabels", labels => this.uiLabels = labels);
+   socket.on("participantsUpdate", p => {this.participants = p;
+   console.log("Received participants:", p);
+});
+
+
+   socket.emit("getUILabels", this.lang);
+    socket.emit("joinLobby", this.lobbyID);
+
+
+   socket.on("gameStart", lobbyID => { //startar spelet - från servern
+     console.log("Game start for lobby", lobbyID); //check
+     this.$router.push(`/GeoMapView/${this.lobbyID}`); //pushar alla spelare till GeoMapView
+   })
   
-    /*socket.emit("joinLobby", this.lobbyID);*/ //flyttat ner till efter playerRoleAssigned
+ },
+ methods: {
+   startGame() {
+     console.log("Start game by clicking"); //check
+     socket.emit("startGame", this.lobbyID); //skickar "startGame" till server med aktuell lobby
+   }
+ }
 
-    socket.on("gameStart", lobbyID => { //startar spelet - från servern 
-      console.log("Game start for lobby", lobbyID); //check
-      this.$router.push(`/GeoMapView/${this.lobbyID}`); //pushar alla spelare till GeoMapView
-    })
-    
-  },
-  methods: {
-    startGame() {
-      console.log("Start game by clicking"); //check
-      socket.emit("startGame", this.lobbyID); //skickar "startGame" till server med aktuell lobby
-    }
-  }
 
 }
-  
+
 
 </script>
 <style scoped>
 .participant {
-  display: flex;
-  align-items: center;
+ display: flex;
+ align-items: center;
 }
 
+
 .color-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  margin-right: 6px;
-  background-color: var(--player-color);
+ width: 10px;
+ height: 10px;
+ border-radius: 50%;
+ margin-right: 6px;
+ background-color: var(--player-color);
 }
 </style>
+
+
+
+
