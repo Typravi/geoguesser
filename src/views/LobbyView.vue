@@ -51,11 +51,23 @@ export default {
     this.lobbyID = this.$route.params.lobbyID;
     
 
-     socket.on("playerRoleAssigned", (role) => {
+    socket.on("playerRoleAssigned", (role) => {
       console.log("Assigned role:", role);
       this.playerRole = role;
       sessionStorage.setItem("playerRole", role);
       this.joined = true;
+    });
+
+    socket.on("lobbyError", msg => {
+      console.error("Lobby Error:", msg);
+      alert(msg); // felmeddelande kanske inte så snyggt
+      // tryck tillbaka till startsidan
+      this.$router.push('/'); 
+    });
+
+    socket.on('participantsUpdate', p => {
+    this.participants = p; 
+    console.log("Received participants:", p);
     });
 
     socket.on('lobbyData', lobby => {
@@ -65,13 +77,11 @@ export default {
     });
 
     socket.on("uiLabels", labels => this.uiLabels = labels);
-    socket.on("participantsUpdate", p => {this.participants = p; 
-    console.log("Received participants:", p);
-});
+    
 
     socket.emit("getUILabels", this.lang);
   
-    socket.emit("joinLobby", this.lobbyID);
+    /*socket.emit("joinLobby", this.lobbyID);*/ //flyttat ner till efter playerRoleAssigned
 
     socket.on("gameStart", lobbyID => { //startar spelet - från servern 
       console.log("Game start for lobby", lobbyID); //check

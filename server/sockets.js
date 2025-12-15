@@ -1,3 +1,5 @@
+import { Socket } from "socket.io-client";
+
 function sockets(io, socket, data) {
   
   socket.on('getUILabels', function(lang) {
@@ -5,15 +7,28 @@ function sockets(io, socket, data) {
   });
 
   socket.on('createLobby', function(d) {
-    data.createLobby(d.lobbyID,
-    d.lang,
-    d.playerName,
-    d.numberOfQuestions);
+    data.createLobby(
+      d.lobbyID,
+      d.lang,
+      d.playerName,
+      d.numberOfQuestions,
+      socket.id); //la till socket id här
+
+    socket.join(d.lobbyID); //hosten joinar rummet direkt
     
-
-    socket.emit('lobbyData', data.getLobby(d.lobbyID));
+    // skicka data till hosten
+    const lobby = data.getLobby(d.lobbyID);
+    
+    // skicka lobby detalijer tex HostName, Questions
+    socket.emit('lobbyData', lobby); 
+    
+    //participants list med hosten som första deltagare
+    socket.emit('participantsUpdate', lobby.participants);
+    
+    //berätta för client att de är 'Host'
+    socket.emit('playerRoleAssigned', 'Host'); 
+    
     console.log("lobbyData sent for", d.lobbyID);
-
 
   });
 
@@ -31,6 +46,7 @@ function sockets(io, socket, data) {
 
   });
 
+  /*
   socket.on('participateInGame', function(d) {
     const lobby = data.getLobby(d.lobbyID);
     
@@ -53,9 +69,68 @@ function sockets(io, socket, data) {
    console.log("adding participant", d.playerName, "to", d.lobbyID);
     
   io.to(d.lobbyID).emit('participantsUpdate', data.getParticipants(d.lobbyID));
- });
+ });*/
 
+ 
+ socket.on('participateInGame', function(d) {
+    const { lobbyID, playerName, lang } = d;
+    const currentSocketId = socket.id;
+
+    // 1. Input Validation
+    if (!lobbyID || !playerName) {
+        return socket.emit('lobbyError', data.getUILabels(lang).invalidData || 'Invalid join data provided.');
+    }
+
+    // 2. Lobby Existence Check
+    const lobby = data.getLobby(lobbyID);
+    if (!lobby || !lobby.participants) {
+        return socket.emit('lobbyError', data.getUILabels(lang).lobbyNotFound || "Lobby does not exist.");
+    }
     
+    // --- Role Assignment (Focusing only on New Players) ---
+    
+    let assignedRole = null;
+    let participantData = null;
+
+    // Define all available roles/slots
+    const availableRoles = ["Player 1", "Player 2", "Player 3", "Player 4"]; // Adjust max players here
+    
+    // Find the first role that isn't currently assigned to a participant
+    assignedRole = availableRoles.find(role => 
+        !lobby.participants.some(p => p.role === role)
+    );
+
+    if (!assignedRole) {
+        // Lobby Full: Signal failure to the client
+        return socket.emit('lobbyError', data.getUILabels(lang).lobbyFull || "The lobby is full.");
+    }
+
+    // 3. Create New Participant Object
+    participantData = {
+        playerName: playerName,
+        socketID: currentSocketId, // We still use socketID for targeted messaging
+        role: assignedRole,
+        playerColor: assignedRole === "Player 1" ? "red" : "blue", // Simple color assignment
+        isHost: false // Host should have been set during createLobby
+    };
+
+    // Add the new participant to the data model (Data.js needs to handle the push)
+    data.participateInGame(lobbyID, participantData);
+    console.log(`New player ${playerName} joined lobby ${lobbyID}. Role: ${assignedRole}`);
+    
+    
+    // 4. Success Communication
+    
+    // Join the current socket to the lobby room
+    socket.join(lobbyID);
+
+    // Send immediate updates to the joining client (specific to this socket)
+    socket.emit('playerRoleAssigned', assignedRole); 
+    socket.emit('lobbyData', data.getLobby(lobbyID));
+
+    // Broadcast updated participants list to everyone in the room
+    io.to(lobbyID).emit('participantsUpdate', data.getParticipants(lobbyID));
+});
     
    
   

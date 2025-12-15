@@ -38,19 +38,30 @@ Data.prototype.getUILabels = function (lang) {
   return JSON.parse(labels);
 }
 
-Data.prototype.createLobby = function(lobbyID, lang = "en", hostName = null, numberOfQuestions = 0) {
+Data.prototype.createLobby = function(lobbyID, lang = "en", hostName = null, numberOfQuestions = 0, hostSocketId = null) {
   if (!this.lobbyExists(lobbyID)) {
+    //Host Participant Object
+    const hostParticipant = {
+      playerName: hostName,
+      socketID: hostSocketId, // Connection ID är lagrat här
+      role: "Host",           // Assign a clear role for authorization checks
+      playerColor: "green",   // cost color
+      isHost: true
+    };
+
+    // New Lobby Object
     const lobby = {
       lang: lang,
-      hostName: hostName,
+      hostName: hostName,           
       numberOfQuestions: numberOfQuestions,
       questions: [],
       answers: [],
-      participants: [],
-      currentQuestion: 0
+      participants: [hostParticipant], //Host is added as the first participant
+      currentQuestion: 0,
     };
+    
     this.lobbies[lobbyID] = lobby;
-    console.log("lobby created", lobbyID, lobby);
+    console.log("Lobby created", lobbyID, lobby);
   }
   return this.lobbies[lobbyID];
 };
