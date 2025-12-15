@@ -49,7 +49,7 @@ export default {
      participants: [],
      hostName: "",
      numberOfQuestions: 0,
-     playerRole: "",
+     
    }
  },
  created() {

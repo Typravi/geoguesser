@@ -36,6 +36,11 @@ function sockets(io, socket, data) {
 
  socket.on('participateInGame', function(d) {
    const lobby = data.getLobby(d.lobbyID);
+
+    if (lobby.participants.length >= 5) {
+    socket.emit("lobbyError", "Lobby is full (max 5 players).");
+    console.log("Lobby full:", d.lobbyID);
+    return;}
   
     if (!lobby.participants.some((p) => p  === d.playerName)) {
     // Assign Player 
