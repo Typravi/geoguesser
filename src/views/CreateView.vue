@@ -36,10 +36,15 @@ export default {
       playerName:"",
       uiLabels: {},
       numberOfQuestions: 1,
+      lobbyID:null
     }
   },
   created: function () {
     socket.on( "uiLabels", labels => this.uiLabels = labels );
+    socket.on("lobbyData", data => {
+      console.log("Lobby created:", data);
+      this.$router.push(`/lobby/${this.lobbyID}/${data.hostName}`); 
+    });
     
     socket.emit( "getUILabels", this.lang );
 
@@ -53,20 +58,19 @@ export default {
     },
 
     goToLobby() {
-  const lobbyID = this.getLobbyID(); 
+ 
+  this.lobbyID= this.getLobbyID();
   socket.emit("createLobby", {
-    lobbyID: lobbyID,
+    lobbyID: this.lobbyID,
     lang: this.lang,
     playerName: this.playerName,
     numberOfQuestions: this.numberOfQuestions
   });
 
-  socket.emit("participateInGame", {
-        lobbyID,
-        playerName: this.playerName
-         });
+ 
 
-  this.$router.push(`/lobby/${lobbyID}`);
+ // this.$router.push(`/lobby/${lobbyID}`); 
+  //ha en lyssnare som på slutet 
 
   },
     increaseAmount() {

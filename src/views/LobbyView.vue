@@ -53,15 +53,10 @@ export default {
  },
  created() {
    this.lobbyID = this.$route.params.lobbyID;
+    this.playerName = this.$route.params.playerID;
   
 
-
-    socket.on("playerRoleAssigned", (role) => {
-     console.log("Assigned role:", role);
-     this.playerRole = role;
-     sessionStorage.setItem("playerRole", role);
-    
-   });
+   
 
 
    socket.on('lobbyData', lobby => {

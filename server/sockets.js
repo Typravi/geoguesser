@@ -11,12 +11,8 @@ function sockets(io, socket, data) {
    d.numberOfQuestions);
   
 
-
    socket.emit('lobbyData', data.getLobby(d.lobbyID));
    console.log("lobbyData sent for", d.lobbyID);
-
-
-
 
  });
 
@@ -41,20 +37,17 @@ function sockets(io, socket, data) {
  socket.on('participateInGame', function(d) {
    const lobby = data.getLobby(d.lobbyID);
   
-    if (!lobby.participants.some((p) => p.role === "Player 1")) {
-    // Assign Player 1
-    data.participateInGame(d.lobbyID, {playerName :d.playerName , role: "Player 1" ,playerColor: "red"});
-    socket.emit("playerRoleAssigned", "Player 1");
+    if (!lobby.participants.some((p) => p  === d.playerName)) {
+    // Assign Player 
+    data.participateInGame(d.lobbyID, d.playerName);
+    socket.emit("playerJoined");
     socket.join(d.lobbyID);
-  } else if (!lobby.participants.some((p) => p.role === "Player 2")) {
-    // Assign Player 2
-    data.participateInGame(d.lobbyID,{playerName: d.playerName , role: "Player 2" ,playerColor: "blue"});
-    socket.emit("playerRoleAssigned", "Player 2");
-    socket.join(d.lobbyID);
-  } else {
+  } 
+   else {
     // Reject additional players
-    socket.emit("lobbyError", "The game already has five players.");
-    console.log("lobby full, cannot add", d.playerName, "to", d.lobbyID);
+    socket.emit("lobbyError", "Name taken");
+    console.log("name taken:", d.playerName, "in", d.lobbyID);
+    
     return;
   }
   console.log("adding participant", d.playerName, "to", d.lobbyID);

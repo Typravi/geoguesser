@@ -44,6 +44,12 @@
       socket.on( "uiLabels", labels => this.uiLabels = labels );
       socket.emit( "getUILabels", this.lang );
 
+      
+  socket.on("playerJoined", () => {
+    
+    this.$router.push(`/lobby/${this.lobbyID}/${this.playerName}`);
+  });
+
       socket.on("lobbyError", msg => {
         console.log("Lobby error:", msg);
       alert(msg); 
@@ -77,7 +83,7 @@
         playerName: this.playerName
       });
 
-      this.$router.push(`/lobby/${this.lobbyID}`);
+      
 
       }
   

@@ -51,7 +51,7 @@ Data.prototype.createLobby = function(lobbyID, lang = "en", hostName = null, num
      numberOfQuestions: numberOfQuestions,
      questions: [],
      answers: [],
-     participants: [],
+     participants: [hostName],
      currentQuestion: 0
    };
    this.lobbies[lobbyID] = lobby;
@@ -146,15 +146,5 @@ Data.prototype.submitAnswer = function(lobbyID, answer) {
 
 
 export { Data };
-
-
-
-
-
-
-
-
-
-
 
 
