@@ -7,22 +7,23 @@
    <div>
      <ul>
  <li
-   v-for="p in participants"
-   :key="p.playerName"
-   class="participant"
- >
-   <span class="color-dot" :style="{ '--player-color': p.playerColor }"></span>
-   {{ p.playerName }}
- </li>
+  v-for="p in participants"
+  :key="p"
+  class="participant"
+>
+  {{ p }}
+</li>
 </ul>
  </div>
 
 
- <div>
-   <button @click = "startGame"> <!--start knapp - (synlig för alla)-->
-     {{ uiLabels.startGame }}
-   </button>
- </div>
+<button v-if="playerName === hostName" @click="startGame">
+    {{ uiLabels.startGame }}
+</button>
+
+<p v-else>
+  Waiting for host ({{ hostName }}) to start the game...
+</p>
 
 
 
