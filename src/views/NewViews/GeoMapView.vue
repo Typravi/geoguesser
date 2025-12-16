@@ -19,7 +19,7 @@
       />
       <!--timer-->
       <div>
-      <p>Tid kvar: {{ timeLeft }} sek</p>
+      <p>Tid kvar: {{ timeLeft }} s</p>
       </div>
 
     </main>
@@ -87,6 +87,7 @@ export default {
     this.continent = lobby.continent;
     this.numberOfQuestions = lobby.numberOfQuestions;
     this.cities = lobby.cities;
+    this.startTimer();
 
     console.log(
       "GeoMapView created for lobby", this.lobbyID,
