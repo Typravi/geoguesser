@@ -53,7 +53,6 @@ export default {
     socket.on("lobbyData", data => {
       console.log("Lobby created:", data);
       this.$router.push(`/lobby/${this.lobbyID}/${data.hostName}`); 
-      this.getCitiesForContinentInArray();
       console.log("Lista med alla städer", this.cities);
     });
     
@@ -71,12 +70,14 @@ export default {
     goToLobby() {
  
   this.lobbyID= this.getLobbyID();
+  this.getCitiesForContinentInArray();
   socket.emit("createLobby", {
     lobbyID: this.lobbyID,
     lang: this.lang,
     playerName: this.playerName,
     numberOfQuestions: this.numberOfQuestions,
-    continent: this.continent
+    continent: this.continent,
+    cities: this.cities
   });
 
 

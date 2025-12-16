@@ -51,13 +51,14 @@ Data.prototype.getUILabels = function (lang) {
 }
 
 
-Data.prototype.createLobby = function(lobbyID, lang = "en", hostName = null, numberOfQuestions = 0, continent = null) {
+Data.prototype.createLobby = function(lobbyID, lang = "en", hostName = null, numberOfQuestions = 0, continent = null, cities = []) {
  if (!this.lobbyExists(lobbyID)) {
    const lobby = {
      lang: lang,
      hostName: hostName,
      numberOfQuestions: numberOfQuestions,
      continent: continent,
+     cities: cities,
      questions: [],
      answers: [],
      participants: hostName ? [{

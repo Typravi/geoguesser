@@ -38,8 +38,6 @@
 import GeoMap from "../../components/GeoMap.vue";
 import continentData from "../../assets/maps.json";
 import { calculateDistance } from "../../assets/logic";
-import { getRandomContinent } from "../../assets/logic";
-import { getRandomCity } from "../../assets/logic";
 import io from "socket.io-client";
 const socket = io("localhost:3000");
 
@@ -80,19 +78,20 @@ export default {
   socket.on('lobbyData', (lobby) => {
     this.continent = lobby.continent;
     this.numberOfQuestions = lobby.numberOfQuestions;
+    this.cities = lobby.cities;
 
     console.log(
       "GeoMapView created for lobby", this.lobbyID,
       "and player", this.playerName,
       "in continent", this.continent,
-      "with", this.numberOfQuestions, "questions."
+      "with the cities:", this.cities
     );
 
     // här kan du också välja stad utifrån rätt kontinent:
     // const map = continentData[this.continent];
     // const randomCity = getRandomCity(map.map);
-    // this.cityToFind = randomCity.name;
-    // this.correctLocation = map.cities[this.cityToFind];
+    this.cityToFind = this.cities[0].name;
+    this.correctLocation = this.cities[0].coordinates;
   });
 },
 

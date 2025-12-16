@@ -9,7 +9,8 @@ function sockets(io, socket, data) {
    d.lang,
    d.playerName,
    d.numberOfQuestions,
-   d.continent);
+   d.continent,
+   d.cities);
   
 
    socket.emit('lobbyData', data.getLobby(d.lobbyID));
