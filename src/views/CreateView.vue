@@ -5,6 +5,11 @@
                   <button @click="decreaseAmount">-</button>
                   <button @click="increaseAmount">+</button>
   </p>
+  <p>Välj världsdel:</p>
+  <p><button @click="choseNextContinent"> < </button>
+     {{ this.continent }}
+      <button @click="choseNextContinent"> > </button>
+  </p>
 
 
   <p>
@@ -26,6 +31,7 @@
 
 <script>
 import io from 'socket.io-client';
+import { getRandomContinent } from '../assets/logic';
 const socket = io("localhost:3000");
 
 export default {
@@ -36,7 +42,8 @@ export default {
       playerName:"",
       uiLabels: {},
       numberOfQuestions: 1,
-      lobbyID:null
+      lobbyID:null,
+      continent:'europe'
     }
   },
   created: function () {
@@ -53,7 +60,7 @@ export default {
   methods: {
 
     getLobbyID() {
-    const lobbyID = Math.floor(100000 + Math.random() * 900000);;
+    const lobbyID = Math.floor(100000 + Math.random() * 900000);
     return lobbyID;
     },
 
@@ -64,7 +71,8 @@ export default {
     lobbyID: this.lobbyID,
     lang: this.lang,
     playerName: this.playerName,
-    numberOfQuestions: this.numberOfQuestions
+    numberOfQuestions: this.numberOfQuestions,
+    continent: this.continent
   });
 
 
@@ -76,7 +84,15 @@ export default {
     decreaseAmount() {
     if (this.numberOfQuestions > 1) {
       this.numberOfQuestions--;}
-  }
-  }
-}
+  },
+    choseNextContinent() {
+      const continents = ['africa', 'europe', 'Planet earth'];
+      const currentIndex = continents.indexOf(this.continent);
+      const nextIndex = (currentIndex + 1) % continents.length;
+      this.continent = continents[nextIndex];}
+
+  },
+    
+    }
+
 </script>
