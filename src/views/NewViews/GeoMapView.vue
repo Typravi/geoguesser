@@ -40,9 +40,8 @@ import continentData from "../../assets/maps.json";
 import { calculateDistance } from "../../assets/logic";
 import { getRandomContinent } from "../../assets/logic";
 import { getRandomCity } from "../../assets/logic";
-import io from 'socket.io-client';
+import io from "socket.io-client";
 const socket = io("localhost:3000");
-
 
 export default {
   name: "GeoMapView",
@@ -64,7 +63,7 @@ export default {
       correctLocation: null,
       distance: null,
       lobbyID: null,
-  playerName: "",
+      playerName: "",
     };
   },
 
@@ -74,12 +73,19 @@ export default {
     },
   },
   created() {
-  this.lobbyID = this.$route.params.lobbyID;
-  this.playerName = this.$route.params.playerID;
+    this.lobbyID = this.$route.params.lobbyID;
+    this.playerName = this.$route.params.playerID;
 
-  socket.emit('joinLobby', this.lobbyID);
-  console.log("GeoMapView created for lobby", this.lobbyID, "and player", this.playerName,"in continent", this.continent);
-},
+    socket.emit("joinLobby", this.lobbyID);
+    console.log(
+      "GeoMapView created for lobby",
+      this.lobbyID,
+      "and player",
+      this.playerName,
+      "in continent",
+      this.continent
+    );
+  },
 
   methods: {
     handleMapClick(pos) {
@@ -92,10 +98,8 @@ export default {
 };
 </script>
 
-
 <style scoped>
 .GeoMapView {
-  background-color: #111;
   color: #eee;
   min-height: 100vh;
 

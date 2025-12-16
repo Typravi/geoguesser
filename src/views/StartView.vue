@@ -1,142 +1,138 @@
 <template>
-  <header>
-    <div v-bind:class="['hamburger', {'close': !hideNav}]" 
-         v-on:click="toggleNav">
-    </div>
-    <div class="logo">
-      <img src="/img/jordklot.jpg">
-      Geoguesser 
-      <img src="/img/jordklot.jpg">
-    </div>
-  </header>
-  <ResponsiveNav v-bind:hideNav="hideNav">
-    <button v-on:click="switchLanguage">
-      {{ uiLabels.changeLanguage }}
-    </button>
-   
-    <a href="">
-      {{ uiLabels.about }}
-    </a>
-    <a href="">FAQ</a>
-  </ResponsiveNav>
-  <h1>{{ uiLabels["sales-pitch"] }}</h1>
-  <h2>{{ uiLabels.subHeading }}</h2>
-  
-  <div class="menu-buttons">
-    <router-link to="/JoinGameView/" class="button join-button">
-      {{ uiLabels.joinLobby }}
-    </router-link>
-    <router-link to="/create/" class="button create-button">
-     {{ uiLabels.createLobby }}
-    </router-link>
-
+  <main>
     
+    <header>
+      <div
+        v-bind:class="['hamburger', { close: !hideNav }]"
+        v-on:click="toggleNav"
+      ></div>
+      <div class="logo">
+        <img src="/img/jordklot.jpg" />
+        Geoguesser
+        <img src="/img/jordklot.jpg" />
+      </div>
+    </header>
+    <ResponsiveNav v-bind:hideNav="hideNav">
+      <button v-on:click="switchLanguage">
+        {{ uiLabels.changeLanguage }}
+      </button>
 
-  </div>
+      <a href="">
+        {{ uiLabels.about }}
+      </a>
+      <a href="">FAQ</a>
+    </ResponsiveNav>
+    <h1>{{ uiLabels["sales-pitch"] }}</h1>
+    <h2>{{ uiLabels.subHeading }}</h2>
 
-
+    <div class="menu-buttons">
+      <router-link to="/JoinGameView/" class="button join-button">
+        {{ uiLabels.joinLobby }}
+      </router-link>
+      <router-link to="/create/" class="button create-button">
+        {{ uiLabels.createLobby }}
+      </router-link>
+    </div>
+  
+  </main>
 </template>
 
 <script>
-import ResponsiveNav from '@/components/ResponsiveNav.vue';
-import io from 'socket.io-client';
+import ResponsiveNav from "@/components/ResponsiveNav.vue";
+import io from "socket.io-client";
 const socket = io("localhost:3000");
 
 export default {
-  name: 'StartView',
+  name: "StartView",
   components: {
-    ResponsiveNav
+    ResponsiveNav,
   },
   data: function () {
     return {
       uiLabels: {},
       newlobbyID: "",
-      lang: localStorage.getItem( "lang") || "en",
-      hideNav: true
-    }
+      lang: localStorage.getItem("lang") || "en",
+      hideNav: true,
+    };
   },
   created: function () {
-    socket.on( "uiLabels", labels => this.uiLabels = labels );
-    socket.emit( "getUILabels", this.lang );
+    socket.on("uiLabels", (labels) => (this.uiLabels = labels));
+    socket.emit("getUILabels", this.lang);
   },
   methods: {
-    switchLanguage: function() {
+    switchLanguage: function () {
       if (this.lang === "en") {
-        this.lang = "sv"
+        this.lang = "sv";
+      } else {
+        this.lang = "en";
       }
-      else {
-        this.lang = "en"
-      }
-      localStorage.setItem( "lang", this.lang );
-      socket.emit( "getUILabels", this.lang );
+      localStorage.setItem("lang", this.lang);
+      socket.emit("getUILabels", this.lang);
     },
     toggleNav: function () {
-      this.hideNav = ! this.hideNav;
-    }
-  }
-}
+      this.hideNav = !this.hideNav;
+    },
+  },
+};
 </script>
 <style scoped>
-  header {
-    background-color: gray;
-    width: 100%;
-    display: grid;
-    grid-template-columns: 2em auto;
-  }
-  .logo {
-    text-transform: uppercase;
-    letter-spacing: 0.25em;
-    font-size: 2.5rem;
-    color: white;
-    padding-top:0.2em;
-  }
-  .logo img {
-    height:2.5rem;
-    vertical-align: bottom;
-    margin-right: 0.5rem; 
-  }
-  .hamburger {
-    color:white;
-    width:1em;
-    display: flex;
-    align-items: center;
-    justify-content: left;
-    padding:0.5rem;
-    top:0;
-    left:0;
-    height: 2rem;
-    cursor: pointer;
-    font-size: 1.5rem;
-  }
-
-  .menu-buttons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    
-  }
-  .button{
-    display: inline-block;
-    width: 10rem;  
-    padding: 0.8rem 2rem;      
-    background-color: rgb(57, 142, 57);
-    color: white;
-    border-radius: 10px;       
-    text-decoration: none;      /* tar bort blå underline */
-    font-size: 1.2rem;
-    font-weight: bold;
-    transition: 0.2s ease;
+header {
+  background-color: gray;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2em auto;
+}
+.logo {
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-size: 2.5rem;
+  color: white;
+  padding-top: 0.2em;
+}
+.logo img {
+  height: 2.5rem;
+  vertical-align: bottom;
+  margin-right: 0.5rem;
+}
+.hamburger {
+  color: white;
+  width: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding: 0.5rem;
+  top: 0;
+  left: 0;
+  height: 2rem;
+  cursor: pointer;
+  font-size: 1.5rem;
 }
 
-.create-button{
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+.button {
+  display: inline-block;
+  width: 10rem;
+  padding: 0.8rem 2rem;
+  background-color: rgb(57, 142, 57);
+  color: white;
+  border-radius: 10px;
+  text-decoration: none; /* tar bort blå underline */
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: 0.2s ease;
+}
+
+.create-button {
   background-color: #7f8280;
 }
-  
 
-
-@media screen and (max-width:50em) {
+@media screen and (max-width: 50em) {
   .logo {
     font-size: 5vw;
     display: flex;
@@ -150,10 +146,18 @@ export default {
     content: "✕";
   }
   .hide {
-    left:-12em;
+    left: -12em;
   }
-  
-  
-  
+
+  /* A gradient with a single color of red
+radial-gradient(red)
+
+ A gradient at the center of its container,
+   starting red, changing to blue, and finishing green
+radial-gradient(circle at center, red 0, blue, green 100%)
+
+
+radial-gradient(circle at center in hsl longer hue, red 0, blue, green 100%)*/
 }
+
 </style>
