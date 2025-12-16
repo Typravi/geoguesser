@@ -52,19 +52,17 @@ export default {
   },
 
   data() {
-    const randomContinent = getRandomContinent(continentData);
-    const randomCity = getRandomCity(randomContinent.map); //obs .map måste ligga kvar pga vad getrandomCity förväntar sig
 
-    //detta uppdateras varje gång man refreshar sidan
     return {
-      continent: randomContinent.name,
-      cityToFind: randomCity.name,
+      continent:null,
+      cityToFind:null, 
       scale: 0.35,
       lastClick: null,
       correctLocation: null,
       distance: null,
       lobbyID: null,
-  playerName: "",
+      playerName: "",
+      numberOfQuestions:null,
     };
   },
 
@@ -77,8 +75,26 @@ export default {
   this.lobbyID = this.$route.params.lobbyID;
   this.playerName = this.$route.params.playerID;
 
-  socket.emit('joinLobby', this.lobbyID);
-  console.log("GeoMapView created for lobby", this.lobbyID, "and player", this.playerName,"in continent", this.continent);
+    socket.emit('joinLobby', this.lobbyID);
+
+  // lyssna på lobbyData i GeoMapView också
+  socket.on('lobbyData', (lobby) => {
+    this.continent = lobby.continent;
+    this.numberOfQuestions = lobby.numberOfQuestions;
+
+    console.log(
+      "GeoMapView created for lobby", this.lobbyID,
+      "and player", this.playerName,
+      "in continent", this.continent,
+      "with", this.numberOfQuestions, "questions."
+    );
+
+    // här kan du också välja stad utifrån rätt kontinent:
+    // const map = continentData[this.continent];
+    // const randomCity = getRandomCity(map.map);
+    // this.cityToFind = randomCity.name;
+    // this.correctLocation = map.cities[this.cityToFind];
+  });
 },
 
   methods: {
