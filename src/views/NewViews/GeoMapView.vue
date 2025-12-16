@@ -17,6 +17,11 @@
         :correct-location="correctLocation"
         @map-click="handleMapClick"
       />
+      <!--timer-->
+      <div>
+      <p>Tid kvar: {{ timeLeft }} sek</p>
+      </div>
+
     </main>
     <footer v-if="lastClick">
       <!--ta bort footern när ej behövs mer, anv för att få koord utskrivna så jag ser vad som händer-->
@@ -32,6 +37,8 @@
       <p>Avstånd i pixlar: {{ this.distance }}</p>
     </footer>
   </div>
+
+  
 </template>
 
 <script>
@@ -51,7 +58,6 @@ export default {
   },
 
   data() {
-
     return {
       continent:null,
       cityToFind:null, 
@@ -62,6 +68,8 @@ export default {
       lobbyID: null,
       playerName: "",
       numberOfQuestions:null,
+      timeLeft: 30, //Sätt antal sekunder
+      timeInterval: null,
     };
   },
 
@@ -80,6 +88,7 @@ export default {
   socket.on('lobbyData', (lobby) => {
     this.continent = lobby.continent;
     this.numberOfQuestions = lobby.numberOfQuestions;
+    this.startTimer();
 
     console.log(
       "GeoMapView created for lobby", this.lobbyID,
@@ -103,6 +112,16 @@ export default {
       this.correctLocation = this.currentMap.cities[this.cityToFind]; // tillagd för att sätta correctLocation till Sthlm vid tryck (sen rätt men nu sthlm sålänge)
       this.distance = calculateDistance(this.lastClick, this.correctLocation);
     },
+
+    startTimer() { //fungerar endast lokalt - så måste skrivas ut så den anpassas efter klick/spelarsynk etc 
+
+      this.timerInterval = setInterval(() => {
+        if (this.timeLeft <= 0) {
+          clearInterval(this.timerInterval);
+        return; }
+      this.timeLeft--;}, 
+      1000); //varje millisekund
+    }
   },
 };
 </script>
