@@ -4,6 +4,10 @@
       <h1>GeoMap (under utveckling hehe)</h1>
       <p>Spelad världsdel: {{ continent }}</p>
       <p>Klicka på: {{ cityToFind }}</p>
+      <div>
+        <p v-if="timerActive">Tid kvar: {{ timeLeft }} s</p>
+        <p v-else>Väntar på andra spelare...</p>
+        </div>
       <div class="initiateNew">
         <!--obs lägg in knapp här (för skojs skull)-->
       </div>
@@ -15,12 +19,12 @@
         :scale="scale"
         :continent-data="currentMap"
         :correct-location="correctLocation"
+        :timer-active="timerActive"
+        :time-left="timeLeft"
         @map-click="handleMapClick"
       />
       <!--timer-->
-      <div>
-      <p>Tid kvar: {{ timeLeft }} s</p>
-      </div>
+  
 
     </main>
     <footer v-if="lastClick">
@@ -68,6 +72,7 @@ export default {
       numberOfQuestions:null,
       timeLeft: 30, //Sätt antal sekunder
       timeInterval: null,
+      timerActive: true,
     };
   },
 
@@ -80,10 +85,10 @@ export default {
     this.lobbyID = this.$route.params.lobbyID;
     this.playerName = this.$route.params.playerID;
 
-    socket.emit('joinLobby', this.lobbyID);
+    socket.emit('joinGame', this.lobbyID);
 
-  // lyssna på lobbyData i GeoMapView också
-  socket.on('lobbyData', (lobby) => {
+  // lyssna på gameData i GeoMapView också
+  socket.on('gameData', (lobby) => {
     this.continent = lobby.continent;
     this.numberOfQuestions = lobby.numberOfQuestions;
     this.cities = lobby.cities;
@@ -104,24 +109,39 @@ export default {
   });
 },
 
-  methods: {
-    handleMapClick(pos) {
-      //in hit ska vårt mapclick komma från GeoMap sen
-      this.lastClick = pos; //ta bort denna när ej behövs mer, anv för att få koord utskrivna till mina städer
-      this.correctLocation = this.currentMap.cities[this.cityToFind]; // tillagd för att sätta correctLocation till Sthlm vid tryck (sen rätt men nu sthlm sålänge)
-      this.distance = calculateDistance(this.lastClick, this.correctLocation);
-    },
-
-    startTimer() { //fungerar endast lokalt - så måste skrivas ut så den anpassas efter klick/spelarsynk etc 
-
-      this.timerInterval = setInterval(() => {
-        if (this.timeLeft <= 0) {
-          clearInterval(this.timerInterval);
-        return; }
-      this.timeLeft--;}, 
-      1000); //varje millisekund
+methods: {
+  handleMapClick(pos) {
+    // Stoppa timern
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+      this.timerInterval = null;
     }
+    this.timerActive = false; // timern försvinner
+
+    this.lastClick = pos;
+    this.correctLocation = this.currentMap.cities[this.cityToFind];
+    this.distance = calculateDistance(this.lastClick, this.correctLocation);
   },
+
+  startTimer() {
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+      this.timerInterval = null;
+    }
+    this.timeLeft = 30;
+    this.timerActive = true;
+
+    this.timerInterval = setInterval(() => {
+      if (this.timeLeft <= 0) {
+        clearInterval(this.timerInterval);
+        this.timerInterval = null;
+        this.timerActive = false;
+        return;
+      }
+      this.timeLeft--;
+    }, 1000);
+  }
+}
 };
 </script>
 

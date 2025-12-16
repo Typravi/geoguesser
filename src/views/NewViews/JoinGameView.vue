@@ -11,12 +11,12 @@
       <input type="text" @input="checkgameID" id="lobbyID" v-model="lobbyID" placeholder="Lobby ID"> 
          
   </p>
-  <p v-if="gameIsChecked && !lobbyExists" class="error-message">
+  <p v-if="gameIsChecked && !gameExists" class="error-message">
       <!--  lägg till felmedellande här-->
   </p>
       <p>
-  <button v-on:click="joinLobby" :disabled="!lobbyExists || !gameIsChecked || !playerName.trim()">
-    {{ uiLabels.joinLobby}}
+  <button v-on:click="joinGame" :disabled="!gameExists || !gameIsChecked || !playerName.trim()">
+    {{ uiLabels.joinGame}}
     </button>
   </p>
     </div>
@@ -36,7 +36,7 @@
         playerName:"",
         lobbyID: "",  
         uiLabels: {},
-        lobbyExists: false,
+        gameExists: false,
         gameIsChecked: false,
       }
     },
@@ -70,13 +70,13 @@
         console.log('[JoinGameView] emitting validateLobbyID for', this.lobbyID);
         socket.emit('validateLobbyID', this.lobbyID, (exists) => {
         console.log('[JoinGameView] validateLobbyID callback, exists=',exists);
-        this.lobbyExists = exists;
+        this.gameExists = exists;
         this.gameIsChecked = true;
           });
         };
     },
   
-    joinLobby() {
+    joinGame() {
 
       socket.emit("participateInGame", {
         lobbyID: this.lobbyID,

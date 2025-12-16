@@ -37,7 +37,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
 ***********************************************/
 
 
-Data.prototype.lobbyExists = function (lobbyID) {
+Data.prototype.gameExists = function (lobbyID) {
  return typeof this.lobbies[lobbyID] !== "undefined"
 }
 
@@ -51,8 +51,8 @@ Data.prototype.getUILabels = function (lang) {
 }
 
 
-Data.prototype.createLobby = function(lobbyID, lang = "en", hostName = null, numberOfQuestions = 0, continent = null, cities = []) {
- if (!this.lobbyExists(lobbyID)) {
+Data.prototype.createGame = function(lobbyID, lang = "en", hostName = null, numberOfQuestions = 0, continent = null, cities = []) {
+ if (!this.gameExists(lobbyID)) {
    const lobby = {
      lang: lang,
      hostName: hostName,
@@ -75,8 +75,8 @@ Data.prototype.createLobby = function(lobbyID, lang = "en", hostName = null, num
 };
 
 
-Data.prototype.getLobby = function(lobbyID) {
- if (this.lobbyExists(lobbyID)) {
+Data.prototype.getGame = function(lobbyID) {
+ if (this.gameExists(lobbyID)) {
    return this.lobbies[lobbyID];
  }
  return {};
@@ -87,7 +87,7 @@ Data.prototype.participateInGame = function (lobbyID, playerName) {
   console.log("participant will be added to", lobbyID, playerName);
   const lobby = this.lobbies[lobbyID];
 
-  if (this.lobbyExists(lobbyID)) {
+  if (this.gameExists(lobbyID)) {
     const index = lobby.participants.length; // 0,1,2,...
     const color = playerColors[index % playerColors.length];
 
@@ -106,7 +106,7 @@ Data.prototype.participateInGame = function (lobbyID, playerName) {
 Data.prototype.getParticipants = function(lobbyID) {
  const lobby = this.lobbies[lobbyID];
  console.log("participants requested for", lobbyID);
- if (this.lobbyExists(lobbyID)) {
+ if (this.gameExists(lobbyID)) {
    return this.lobbies[lobbyID].participants
  }
  return [];
@@ -114,14 +114,14 @@ Data.prototype.getParticipants = function(lobbyID) {
 
 
 Data.prototype.addQuestion = function(lobbyID, q) {
- if (this.lobbyExists(lobbyID)) {
+ if (this.gameExists(lobbyID)) {
    this.lobbies[lobbyID].questions.push(q);
  }
 }
 
 
 Data.prototype.activateQuestion = function(lobbyID, qId = null) {
- if (this.lobbyExists(lobbyID)) {
+ if (this.gameExists(lobbyID)) {
    const poll = this.lobbies[lobbyID];
    if (qId !== null) {
      poll.currentQuestion = qId;
@@ -133,7 +133,7 @@ Data.prototype.activateQuestion = function(lobbyID, qId = null) {
 
 
 Data.prototype.getSubmittedAnswers = function(lobbyID) {
- if (this.lobbyExists(lobbyID)) {
+ if (this.gameExists(lobbyID)) {
    const poll = this.lobbies[lobbyID];
    const answers = poll.answers[poll.currentQuestion];
    if (typeof poll.questions[poll.currentQuestion] !== 'undefined') {
@@ -145,7 +145,7 @@ Data.prototype.getSubmittedAnswers = function(lobbyID) {
 
 
 Data.prototype.submitAnswer = function(lobbyID, answer) {
- if (this.lobbyExists(lobbyID)) {
+ if (this.gameExists(lobbyID)) {
    const poll = this.lobbies[lobbyID];
    let answers = poll.answers[poll.currentQuestion];
    // create answers object if no answers have yet been submitted

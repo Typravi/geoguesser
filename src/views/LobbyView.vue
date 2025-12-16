@@ -60,7 +60,7 @@ export default {
    this.playerName = this.$route.params.playerID;
 
 
-   socket.on('lobbyData', lobby => {
+   socket.on('gameData', lobby => {
      console.log('Lobby data received:', lobby);
      this.hostName = lobby.hostName;
      this.numberOfQuestions = lobby.numberOfQuestions;
@@ -77,7 +77,7 @@ export default {
 
 
    socket.emit("getUILabels", this.lang);
-   socket.emit("joinLobby", this.lobbyID);
+   socket.emit("joinGame", this.lobbyID);
 
 
    socket.on("gameStart", lobbyID => { //startar spelet - från servern

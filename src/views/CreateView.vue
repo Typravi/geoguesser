@@ -20,7 +20,7 @@
 <p>
 
 <button v-on:click="goToLobby" :disabled="!playerName.trim()">
-  {{ uiLabels.createLobby}}
+  {{ uiLabels.createGame}}
   </button>
 
 </p>
@@ -50,7 +50,7 @@ export default {
   },
   created: function () {
     socket.on( "uiLabels", labels => this.uiLabels = labels );
-    socket.on("lobbyData", data => {
+    socket.on("gameData", data => {
       console.log("Lobby created:", data);
       this.$router.push(`/lobby/${this.lobbyID}/${data.hostName}`); 
       console.log("Lista med alla städer", this.cities);
@@ -62,16 +62,16 @@ export default {
   },
   methods: {
 
-    getLobbyID() {
+    getGameID() {
     const lobbyID = Math.floor(100000 + Math.random() * 900000);
     return lobbyID;
     },
 
     goToLobby() {
  
-  this.lobbyID= this.getLobbyID();
+  this.lobbyID= this.getGameID();
   this.getCitiesForContinentInArray();
-  socket.emit("createLobby", {
+  socket.emit("createGame", {
     lobbyID: this.lobbyID,
     lang: this.lang,
     playerName: this.playerName,
