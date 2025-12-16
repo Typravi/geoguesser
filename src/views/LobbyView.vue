@@ -6,13 +6,17 @@
  </div>
    <div>
      <ul>
- <li
-  v-for="p in participants"
-  :key="p"
-  class="participant"
->
-  {{ p }}
-</li>
+  <li
+    v-for="p in participants"
+    :key="p.playerName"
+    class="participant"
+  >
+    <span
+      class="color-dot"
+      :style="{ backgroundColor: p.color }"
+    ></span>
+    {{ p.playerName }}
+  </li>
 </ul>
  </div>
 
@@ -24,8 +28,6 @@
 <p v-else>
   Waiting for host ({{ hostName }}) to start the game...
 </p>
-
-
 
 
 </template>
@@ -54,10 +56,7 @@ export default {
  },
  created() {
    this.lobbyID = this.$route.params.lobbyID;
-    this.playerName = this.$route.params.playerID;
-  
-
-   
+   this.playerName = this.$route.params.playerID;
 
 
    socket.on('lobbyData', lobby => {
@@ -79,7 +78,7 @@ export default {
 
    socket.on("gameStart", lobbyID => { //startar spelet - från servern
      console.log("Game start for lobby", lobbyID); //check
-     this.$router.push(`/GeoMapView/${this.lobbyID}`); //pushar alla spelare till GeoMapView
+     this.$router.push(`/GeoMapView/${this.lobbyID}/${this.playerName}`); //pushar alla spelare till GeoMapView
    })
   
  },

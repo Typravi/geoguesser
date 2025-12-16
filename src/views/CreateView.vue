@@ -67,10 +67,6 @@ export default {
     numberOfQuestions: this.numberOfQuestions
   });
 
- 
-
- // this.$router.push(`/lobby/${lobbyID}`); 
-  //ha en lyssnare som på slutet 
 
   },
     increaseAmount() {

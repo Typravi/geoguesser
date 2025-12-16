@@ -56,7 +56,7 @@ const router = createRouter({
       component: () => import("../views/ResultView.vue"),
     },
     {
-      path: "/GeoMapView/:lobbyID",
+      path: "/GeoMapView/:lobbyID/:playerID",
       name: "GeoMapView",
       component: () => import("../views/NewViews/GeoMapView.vue"),
     },

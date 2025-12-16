@@ -30,41 +30,35 @@ function sockets(io, socket, data) {
    socket.emit('submittedAnswersUpdate', data.getSubmittedAnswers(lobbyID));
    socket.emit('participantsUpdate', data.getParticipants(lobbyID));
 
-
  });
 
 
  socket.on('participateInGame', function(d) {
-   const lobby = data.getLobby(d.lobbyID);
+  const lobby = data.getLobby(d.lobbyID);
 
-    if (lobby.participants.length >= 5) {
+  if (lobby.participants.length >= 5) {
     socket.emit("lobbyError", "Lobby is full (max 5 players).");
     console.log("Lobby full:", d.lobbyID);
-    return;}
-  
-    if (!lobby.participants.some((p) => p  === d.playerName)) {
-    // Assign Player 
+    return;
+  }
+
+  // kolla om namnet redan används (nu är p ett objekt)
+  const nameTaken = lobby.participants.some(p => p.name === d.playerName);
+
+  if (!nameTaken) {
+    // lägg till spelaren (Data.participateInGame ger färg)
     data.participateInGame(d.lobbyID, d.playerName);
     socket.emit("playerJoined");
     socket.join(d.lobbyID);
-  } 
-   else {
-    // Reject additional players
+  } else {
     socket.emit("lobbyError", "Name taken");
     console.log("name taken:", d.playerName, "in", d.lobbyID);
-    
     return;
   }
+
   console.log("adding participant", d.playerName, "to", d.lobbyID);
-  
- io.to(d.lobbyID).emit('participantsUpdate', data.getParticipants(d.lobbyID));
+  io.to(d.lobbyID).emit('participantsUpdate', data.getParticipants(d.lobbyID));
 });
-
-
-  
-  
- 
-
 
  socket.on('runQuestion', function(d) {
    let question = data.activateQuestion(d.lobbyID, d.questionNumber);

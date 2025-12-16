@@ -68,6 +68,10 @@ export default {
       return continentData[this.continent] || null;
     },
   },
+  created() {
+  this.lobbyID = this.$route.params.lobbyID;
+  this.playerName = this.$route.params.playerID;
+},
 
   methods: {
     handleMapClick(pos) {

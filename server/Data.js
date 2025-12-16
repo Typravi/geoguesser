@@ -1,6 +1,14 @@
 'use strict';
 import {readFileSync} from "fs";
 
+const playerColors = [
+  "#e6194b", // röd
+  "#3cb44b", // grön
+  "#4363d8", // blå
+  "#f58231", // orange
+  "#911eb4"  // lila
+];
+
 
 // Store data in an object to keep the global namespace clean. In an actual implementation this would be interfacing a database...
 function Data() {
@@ -51,7 +59,11 @@ Data.prototype.createLobby = function(lobbyID, lang = "en", hostName = null, num
      numberOfQuestions: numberOfQuestions,
      questions: [],
      answers: [],
-     participants: [hostName],
+     participants: hostName ? [{
+    playerName: hostName,
+      color: playerColors[0]
+}] : [],
+
      currentQuestion: 0
    };
    this.lobbies[lobbyID] = lobby;
@@ -69,14 +81,21 @@ Data.prototype.getLobby = function(lobbyID) {
 }
 
 
-Data.prototype.participateInGame = function (lobbyID, player) {
- console.log("participant will be added to", lobbyID, player);
+Data.prototype.participateInGame = function (lobbyID, playerName) {
+  console.log("participant will be added to", lobbyID, playerName);
   const lobby = this.lobbies[lobbyID];
 
+  if (this.lobbyExists(lobbyID)) {
+    const index = lobby.participants.length; // 0,1,2,...
+    const color = playerColors[index % playerColors.length];
 
- if (this.lobbyExists(lobbyID)) {
-   lobby.participants.push(player)
- }
+    const player = {
+      playerName: playerName,
+      color: color
+    };
+
+    lobby.participants.push(player);
+  }
 }
 
 
