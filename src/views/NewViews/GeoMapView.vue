@@ -80,10 +80,10 @@ export default {
     this.lobbyID = this.$route.params.lobbyID;
     this.playerName = this.$route.params.playerID;
 
-    socket.emit('joinLobby', this.lobbyID);
+    socket.emit('joinGame', this.lobbyID);
 
-  // lyssna på lobbyData i GeoMapView också
-  socket.on('lobbyData', (lobby) => {
+  // lyssna på gameData i GeoMapView också
+  socket.on('gameData', (lobby) => {
     this.continent = lobby.continent;
     this.numberOfQuestions = lobby.numberOfQuestions;
     this.cities = lobby.cities;

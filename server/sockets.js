@@ -4,8 +4,8 @@ function sockets(io, socket, data) {
  });
 
 
- socket.on('createLobby', function(d) {
-   data.createLobby(d.lobbyID,
+ socket.on('createGame', function(d) {
+   data.createGame(d.lobbyID,
    d.lang,
    d.playerName,
    d.numberOfQuestions,
@@ -13,8 +13,8 @@ function sockets(io, socket, data) {
    d.cities);
   
 
-   socket.emit('lobbyData', data.getLobby(d.lobbyID));
-   console.log("lobbyData sent for", d.lobbyID);
+   socket.emit('gameData', data.getGame(d.lobbyID));
+   console.log("gameData sent for", d.lobbyID);
 
  });
 
@@ -25,9 +25,9 @@ function sockets(io, socket, data) {
  });
 
 
- socket.on('joinLobby', function(lobbyID) {
+ socket.on('joinGame', function(lobbyID) {
    socket.join(lobbyID);
-   socket.emit('lobbyData', data.getLobby(lobbyID));
+   socket.emit('gameData', data.getGame(lobbyID));
    socket.emit('questionUpdate', data.activateQuestion(lobbyID));
    socket.emit('submittedAnswersUpdate', data.getSubmittedAnswers(lobbyID));
    socket.emit('participantsUpdate', data.getParticipants(lobbyID));
@@ -36,7 +36,7 @@ function sockets(io, socket, data) {
 
 
  socket.on('participateInGame', function(d) {
-  const lobby = data.getLobby(d.lobbyID);
+  const lobby = data.getGame(d.lobbyID);
 
   if (lobby.participants.length >= 5) {
     socket.emit("lobbyError", "Lobby is full (max 5 players).");
@@ -81,15 +81,15 @@ function sockets(io, socket, data) {
      console.log('[sockets] validateLobbyID invalid input');
      return callback(false);
    }
-   const lobbyExists = data.lobbyExists(lobbyID);
-    console.log('[sockets] validateLobbyID result for', lobbyID, '=', lobbyExists);
+   const gameExists = data.gameExists(lobbyID);
+    console.log('[sockets] validateLobbyID result for', lobbyID, '=', gameExists);
   
-   callback(lobbyExists);
+   callback(gameExists);
  });
 
 
  socket.on("startGame", lobbyID => { //starta spelet
-  const lobby = data.getLobby(lobbyID);
+  const lobby = data.getGame(lobbyID);
    console.log("startGame to server", lobbyID); //check
    io.to(lobbyID).emit("gameStart", lobby); //ändrat från io.to(lobbyID).emit("gameStart", lobbyID)
  });

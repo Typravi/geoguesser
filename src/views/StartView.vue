@@ -27,10 +27,10 @@
 
     <div class="menu-buttons">
       <router-link to="/JoinGameView/" class="button join-button">
-        {{ uiLabels.joinLobby }}
+        {{ uiLabels.joinGame }}
       </router-link>
       <router-link to="/create/" class="button create-button">
-        {{ uiLabels.createLobby }}
+        {{ uiLabels.createGame }}
       </router-link>
     </div>
   
