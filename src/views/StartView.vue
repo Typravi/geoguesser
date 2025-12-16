@@ -13,15 +13,27 @@
     </header>
     <ResponsiveNav v-bind:hideNav="hideNav">
       <button @click="switchLanguage">
-        <!--denna knappen kan tas bort sen-->
+        <!--denna knappen kan tas bort sen men är kvar för att se struktur till kommande knappar-->
         {{ uiLabels.changeLanguage }}
       </button>
 
       <a href="">
         {{ uiLabels.about }}
       </a>
-      <a href="">FAQ</a>
-      <!--gör detta till button-->
+    </ResponsiveNav>
+
+    <div class="outerFlexContainer">
+      <h1>{{ uiLabels["sales-pitch"] }}</h1>
+      <h2>{{ uiLabels.subHeading }}</h2>
+
+      <div class="Lobby-buttons">
+        <router-link to="/JoinGameView/" class="button join-button">
+          {{ uiLabels.joinLobby }}
+        </router-link>
+        <router-link to="/create/" class="button create-button">
+          {{ uiLabels.createLobby }}
+        </router-link>
+      </div>
       <label class="languageSwitch">
         <input
           type="checkbox"
@@ -33,17 +45,29 @@
           <span class="emoji engEmoji">🇬🇧</span>
         </span>
       </label>
-    </ResponsiveNav>
-    <h1>{{ uiLabels["sales-pitch"] }}</h1>
-    <h2>{{ uiLabels.subHeading }}</h2>
+      <button @click="open = true">FAQ</button>
+      <!--byt ut "FAQ" till ett label senare-->
+      <div v-if="open" class="overlay" @click.self="closeFAQ">
+        <!--gör så att FAQ-modalen stängs om man klickar utanför den-->
+        <div class="FAQmodal">
+          <div class="FAQaccordion">
+            <!--accordion=rullgardinsmeny (betyder egentligen dragspel tror jag)-->
 
-    <div class="Lobby-buttons">
-      <router-link to="/JoinGameView/" class="button join-button">
-        {{ uiLabels.joinLobby }}
-      </router-link>
-      <router-link to="/create/" class="button create-button">
-        {{ uiLabels.createLobby }}
-      </router-link>
+            <button class="FAQquestion" @click="FAQtoggle(0)">Fråga 1</button>
+            <!--byt ut "Fråga X" till ett label senare-->
+            <div v-show="active === 0" class="FAQanswer">Svar 1</div>
+            <!--byt ut "Svar X" till ett label senare-->
+            <button class="FAQquestion" @click="FAQtoggle(1)">Fråga 2</button>
+            <div v-show="active === 1" class="FAQanswer">Svar 2</div>
+            <button class="FAQquestion" @click="FAQtoggle(2)">Fråga 3</button>
+            <div v-show="active === 2" class="FAQanswer">Svar 3</div>
+            <button class="closeFAQbutton" @click="closeFAQ">
+              Stäng FAQ fönster
+            </button>
+            <!--även detta ett label?? eller bara kryss-->
+          </div>
+        </div>
+      </div>
     </div>
   </main>
 </template>
@@ -63,6 +87,8 @@ export default {
       uiLabels: {},
       lang: localStorage.getItem("lang") || "en",
       hideNav: true,
+      open: false,
+      active: null,
     };
   },
   created: function () {
@@ -71,12 +97,19 @@ export default {
   },
   methods: {
     switchLanguage: function () {
-      this.lang = this.lang === "sv" ? "en" : "sv"; //kollar om sv isf en annars sv (vid klick)
+      this.lang = this.lang === "sv" ? "en" : "sv"; //kollar om SV isf EN annars SV (vid klick)
       localStorage.setItem("lang", this.lang);
       socket.emit("getUILabels", this.lang);
     },
     toggleNav: function () {
       this.hideNav = !this.hideNav;
+    },
+    FAQtoggle: function (i) {
+      this.active = this.active === i ? null : i;
+    },
+    closeFAQ: function () {
+      this.open = false;
+      this.active = null;
     },
   },
 };
@@ -113,6 +146,7 @@ header {
   cursor: pointer;
   font-size: 1.5rem;
 }
+/*------------------------------------------------------------------------------------------------ */
 
 .Lobby-buttons {
   display: flex;
@@ -154,17 +188,8 @@ header {
   .hide {
     left: -12em;
   }
-
-  /* A gradient with a single color of red
-radial-gradient(red)
-
- A gradient at the center of its container,
-   starting red, changing to blue, and finishing green
-radial-gradient(circle at center, red 0, blue, green 100%)
-
-
-radial-gradient(circle at center in hsl longer hue, red 0, blue, green 100%)*/
 }
+/*------------------------------------------------------------------------------------------------ */
 .languageSwitch {
   position: relative;
   width: 70px;
@@ -233,5 +258,81 @@ radial-gradient(circle at center in hsl longer hue, red 0, blue, green 100%)*/
 
 .languageSwitch input:checked + .languageSlider .sweEmoji {
   opacity: 1;
+}
+/*------------------------------------------------------------------------------------------------ */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55); /* genomskinlig */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* undvika problem me att saker hamnar över, kan ev tas bort i slutversion */
+}
+
+.FAQmodal {
+  background: #f6f7fb;
+  width: 90%;
+  max-width: 600px;
+  max-height: 85vh;
+  padding: 1.5rem;
+  border-radius: 16px;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.FAQaccordion {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.FAQquestion {
+  width: 100%;
+  text-align: left;
+  background: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.FAQquestion:hover {
+  background: rgba(108, 92, 231, 0.15);
+  color: #2d2e32;
+}
+
+.FAQanswer {
+  padding: 0.75rem 1rem 1rem;
+  background: rgba(238, 197, 255, 0.1);
+  border-radius: 0 0 12px 12px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #333;
+}
+
+.closeFAQbutton {
+  align-self: flex-end;
+
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #6c5ce7;
+  color: white;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.closeFAQbutton:hover {
+  background: #5a4bd6;
 }
 </style>
