@@ -1,6 +1,5 @@
 <template>
   <main>
-    
     <header>
       <div
         v-bind:class="['hamburger', { close: !hideNav }]"
@@ -13,7 +12,8 @@
       </div>
     </header>
     <ResponsiveNav v-bind:hideNav="hideNav">
-      <button v-on:click="switchLanguage">
+      <button @click="switchLanguage">
+        <!--denna knappen kan tas bort sen-->
         {{ uiLabels.changeLanguage }}
       </button>
 
@@ -21,11 +21,23 @@
         {{ uiLabels.about }}
       </a>
       <a href="">FAQ</a>
+      <!--gör detta till button-->
+      <label class="languageSwitch">
+        <input
+          type="checkbox"
+          :checked="lang === 'sv'"
+          @change="switchLanguage"
+        />
+        <span class="languageSlider">
+          <span class="emoji sweEmoji">🇸🇪</span>
+          <span class="emoji engEmoji">🇬🇧</span>
+        </span>
+      </label>
     </ResponsiveNav>
     <h1>{{ uiLabels["sales-pitch"] }}</h1>
     <h2>{{ uiLabels.subHeading }}</h2>
 
-    <div class="menu-buttons">
+    <div class="Lobby-buttons">
       <router-link to="/JoinGameView/" class="button join-button">
         {{ uiLabels.joinLobby }}
       </router-link>
@@ -33,7 +45,6 @@
         {{ uiLabels.createLobby }}
       </router-link>
     </div>
-  
   </main>
 </template>
 
@@ -50,7 +61,6 @@ export default {
   data: function () {
     return {
       uiLabels: {},
-      newlobbyID: "",
       lang: localStorage.getItem("lang") || "en",
       hideNav: true,
     };
@@ -61,11 +71,7 @@ export default {
   },
   methods: {
     switchLanguage: function () {
-      if (this.lang === "en") {
-        this.lang = "sv";
-      } else {
-        this.lang = "en";
-      }
+      this.lang = this.lang === "sv" ? "en" : "sv"; //kollar om sv isf en annars sv (vid klick)
       localStorage.setItem("lang", this.lang);
       socket.emit("getUILabels", this.lang);
     },
@@ -108,7 +114,7 @@ header {
   font-size: 1.5rem;
 }
 
-.menu-buttons {
+.Lobby-buttons {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -159,5 +165,73 @@ radial-gradient(circle at center, red 0, blue, green 100%)
 
 radial-gradient(circle at center in hsl longer hue, red 0, blue, green 100%)*/
 }
+.languageSwitch {
+  position: relative;
+  width: 70px;
+  height: 34px;
+  display: inline-block;
+}
 
+.languageSwitch input {
+  display: none;
+}
+
+.languageSlider {
+  position: absolute;
+  inset: 0;
+  background: #ccc;
+  border-radius: 34px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.languageSlider::before {
+  content: "";
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  left: 3px;
+  top: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.3s;
+  z-index: 2;
+}
+
+.languageSwitch input:checked + .languageSlider {
+  background: #6c5ce7;
+}
+
+.languageSwitch input:checked + .languageSlider::before {
+  transform: translateX(36px);
+}
+
+/* Emojis */
+.emoji {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  z-index: 3;
+}
+
+.engEmoji {
+  left: 8px;
+  opacity: 1;
+}
+
+.sweEmoji {
+  right: 8px;
+  opacity: 0;
+}
+
+.languageSwitch input:checked + .languageSlider .engEmoji {
+  opacity: 0;
+}
+
+.languageSwitch input:checked + .languageSlider .sweEmoji {
+  opacity: 1;
+}
 </style>
