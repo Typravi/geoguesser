@@ -106,6 +106,10 @@ export default {
 
   methods: {
     handleMapClick(pos) {
+      if (this.timerInterval) {
+    clearInterval(this.timerInterval);
+    this.timerInterval = null;
+  }
       //in hit ska vårt mapclick komma från GeoMap sen
       this.lastClick = pos; //ta bort denna när ej behövs mer, anv för att få koord utskrivna till mina städer
       this.correctLocation = this.currentMap.cities[this.cityToFind]; // tillagd för att sätta correctLocation till Sthlm vid tryck (sen rätt men nu sthlm sålänge)
