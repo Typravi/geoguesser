@@ -1,8 +1,10 @@
-@import './base.css';
+@import "./base.css";
 
 #app {
   font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  background: radial-gradient(#e66465, #9198e5);
+  min-height: 100vh;
 }
