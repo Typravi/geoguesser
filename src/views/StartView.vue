@@ -1,5 +1,6 @@
 <template>
-  <main>
+  <div class="gridstyleWrapper">
+    <!--wrapper till gridlayouten-->
     <header>
       <div
         v-bind:class="['hamburger', { close: !hideNav }]"
@@ -11,63 +12,61 @@
         <img src="/img/jordklot.jpg" />
       </div>
     </header>
-    <ResponsiveNav v-bind:hideNav="hideNav">
-      <button @click="switchLanguage">
-        <!--denna knappen kan tas bort sen men är kvar för att se struktur till kommande knappar-->
-        {{ uiLabels.changeLanguage }}
-      </button>
 
-      <a href="">
-        {{ uiLabels.about }}
-      </a>
-    </ResponsiveNav>
+    <div class="leftGridColumn">
+      <!--vänstra området i gridlayouten-->
+      <h1>{{ uiLabels["sales-pitch"] }}</h1>
+      <h2>{{ uiLabels.subHeading }}</h2>
 
-    <h1>{{ uiLabels["sales-pitch"] }}</h1>
-    <h2>{{ uiLabels.subHeading }}</h2>
-
-    <div class="Lobby-buttons">
-      <router-link to="/JoinGameView/" class="button join-button">
-        {{ uiLabels.joinGame }}
-      </router-link>
-      <router-link to="/create/" class="button create-button">
-        {{ uiLabels.createGame }}
-      </router-link>
+      <label class="languageSwitch">
+        <input
+          type="checkbox"
+          :checked="lang === 'sv'"
+          @change="switchLanguage"
+        />
+        <span class="languageSlider">
+          <span class="emoji sweEmoji">🇸🇪</span>
+          <span class="emoji engEmoji">🇬🇧</span>
+        </span>
+      </label>
     </div>
-    <label class="languageSwitch">
-      <input
-        type="checkbox"
-        :checked="lang === 'sv'"
-        @change="switchLanguage"
-      />
-      <span class="languageSlider">
-        <span class="emoji sweEmoji">🇸🇪</span>
-        <span class="emoji engEmoji">🇬🇧</span>
-      </span>
-    </label>
-    <button @click="open = true">FAQ</button>
-    <!--byt ut "FAQ" till ett label senare-->
-    <div v-if="open" class="overlay" @click.self="closeFAQ">
-      <!--gör så att FAQ-modalen stängs om man klickar utanför den-->
-      <div class="FAQmodal">
-        <div class="FAQaccordion">
-          <!--accordion=rullgardinsmeny (betyder egentligen dragspel tror jag)-->
+    <main class="mainArea">
+      <!--mittenområdet i gridlayouten (och huvudinnehållet, tror jag det räknas som)-->
+      <div class="Lobby-buttons">
+        <router-link to="/JoinGameView/" class="button join-button">
+          {{ uiLabels.joinGame }}
+        </router-link>
+        <router-link to="/create/" class="button create-button">
+          {{ uiLabels.createGame }}
+        </router-link>
+      </div>
+    </main>
+    <div class="rightGridColumn">
+      <button @click="open = true">FAQ</button>
+      <!--byt ut "FAQ" till ett label senare-->
+      <div v-if="open" class="overlay" @click.self="closeFAQ">
+        <!--gör så att FAQ-modalen stängs om man klickar utanför den-->
+        <div class="FAQmodal">
+          <div class="FAQaccordion">
+            <!--accordion=rullgardinsmeny (betyder egentligen dragspel tror jag)-->
 
-          <button class="FAQquestion" @click="FAQtoggle(0)">Fråga 1</button>
-          <!--byt ut "Fråga X" till ett label senare-->
-          <div v-show="active === 0" class="FAQanswer">Svar 1</div>
-          <!--byt ut "Svar X" till ett label senare-->
-          <button class="FAQquestion" @click="FAQtoggle(1)">Fråga 2</button>
-          <div v-show="active === 1" class="FAQanswer">Svar 2</div>
-          <button class="FAQquestion" @click="FAQtoggle(2)">Fråga 3</button>
-          <div v-show="active === 2" class="FAQanswer">Svar 3</div>
-          <button class="closeFAQbutton" @click="closeFAQ">
-            Stäng FAQ fönster
-          </button>
-          <!--även stängknappen en label? eller bara kryss-->
+            <button class="FAQquestion" @click="FAQtoggle(0)">Fråga 1</button>
+            <!--byt ut "Fråga X" till ett label senare-->
+            <div v-show="active === 0" class="FAQanswer">Svar 1</div>
+            <!--byt ut "Svar X" till ett label senare-->
+            <button class="FAQquestion" @click="FAQtoggle(1)">Fråga 2</button>
+            <div v-show="active === 1" class="FAQanswer">Svar 2</div>
+            <button class="FAQquestion" @click="FAQtoggle(2)">Fråga 3</button>
+            <div v-show="active === 2" class="FAQanswer">Svar 3</div>
+            <button class="closeFAQbutton" @click="closeFAQ">
+              Stäng FAQ fönster
+            </button>
+            <!--även stängknappen en label? eller bara kryss-->
+          </div>
         </div>
       </div>
     </div>
-  </main>
+  </div>
 </template>
 
 <script>
@@ -113,11 +112,39 @@ export default {
 };
 </script>
 <style scoped>
+/*------------------------------------------------------------------------------------------------ */
+
+.gridstyleWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "header header header"
+    "leftGridColumn mainArea rightGridColumn";
+  min-height: 100vh;
+}
+
+.leftGridColumn {
+  grid-area: leftGridColumn;
+}
+.mainArea {
+  grid-area: mainArea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.rightGridColumn {
+  grid-area: rightGridColumn;
+}
+/*------------------------------------------------------------------------------------------------ */
+
 header {
-  background-color: gray;
+  grid-area: header;
+  background-color: purple;
   width: 100%;
   display: grid;
   grid-template-columns: 2em auto;
+  padding: 1rem 2rem;
 }
 .logo {
   text-transform: uppercase;
