@@ -8,7 +8,8 @@ function sockets(io, socket, data) {
    data.createLobby(d.lobbyID,
    d.lang,
    d.playerName,
-   d.numberOfQuestions);
+   d.numberOfQuestions,
+   d.continent);
   
 
    socket.emit('lobbyData', data.getLobby(d.lobbyID));

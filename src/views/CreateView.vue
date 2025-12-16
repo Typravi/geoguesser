@@ -7,7 +7,7 @@
   </p>
   <p>Välj världsdel:</p>
   <p><button @click="choseNextContinent"> < </button>
-     {{ this.continent }}
+     {{ continent }}
       <button @click="choseNextContinent"> > </button>
   </p>
 
@@ -31,7 +31,6 @@
 
 <script>
 import io from 'socket.io-client';
-import { getRandomContinent } from '../assets/logic';
 const socket = io("localhost:3000");
 
 export default {

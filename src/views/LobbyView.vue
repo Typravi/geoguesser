@@ -51,6 +51,7 @@ export default {
      participants: [],
      hostName: "",
      numberOfQuestions: 0,
+     continent: "",
      
    }
  },
@@ -63,6 +64,7 @@ export default {
      console.log('Lobby data received:', lobby);
      this.hostName = lobby.hostName;
      this.numberOfQuestions = lobby.numberOfQuestions;
+     this.continent = lobby.continent;
    });
 
 
