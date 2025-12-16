@@ -36,7 +36,7 @@
           }"
         ></div>
         <div
-          v-if="correctLocation"
+        v-if="hasGuessed && correctLocation"
           class="correctMarker"
           v-bind:style="{
             left: correctLocation.x + 'px',
