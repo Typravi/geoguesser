@@ -88,8 +88,9 @@ function sockets(io, socket, data) {
 
 
  socket.on("startGame", lobbyID => { //starta spelet
+  const lobby = data.getLobby(lobbyID);
    console.log("startGame to server", lobbyID); //check
-   io.to(lobbyID).emit("gameStart", lobbyID); //skickar gameStart till alla i lobbyn
+   io.to(lobbyID).emit("gameStart", lobby); //ändrat från io.to(lobbyID).emit("gameStart", lobbyID)
  });
 }
 
