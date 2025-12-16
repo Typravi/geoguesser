@@ -1,13 +1,11 @@
 {
-	"sales-pitch": "Svar. Helt. Enkelt.",
-	"subHeading": "Ett enkelt enkätverktyg",
-	"invite": "Bjud in deltagare med den här länken:",
-	"createPoll": "Skapa röstning",
-	"createGame": "Skapa lobby",
-	"participatePoll": "Delta i röstning",
-	"question": "Fråga",
-	"changeLanguage": "Change to English",
-	"about": "Om oss", 
-	"startGame": "Starta spelet"
-
+  "sales-pitch": "Gissa rätt koordinater och klå dina vänner!",
+  "subHeading": "Joina ett game eller starta ett eget",
+  "invite": "Bjud in deltagare med den här länken:",
+  "createGame": "Skapa lobby",
+  "joinGame": "Joina spel",
+  "question": "Fråga",
+  "changeLanguage": "Change to English",
+  "about": "Om oss",
+  "startGame": "Starta spel"
 }
