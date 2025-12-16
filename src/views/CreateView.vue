@@ -31,6 +31,8 @@
 
 <script>
 import io from 'socket.io-client';
+import { getRandomCity } from "@/assets/logic.js";
+import continentData from "@/assets/maps.json";
 const socket = io("localhost:3000");
 
 export default {
@@ -42,7 +44,8 @@ export default {
       uiLabels: {},
       numberOfQuestions: 1,
       lobbyID:null,
-      continent:'europe'
+      continent:'europe',
+      cities: []
     }
   },
   created: function () {
@@ -50,6 +53,7 @@ export default {
     socket.on("lobbyData", data => {
       console.log("Lobby created:", data);
       this.$router.push(`/lobby/${this.lobbyID}/${data.hostName}`); 
+      console.log("Lista med alla städer", this.cities);
     });
     
     socket.emit( "getUILabels", this.lang );
@@ -66,16 +70,35 @@ export default {
     goToLobby() {
  
   this.lobbyID= this.getLobbyID();
+  this.getCitiesForContinentInArray();
   socket.emit("createLobby", {
     lobbyID: this.lobbyID,
     lang: this.lang,
     playerName: this.playerName,
     numberOfQuestions: this.numberOfQuestions,
-    continent: this.continent
+    continent: this.continent,
+    cities: this.cities
   });
 
 
   },
+
+  getCitiesForContinentInArray() {
+  this.cities = []
+
+  const continentKey = this.continent.toLowerCase()
+  const continentObj = continentData[continentKey]
+
+  if (!continentObj) {
+    console.error("Okänd kontinent:", this.continent)
+    return
+  }
+
+  for (let i = 0; i < this.numberOfQuestions; i++) {
+    const city = getRandomCity(continentObj)
+    this.cities.push(city)
+  }
+},
     increaseAmount() {
     if (this.numberOfQuestions < 10) {
     this.numberOfQuestions++;}
@@ -91,6 +114,7 @@ export default {
       this.continent = continents[nextIndex];}
 
   },
+
     
     }
 

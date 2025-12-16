@@ -17,6 +17,11 @@
         :correct-location="correctLocation"
         @map-click="handleMapClick"
       />
+      <!--timer-->
+      <div>
+      <p>Tid kvar: {{ timeLeft }} s</p>
+      </div>
+
     </main>
     <footer v-if="lastClick">
       <!--ta bort footern när ej behövs mer, anv för att få koord utskrivna så jag ser vad som händer-->
@@ -32,14 +37,14 @@
       <p>Avstånd i pixlar: {{ this.distance }}</p>
     </footer>
   </div>
+
+  
 </template>
 
 <script>
 import GeoMap from "../../components/GeoMap.vue";
 import continentData from "../../assets/maps.json";
 import { calculateDistance } from "../../assets/logic";
-import { getRandomContinent } from "../../assets/logic";
-import { getRandomCity } from "../../assets/logic";
 import io from "socket.io-client";
 const socket = io("localhost:3000");
 
@@ -51,7 +56,6 @@ export default {
   },
 
   data() {
-
     return {
       continent:null,
       cityToFind:null, 
@@ -62,6 +66,8 @@ export default {
       lobbyID: null,
       playerName: "",
       numberOfQuestions:null,
+      timeLeft: 30, //Sätt antal sekunder
+      timeInterval: null,
     };
   },
 
@@ -80,19 +86,21 @@ export default {
   socket.on('lobbyData', (lobby) => {
     this.continent = lobby.continent;
     this.numberOfQuestions = lobby.numberOfQuestions;
+    this.cities = lobby.cities;
+    this.startTimer();
 
     console.log(
       "GeoMapView created for lobby", this.lobbyID,
       "and player", this.playerName,
       "in continent", this.continent,
-      "with", this.numberOfQuestions, "questions."
+      "with the cities:", this.cities
     );
 
     // här kan du också välja stad utifrån rätt kontinent:
     // const map = continentData[this.continent];
     // const randomCity = getRandomCity(map.map);
-    // this.cityToFind = randomCity.name;
-    // this.correctLocation = map.cities[this.cityToFind];
+    this.cityToFind = this.cities[0].name;
+    this.correctLocation = this.cities[0].coordinates;
   });
 },
 
@@ -103,6 +111,16 @@ export default {
       this.correctLocation = this.currentMap.cities[this.cityToFind]; // tillagd för att sätta correctLocation till Sthlm vid tryck (sen rätt men nu sthlm sålänge)
       this.distance = calculateDistance(this.lastClick, this.correctLocation);
     },
+
+    startTimer() { //fungerar endast lokalt - så måste skrivas ut så den anpassas efter klick/spelarsynk etc 
+
+      this.timerInterval = setInterval(() => {
+        if (this.timeLeft <= 0) {
+          clearInterval(this.timerInterval);
+        return; }
+      this.timeLeft--;}, 
+      1000); //varje millisekund
+    }
   },
 };
 </script>

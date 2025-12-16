@@ -52,7 +52,7 @@ export default {
      hostName: "",
      numberOfQuestions: 0,
      continent: "",
-     
+     cities: [],
    }
  },
  created() {
@@ -65,6 +65,8 @@ export default {
      this.hostName = lobby.hostName;
      this.numberOfQuestions = lobby.numberOfQuestions;
      this.continent = lobby.continent;
+     this.cities = lobby.cities;
+     console.log("lista med städer lobby view", this.cities)
    });
 
 
