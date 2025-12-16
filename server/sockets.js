@@ -44,7 +44,7 @@ function sockets(io, socket, data) {
   }
 
   // kolla om namnet redan används (nu är p ett objekt)
-  const nameTaken = lobby.participants.some(p => p.name === d.playerName);
+  const nameTaken = lobby.participants.some(p => p.playerName === d.playerName);
 
   if (!nameTaken) {
     // lägg till spelaren (Data.participateInGame ger färg)

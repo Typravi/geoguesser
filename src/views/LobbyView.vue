@@ -75,7 +75,7 @@ export default {
 
 
    socket.emit("getUILabels", this.lang);
-    socket.emit("joinLobby", this.lobbyID);
+   socket.emit("joinLobby", this.lobbyID);
 
 
    socket.on("gameStart", lobbyID => { //startar spelet - från servern
