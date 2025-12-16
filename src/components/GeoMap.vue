@@ -55,6 +55,8 @@ export default {
   props: {
     scale: Number,
     disabled: Boolean,
+    timerActive: Boolean,
+    timeLeft: Number,
     continentData: {
       type: Object,
       required: true,
