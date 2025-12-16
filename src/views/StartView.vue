@@ -22,50 +22,48 @@
       </a>
     </ResponsiveNav>
 
-    <div class="outerFlexContainer">
-      <h1>{{ uiLabels["sales-pitch"] }}</h1>
-      <h2>{{ uiLabels.subHeading }}</h2>
+    <h1>{{ uiLabels["sales-pitch"] }}</h1>
+    <h2>{{ uiLabels.subHeading }}</h2>
 
-      <div class="Lobby-buttons">
-        <router-link to="/JoinGameView/" class="button join-button">
-          {{ uiLabels.joinLobby }}
-        </router-link>
-        <router-link to="/create/" class="button create-button">
-          {{ uiLabels.createLobby }}
-        </router-link>
-      </div>
-      <label class="languageSwitch">
-        <input
-          type="checkbox"
-          :checked="lang === 'sv'"
-          @change="switchLanguage"
-        />
-        <span class="languageSlider">
-          <span class="emoji sweEmoji">🇸🇪</span>
-          <span class="emoji engEmoji">🇬🇧</span>
-        </span>
-      </label>
-      <button @click="open = true">FAQ</button>
-      <!--byt ut "FAQ" till ett label senare-->
-      <div v-if="open" class="overlay" @click.self="closeFAQ">
-        <!--gör så att FAQ-modalen stängs om man klickar utanför den-->
-        <div class="FAQmodal">
-          <div class="FAQaccordion">
-            <!--accordion=rullgardinsmeny (betyder egentligen dragspel tror jag)-->
+    <div class="Lobby-buttons">
+      <router-link to="/JoinGameView/" class="button join-button">
+        {{ uiLabels.joinGame }}
+      </router-link>
+      <router-link to="/create/" class="button create-button">
+        {{ uiLabels.createGame }}
+      </router-link>
+    </div>
+    <label class="languageSwitch">
+      <input
+        type="checkbox"
+        :checked="lang === 'sv'"
+        @change="switchLanguage"
+      />
+      <span class="languageSlider">
+        <span class="emoji sweEmoji">🇸🇪</span>
+        <span class="emoji engEmoji">🇬🇧</span>
+      </span>
+    </label>
+    <button @click="open = true">FAQ</button>
+    <!--byt ut "FAQ" till ett label senare-->
+    <div v-if="open" class="overlay" @click.self="closeFAQ">
+      <!--gör så att FAQ-modalen stängs om man klickar utanför den-->
+      <div class="FAQmodal">
+        <div class="FAQaccordion">
+          <!--accordion=rullgardinsmeny (betyder egentligen dragspel tror jag)-->
 
-            <button class="FAQquestion" @click="FAQtoggle(0)">Fråga 1</button>
-            <!--byt ut "Fråga X" till ett label senare-->
-            <div v-show="active === 0" class="FAQanswer">Svar 1</div>
-            <!--byt ut "Svar X" till ett label senare-->
-            <button class="FAQquestion" @click="FAQtoggle(1)">Fråga 2</button>
-            <div v-show="active === 1" class="FAQanswer">Svar 2</div>
-            <button class="FAQquestion" @click="FAQtoggle(2)">Fråga 3</button>
-            <div v-show="active === 2" class="FAQanswer">Svar 3</div>
-            <button class="closeFAQbutton" @click="closeFAQ">
-              Stäng FAQ fönster
-            </button>
-            <!--även detta ett label?? eller bara kryss-->
-          </div>
+          <button class="FAQquestion" @click="FAQtoggle(0)">Fråga 1</button>
+          <!--byt ut "Fråga X" till ett label senare-->
+          <div v-show="active === 0" class="FAQanswer">Svar 1</div>
+          <!--byt ut "Svar X" till ett label senare-->
+          <button class="FAQquestion" @click="FAQtoggle(1)">Fråga 2</button>
+          <div v-show="active === 1" class="FAQanswer">Svar 2</div>
+          <button class="FAQquestion" @click="FAQtoggle(2)">Fråga 3</button>
+          <div v-show="active === 2" class="FAQanswer">Svar 3</div>
+          <button class="closeFAQbutton" @click="closeFAQ">
+            Stäng FAQ fönster
+          </button>
+          <!--även stängknappen en label? eller bara kryss-->
         </div>
       </div>
     </div>
