@@ -66,6 +66,7 @@ export default {
      this.numberOfQuestions = lobby.numberOfQuestions;
      this.continent = lobby.continent;
      this.cities = lobby.cities;
+     this.round = lobby.round;
      console.log("lista med städer lobby view", this.cities)
    });
 

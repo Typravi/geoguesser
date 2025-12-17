@@ -9,14 +9,18 @@
         <p v-else>Samtliga spelares gissningar:</p>
         </div>
       <div class="initiateNew">
-        <button v-if="playerName === participants[0].playerName && !timerActive" @click="startNextRound">
+        <button v-if="playerName === participants[0].playerName && round!==numberOfQuestions && !timerActive" @click="startNextRound">
         Nästa runda
+      </button>
+      <button v-if="playerName === participants[0].playerName && !timerActive && round===numberOfQuestions" @click="getResults">
+        Se resultat
       </button>
       </div>
     </header>
 
     <main class="map-area">
       <GeoMap
+        :key="round"
         v-if="currentMap" 
         :scale="scale"
         :continent-data="currentMap"
@@ -67,11 +71,12 @@ export default {
       lobbyID: null,
       playerName: "",
       numberOfQuestions:null,
-      timeLeft: null, //Sätt antal sekunder
-      timeInterval: null,
+      timeLeft: 20, //Sätt antal sekunder
+      timerInterval: null,
       timerActive: true,
       participants: [],
       hostName: '',
+      round: null,
 
         };
   },
@@ -94,8 +99,9 @@ export default {
     this.continent = lobby.continent;
     this.numberOfQuestions = lobby.numberOfQuestions;
     this.cities = lobby.cities;
-    this.cityToFind = this.cities[0].name;
-    this.correctLocation = this.cities[0].coordinates;
+    this.round = lobby.round;
+    this.cityToFind = this.cities[this.round-1].name;
+    this.correctLocation = this.cities[this.round-1].coordinates;
     this.startTimer();
 
     console.log(
@@ -115,7 +121,12 @@ export default {
 
 methods: {
 
+  getResults () {
+
+  },
+
   startNextRound() {
+    this.lastClick = null;
   socket.emit('startNextRound', {
     lobbyID: this.lobbyID
   });

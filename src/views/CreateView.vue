@@ -45,7 +45,8 @@ export default {
       numberOfQuestions: 1,
       lobbyID:null,
       continent:'europe',
-      cities: []
+      cities: [],
+      round: null,
     }
   },
   created: function () {
@@ -77,7 +78,8 @@ export default {
     playerName: this.playerName,
     numberOfQuestions: this.numberOfQuestions,
     continent: this.continent,
-    cities: this.cities
+    cities: this.cities,
+    round: 1
   });
 
 

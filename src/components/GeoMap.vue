@@ -41,7 +41,7 @@
     
   
       <div
-        v-if="p.latestClick"
+        v-if="p.latestClick && !timerActive"
         class="guessMarker"
         :style="{
           left: p.latestClick.x + 'px',

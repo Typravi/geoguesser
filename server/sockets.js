@@ -10,7 +10,9 @@ function sockets(io, socket, data) {
    d.playerName,
    d.numberOfQuestions,
    d.continent,
-   d.cities);
+   d.cities,
+   d.round,
+  );
   
 
    socket.emit('gameData', data.getGame(d.lobbyID));
@@ -107,8 +109,8 @@ socket.on('startNextRound', function(d) {
   if (!lobby) return;
 
   // Ta bort första staden/frågan
-  if (lobby.cities && lobby.cities.length > 0) {
-    lobby.cities.shift();
+  if (lobby.cities && lobby.round <= lobby.cities.length ) {
+    lobby.round += 1;
   }
 
   // Skicka uppdaterad gameData till alla i lobbyn
