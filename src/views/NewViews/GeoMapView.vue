@@ -21,6 +21,7 @@
         :correct-location="correctLocation"
         :timer-active="timerActive"
         :time-left="timeLeft"
+        :diabled = "!timerActive"
         @map-click="handleMapClick"
       />
       <!--timer-->
@@ -112,35 +113,45 @@ export default {
 methods: {
   handleMapClick(pos) {
     // Stoppa timern
-    if (this.timerInterval) {
-      clearInterval(this.timerInterval);
-      this.timerInterval = null;
-    }
-    this.timerActive = false; // timern försvinner
+    // if (this.timerInterval) {
+    //   clearInterval(this.timerInterval);
+    //   this.timerInterval = null;
+    // }
+    // this.timerActive = false; // timern försvinner
 
-    this.lastClick = pos;
-    this.correctLocation = this.currentMap.cities[this.cityToFind];
-    this.distance = calculateDistance(this.lastClick, this.correctLocation);
+    this.lastClick = pos; //--> senaste klicket sparas lokalt 
+
+    // this.correctLocation = this.currentMap.cities[this.cityToFind];
+    // this.distance = calculateDistance(this.lastClick, this.correctLocation);
   },
 
   startTimer() {
-    if (this.timerInterval) {
+  if (this.timerInterval) {
+    clearInterval(this.timerInterval);
+    this.timerInterval = null;
+  }
+  this.timeLeft = 3;
+  this.timerActive = true;
+
+  this.timerInterval = setInterval(() => {
+    if (this.timeLeft <= 0) {
       clearInterval(this.timerInterval);
       this.timerInterval = null;
-    }
-    this.timeLeft = 30;
-    this.timerActive = true;
+      this.timerActive = false;
 
-    this.timerInterval = setInterval(() => {
-      if (this.timeLeft <= 0) {
-        clearInterval(this.timerInterval);
-        this.timerInterval = null;
-        this.timerActive = false;
-        return;
+      if (this.lastClick) {
+        socket.emit("finalClick", {
+          lobbyID: this.lobbyID,
+          playerName: this.playerName,
+          locationGuess: this.lastClick
+        });
       }
-      this.timeLeft--;
-    }, 1000);
-  }
+
+      return;
+    }
+    this.timeLeft--;
+  }, 1000);
+}
 }
 };
 </script>
