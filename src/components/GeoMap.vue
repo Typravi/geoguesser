@@ -35,6 +35,17 @@
             top: locationGuess.y + 'px',
           }"
         ></div>
+
+        <div
+    v-for="(pos, i) in finalClicks"
+    :key="i"
+    class="guessMarker"
+    :style="{
+      left: pos.x + 'px',
+      top: pos.y + 'px'
+    }"
+  ></div>
+
         <div
         v-if="!timerActive && correctLocation"
           class="correctMarker"
@@ -57,6 +68,10 @@ export default {
     disabled: Boolean,
     timerActive: Boolean,
     timeLeft: Number,
+    
+    finalClicks: {
+      type: Array },
+
     continentData: {
       type: Object,
       required: true,
