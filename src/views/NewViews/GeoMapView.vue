@@ -29,17 +29,9 @@
   
 
     </main>
-    <footer v-if="lastClick">
+    <footer v-if="!timerActive && lastClick">
       <!--ta bort footern när ej behövs mer, anv för att få koord utskrivna så jag ser vad som händer-->
       <!--notera att även ur data och handlemapclick behövs det städas när footern tas bort -->
-      <p>
-        Postition klickad: X = {{ lastClick.x.toFixed(0) }}, Y =
-        {{ lastClick.y.toFixed(0) }}
-      </p>
-      <p>
-        Korrekt position: X = {{ correctLocation.x.toFixed(0) }}, Y =
-        {{ correctLocation.y.toFixed(0) }}
-      </p>
       <p>Avstånd i pixlar: {{ this.distance }}</p>
     </footer>
   </div>
@@ -145,7 +137,8 @@ methods: {
       this.timerInterval = null;
       this.timerActive = false;
 
-      if (this.lastClick) {
+      if (this.lastClick) { 
+      this.distance = calculateDistance(this.lastClick, this.correctLocation);
         socket.emit("finalClick", {
           lobbyID: this.lobbyID,
           playerName: this.playerName,
