@@ -15,9 +15,6 @@
 
     <div class="leftGridColumn">
       <!--vänstra området i gridlayouten-->
-      <h1>{{ uiLabels["sales-pitch"] }}</h1>
-      <h2>{{ uiLabels.subHeading }}</h2>
-
       <label class="languageSwitch">
         <input
           type="checkbox"
@@ -31,8 +28,13 @@
       </label>
     </div>
     <main class="mainArea">
-      <!--mittenområdet i gridlayouten (och huvudinnehållet, tror jag det räknas som)-->
-      <div class="Lobby-buttons">
+      <!--mittenområdet i gridlayouten-->
+      <div class="greeting">
+        <h1>{{ uiLabels["sales-pitch"] }}</h1>
+        <h2>{{ uiLabels.subHeading }}</h2>
+      </div>
+
+      <div class="Game-buttons">
         <router-link to="/JoinGameView/" class="button join-button">
           {{ uiLabels.joinGame }}
         </router-link>
@@ -42,7 +44,7 @@
       </div>
     </main>
     <div class="rightGridColumn">
-      <button @click="open = true">FAQ</button>
+      <button class="button FAQ-button" @click="open = true">FAQ</button>
       <!--byt ut "FAQ" till ett label senare-->
       <div v-if="open" class="overlay" @click.self="closeFAQ">
         <!--gör så att FAQ-modalen stängs om man klickar utanför den-->
@@ -131,15 +133,24 @@ export default {
 
 .leftGridColumn {
   grid-area: leftGridColumn;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
 }
 .mainArea {
   grid-area: mainArea;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 }
 .rightGridColumn {
   grid-area: rightGridColumn;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
 }
 /*------------------------------------------------------------------------------------------------ */
 
@@ -163,28 +174,24 @@ header {
   vertical-align: bottom;
   margin-right: 0.5rem;
 }
-.hamburger {
-  color: white;
-  width: 1em;
-  display: flex;
-  align-items: center;
-  justify-content: left;
-  padding: 0.5rem;
-  top: 0;
-  left: 0;
-  height: 2rem;
-  cursor: pointer;
-  font-size: 1.5rem;
+
+/*------------------------------------------------------------------------------------------------ */
+
+
+.greeting {
+  font-size: smaller;
 }
 /*------------------------------------------------------------------------------------------------ */
 
-.Lobby-buttons {
+.Game-buttons {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 2rem;
+  margin-top: 2rem;
 }
+
 .button {
   display: inline-block;
   width: 10rem;
@@ -199,25 +206,13 @@ header {
 }
 
 .create-button {
-  background-color: #7f8280;
+  background-color: #95b29f;
 }
 
-@media screen and (max-width: 50em) {
-  .logo {
-    font-size: 5vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .hamburger::before {
-    content: "☰";
-  }
-  .close::before {
-    content: "✕";
-  }
-  .hide {
-    left: -12em;
-  }
+.FAQ-button {
+  background-color: rgba(108, 92, 231, 0.15);
+  width: 8rem;
+  margin: 2rem;
 }
 /*------------------------------------------------------------------------------------------------ */
 .languageSwitch {
@@ -225,6 +220,7 @@ header {
   width: 70px;
   height: 34px;
   display: inline-block;
+  margin: 2rem;
 }
 
 .languageSwitch input {
@@ -234,7 +230,7 @@ header {
 .languageSlider {
   position: absolute;
   inset: 0;
-  background: #ccc;
+  background: rgba(252, 245, 255, 0.1);
   border-radius: 34px;
   cursor: pointer;
   transition: 0.3s;
@@ -247,7 +243,7 @@ header {
   height: 28px;
   left: 3px;
   top: 3px;
-  background: white;
+  background: #ffffff;
   border-radius: 50%;
   transition: 0.3s;
   z-index: 2;
@@ -266,7 +262,7 @@ header {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 16px;
+  font-size: 18px;
   pointer-events: none;
   transition: opacity 0.3s;
   z-index: 3;
@@ -365,4 +361,16 @@ header {
 .closeFAQbutton:hover {
   background: #5a4bd6;
 }
+
+/*------------------------------------------------------------------------------------------------ */
+
+@media screen and (max-width: 50em) {
+  .logo {
+    font-size: 5vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+/*------------------------------------------------------------------------------------------------ */
 </style>
