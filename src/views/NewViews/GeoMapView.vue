@@ -9,13 +9,15 @@
         <p v-else>Samtliga spelares gissningar:</p>
         </div>
       <div class="initiateNew">
-        <!--obs lägg in knapp här (för skojs skull)-->
+        <button v-if="playerName === participants[0].playerName && !timerActive" @click="startNextRound">
+        Nästa runda
+      </button>
       </div>
     </header>
 
     <main class="map-area">
       <GeoMap
-        v-if="currentMap"
+        v-if="currentMap" 
         :scale="scale"
         :continent-data="currentMap"
         :correct-location="correctLocation"
@@ -68,6 +70,8 @@ export default {
       timeInterval: null,
       timerActive: true,
       participants: [],
+      hostName: '',
+
         };
   },
 
@@ -79,6 +83,8 @@ export default {
   created() {
     this.lobbyID = this.$route.params.lobbyID;
     this.playerName = this.$route.params.playerID;
+  
+
 
     socket.emit('joinGame', this.lobbyID);
 
@@ -87,6 +93,8 @@ export default {
     this.continent = lobby.continent;
     this.numberOfQuestions = lobby.numberOfQuestions;
     this.cities = lobby.cities;
+    this.cityToFind = this.cities[0].name;
+    this.correctLocation = this.cities[0].coordinates;
     this.startTimer();
 
     console.log(
@@ -96,11 +104,7 @@ export default {
       "with the cities:", this.cities
     );
 
-    // här kan du också välja stad utifrån rätt kontinent:
-    // const map = continentData[this.continent];
-    // const randomCity = getRandomCity(map.map);
-    this.cityToFind = this.cities[0].name;
-    this.correctLocation = this.cities[0].coordinates;
+  
   });
   socket.on("participantsUpdate", (participants) => {
   this.participants = participants;
@@ -109,6 +113,15 @@ export default {
 },
 
 methods: {
+
+  startNextRound() {
+  socket.emit('startNextRound', {
+    lobbyID: this.lobbyID
+  });
+},
+
+  
+
   handleMapClick(pos) {
     // Stoppa timern
     // if (this.timerInterval) {

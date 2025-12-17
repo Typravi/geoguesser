@@ -100,7 +100,24 @@ function sockets(io, socket, data) {
   player.latestClick = locationGuess;
   io.to(lobbyID).emit("participantsUpdate", data.getParticipants(lobbyID));
 });
+
+socket.on('startNextRound', function(d) {
+  const lobby = data.getGame(d.lobbyID);
+
+  if (!lobby) return;
+
+  // Ta bort första staden/frågan
+  if (lobby.cities && lobby.cities.length > 0) {
+    lobby.cities.shift();
+  }
+
+  // Skicka uppdaterad gameData till alla i lobbyn
+  io.to(d.lobbyID).emit('gameData', data.getGame(d.lobbyID));
+});
+
+
 }
+
 
 
 export { sockets };
