@@ -9,26 +9,13 @@ const router = createRouter({
       name: "Start",
       component: StartView,
     },
-    {
-      path: "/TestQuestionView",
-      name: "TestQuestionView",
-      component: () => import("../views/NewViews/TestQuestionView.vue"),
-    },
-    {
-      path: "/QuestionView",
-      name: "QuestionView",
-      component: () => import("../views/NewViews/QuestionView.vue"),
-    },
+
     {
       path: "/JoinGameView",
       name: "JoinGameView",
       component: () => import("../views/NewViews/JoinGameView.vue"),
     },
-    {
-      path: "/NewHomeView",
-      name: "NewHomeView",
-      component: () => import("../views/NewViews/NewHomeView.vue"),
-    },
+  
     {
       path: "/ResultView",
       name: "ResultView",
