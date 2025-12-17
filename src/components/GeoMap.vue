@@ -14,7 +14,7 @@
           <!--"v if" nedan för å kolla att vi har klickat(o har en korrekt koordinat med)-->
           <line
             class="lineBetweenDots"
-            v-if="hasGuessed && correctLocation"
+            v-if="!timerActive && correctLocation"
             :x1="correctLocation.x"
             :y1="correctLocation.y"
             :x2="locationGuess.x"
@@ -36,7 +36,7 @@
           }"
         ></div>
         <div
-        v-if="hasGuessed && correctLocation"
+        v-if="!timerActive && correctLocation"
           class="correctMarker"
           v-bind:style="{
             left: correctLocation.x + 'px',
@@ -73,7 +73,7 @@ export default {
   methods: {
     onClick(event) {
       if (this.disabled) return;
-      if (this.hasGuessed) return;
+    //  if (this.hasGuessed) return;
 
       const rect = this.$refs.map.getBoundingClientRect();
 
@@ -89,6 +89,15 @@ export default {
 
       this.$emit("map-click", { x, y });
     },
+
+  handleMapClick(pos) {
+    socket.emit("mapClick", {
+    lobbyID: this.lobbyID,
+    playerName: this.playerName,
+    locationGuess: pos
+  });
+}
+
   },
 };
 </script>

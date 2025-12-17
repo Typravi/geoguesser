@@ -62,8 +62,9 @@ Data.prototype.createGame = function(lobbyID, lang = "en", hostName = null, numb
      questions: [],
      answers: [],
      participants: hostName ? [{
-    playerName: hostName,
-      color: playerColors[0]
+      playerName: hostName,
+      color: playerColors[0], 
+      latestClick: null,
 }] : [],
 
      currentQuestion: 0
@@ -93,7 +94,8 @@ Data.prototype.participateInGame = function (lobbyID, playerName) {
 
     const player = {
       playerName: playerName,
-      color: color
+      color: color, 
+      latestClick: null
     };
 
     lobby.participants.push(player);
