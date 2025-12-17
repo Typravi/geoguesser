@@ -7,7 +7,9 @@
   "changeLanguage": "Byt till svenska",
   "about": "About us",
   "startGame": "Start Game",
-  "gameInstructions": "How to play?",
+  "gameInstructionsQ": "How to play?",
+  "gameInstructionsA": "Click on the map where you think the requested city is located. The player who is closest gets the most points. The total points after all questions are added up and the winner is crowned!",
   "creditsQ": "Who made this game?",
-  "creditsA": "This incredible game was made by the amazing and cool students Elin Granljung, Ivar Jonsson, Ronja Lundberg, Folke Petré and Sandra Silfverswärd"
+  "creditsA": "This incredible game was made by the amazing and cool students Elin Granljung, Ivar Jonsson, Ronja Lundberg, Folke Petré and Sandra Silfverswärd",
+  "close": "Close"
 }

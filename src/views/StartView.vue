@@ -50,18 +50,23 @@
           <div class="FAQaccordion">
             <!--accordion=rullgardinsmeny (betyder egentligen dragspel tror jag)-->
 
-            <button class="FAQquestion" @click="FAQtoggle(0)">Fråga 1</button>
-            <!--byt ut "Fråga X" till ett label senare-->
-            <div v-show="active === 0" class="FAQanswer">Svar 1</div>
-            <!--byt ut "Svar X" till ett label senare-->
-            <button class="FAQquestion" @click="FAQtoggle(1)">Fråga 2</button>
-            <div v-show="active === 1" class="FAQanswer">Svar 2</div>
+            <button class="FAQquestion" @click="FAQtoggle(0)">
+              {{ uiLabels.gameInstructionsQ }}
+            </button>
+            <div v-show="active === 0" class="FAQanswer">
+              {{ uiLabels.gameInstructionsA }}
+            </div>
+            <button class="FAQquestion" @click="FAQtoggle(1)">
+              {{ uiLabels.creditsQ }}
+            </button>
+            <div v-show="active === 1" class="FAQanswer">
+              {{ uiLabels.creditsA }}
+            </div>
             <button class="FAQquestion" @click="FAQtoggle(2)">Fråga 3</button>
             <div v-show="active === 2" class="FAQanswer">Svar 3</div>
             <button class="closeFAQbutton" @click="closeFAQ">
-              Stäng FAQ fönster
+              {{ uiLabels.close }}
             </button>
-            <!--även stängknappen en label? eller bara kryss-->
           </div>
         </div>
       </div>
