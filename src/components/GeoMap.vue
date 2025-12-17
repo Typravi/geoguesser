@@ -28,28 +28,51 @@
     ? Jag undrar om man bör använda svg circle nedan istället för en vanlig div med border radius 50%??
     https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/circle-->
 
-    <div
-    v-if="timerActive && locationGuess.x !== null"
-    class="guessMarker"
-    :style="{
-      left: locationGuess.x + 'px',
-      top: locationGuess.y + 'px',
-    }"
-  ></div>
+    
+  <template v-for="p in participants" :key="p.playerName"> <!--Ev kolla om ok med 2 templates i en / alternativ lösning -->
+      <div
+        v-if="timerActive && locationGuess.x !== null"
+        class="guessMarker"
+        :style="{
+          left: locationGuess.x + 'px',
+          top: locationGuess.y + 'px',
+          backgroundColor: p.color
+         }"
+      ></div>
+  
+      <div
+        v-if="p.latestClick"
+        class="guessMarker"
+        :style="{
+          left: p.latestClick.x + 'px',
+          top: p.latestClick.y + 'px',
+          backgroundColor: p.color,
+          }"
+          
+        :title="p.playerName"
+      ></div>
 
-  <template v-for="p in participants" :key="p.playerName">
-    <div
-      v-if="p.latestClick"
-      class="guessMarker"
-      :style="{
-        left: p.latestClick.x + 'px',
-        top: p.latestClick.y + 'px',
-        backgroundColor: p.color,
-       
-      }"
-      :title="p.playerName"
-    ></div>
-  </template>
+      <div v-if="!timerActive && locationGuess.x !== null"
+        class="nameLabel"
+        :style="{
+          left: p.latestClick.x + 'px',
+          top: p.latestClick.y + 'px',
+          backgroundColor: p.color,
+          }"> 
+          {{p.playerName }}
+      </div>
+
+      <div
+        v-if="!timerActive && locationGuess.x !== null"
+        class="distanceLabel"
+          :style="{
+          left: p.latestClick.x + 'px',
+          top: p.latestClick.y + 'px',
+          backgroundColor: p.color,
+          }"
+          >Avstånd {{distance }} **i pixlar**
+      </div>
+    </template>
 
   <div
     v-if="!timerActive && correctLocation"
@@ -59,8 +82,9 @@
       top: correctLocation.y + 'px',
     }"
   ></div>
-</div>
-    </div>
+
+  </div>
+  </div>
   </div>
 </template>
 
@@ -73,12 +97,8 @@ export default {
     disabled: Boolean,
     timerActive: Boolean,
     timeLeft: Number,
-    
-    participants: {
-    type: Array,
-    default: () => []
-  },
-
+    participants: Array, 
+    distance: Number,
     continentData: {
       type: Object,
       required: true,
@@ -163,7 +183,7 @@ export default {
   position: absolute;
   width: 5%; /*Av kartans storlek, lika stor oavsett skärmstorlek*/
   height: 5%; /*kanske vill vi hellre ha vh? tror de heter vh (beror på skärmen ist)*/
-  background-color: blue; /*Notera att här vill vi i framtiden hämta färg från user (alla har varsin)*/
+  /*Notera att här vill vi i framtiden hämta färg från user (alla har varsin)*/
   border-radius: 50%;
   
   transform: translate(-50%, -50%);
@@ -194,4 +214,24 @@ export default {
   stroke-dasharray: 2 2;
   stroke-width: 6;
 }
+
+.distanceLabel {
+  position: absolute;
+  transform: translate(10%, 10%); /*kan bli tokigt med olika längd så eventuellt byta */
+  background: black;
+  color: white;
+  padding: 2px 6px;
+  font-size: 40px;
+  white-space: nowrap;
+}
+
+.nameLabel {
+  position: absolute;
+  transform: translate(20%, -100%); /*kan bli tokigt med olika längd så eventuellt byta */
+  color: white;
+  padding: 2px 6px;
+  font-size: 40px;
+  white-space: nowrap;
+}
+
 </style>
