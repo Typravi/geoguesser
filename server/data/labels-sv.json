@@ -1,11 +1,13 @@
 {
   "sales-pitch": "Gissa rätt koordinater och klå dina vänner!",
   "subHeading": "Joina ett game eller starta ett eget",
-  "invite": "Bjud in deltagare med den här länken:",
   "createGame": "Skapa lobby",
   "joinGame": "Joina spel",
   "question": "Fråga",
   "changeLanguage": "Change to English",
   "about": "Om oss",
-  "startGame": "Starta spel"
+  "startGame": "Starta spel",
+  "gameInstructions": "Hur spelar man?",
+  "creditsQ": "Vem har skapat detta spel?",
+  "creditsA": "Vi som skapat detta otroliga spel är studenterna Elin Granljung, Ivar Jonsson, Ronja Lundberg, Folke Petré och Sandra Silfverswärd"
 }

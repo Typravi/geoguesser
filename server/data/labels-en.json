@@ -1,12 +1,13 @@
 {
-	"sales-pitch": "Guess the location and beat your friends!",
-	"subHeading": "Join a game or start your own challenge.",
-	"invite": "Invite participants with this link:",
-	"createGame": "Create game",
-	"joinGame": "Join game",
-	"question": "Question",
-	"changeLanguage": "Byt till svenska",
-	"about": "About us", 
-	"startGame": "Start Game"
-	
+  "sales-pitch": "Guess the location and beat your friends!",
+  "subHeading": "Join a game or start your own challenge.",
+  "createGame": "Create game",
+  "joinGame": "Join game",
+  "question": "Question",
+  "changeLanguage": "Byt till svenska",
+  "about": "About us",
+  "startGame": "Start Game",
+  "gameInstructions": "How to play?",
+  "creditsQ": "Who made this game?",
+  "creditsA": "This incredible game was made by the amazing and cool students Elin Granljung, Ivar Jonsson, Ronja Lundberg, Folke Petré and Sandra Silfverswärd"
 }
