@@ -23,6 +23,7 @@
         :time-left="timeLeft"
         :disabled = "!timerActive"
         :participants="participants"
+        :distance = "distance"
         @map-click="handleMapClick"
       />
       <!--timer-->
