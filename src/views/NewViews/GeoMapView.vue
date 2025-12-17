@@ -6,7 +6,7 @@
       <p>Klicka på: {{ cityToFind }}</p>
       <div>
         <p v-if="timerActive">Tid kvar: {{ timeLeft }} s</p>
-        <p v-else>Väntar på andra spelare...</p>
+        <p v-else>Samtliga spelares gissningar:</p>
         </div>
       <div class="initiateNew">
         <!--obs lägg in knapp här (för skojs skull)-->
