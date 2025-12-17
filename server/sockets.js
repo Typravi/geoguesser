@@ -93,6 +93,18 @@ function sockets(io, socket, data) {
    console.log("startGame to server", lobbyID); //check
    io.to(lobbyID).emit("gameStart", lobby); //ändrat från io.to(lobbyID).emit("gameStart", lobbyID)
  });
+
+ socket.on("finalClick", ({ lobbyID, playerName, locationGuess }) => {
+  const lobby = data.getGame(lobbyID);
+  if (!lobby) return;
+
+  const player = lobby.participants.find(p => p.playerName === playerName);
+  if (!player) return;
+
+  player.latestClick = locationGuess;
+
+  io.to(lobbyID).emit("participantsUpdate", data.getParticipants(lobbyID));
+});
 }
 
 

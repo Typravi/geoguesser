@@ -73,7 +73,7 @@ export default {
   methods: {
     onClick(event) {
       if (this.disabled) return;
-      if (this.hasGuessed) return;
+    //  if (this.hasGuessed) return;
 
       const rect = this.$refs.map.getBoundingClientRect();
 
@@ -89,6 +89,23 @@ export default {
 
       this.$emit("map-click", { x, y });
     },
+
+  handleMapClick(pos) {
+  console.log("[GeoMapView] received map-click", pos);
+
+    socket.emit("mapClick", {
+    lobbyID: this.lobbyID,
+    playerName: this.playerName,
+    locationGuess: pos
+  });
+
+  console.log("[GeoMapView] socket.emit mapClick", {
+    lobbyID: this.lobbyID,
+    playerName: this.playerName,
+    locationGuess: pos
+  });
+}
+
   },
 };
 </script>
