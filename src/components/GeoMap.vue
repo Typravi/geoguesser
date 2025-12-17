@@ -28,17 +28,17 @@
     ? Jag undrar om man bör använda svg circle nedan istället för en vanlig div med border radius 50%??
     https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/circle-->
 
-    
-  <template v-for="p in participants" :key="p.playerName"> <!--Ev kolla om ok med 2 templates i en / alternativ lösning -->
-      <div
+    <div
         v-if="timerActive && locationGuess.x !== null"
         class="guessMarker"
         :style="{
           left: locationGuess.x + 'px',
           top: locationGuess.y + 'px',
-          backgroundColor: p.color
          }"
       ></div>
+
+  <template v-for="p in participants" :key="p.playerName"> <!--Ev kolla om ok med 2 templates i en / alternativ lösning -->
+    
   
       <div
         v-if="p.latestClick"
@@ -190,6 +190,8 @@ export default {
   /*transform ovan centrerar punkten i klicket, se referens: https://stackoverflow.com/questions/46184458/transform-translate-50-50*/
   pointer-events: none;
   /*Raden ovan gör pricken "genomskinlig för klick" dvs fångar ej klick, vet ej om de behövs sen men tänker kan va bra till när flera gamers är med?*/
+  background-color: black;
+
 }
 .correctMarker {
   position: absolute;
