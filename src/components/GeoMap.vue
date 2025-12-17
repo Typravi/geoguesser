@@ -74,14 +74,14 @@
       </div>
     </template>
 
-  <!-- <div
+  <div
     v-if="!timerActive && correctLocation"
     class="correctMarker"
     :style="{
       left: correctLocation.x + 'px',
       top: correctLocation.y + 'px',
     }"
-  ></div> -->
+  ></div>
 
   </div>
   </div>
