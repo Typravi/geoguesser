@@ -96,13 +96,8 @@ function sockets(io, socket, data) {
 
  socket.on("finalClick", ({ lobbyID, playerName, locationGuess }) => {
   const lobby = data.getGame(lobbyID);
-  if (!lobby) return;
-
   const player = lobby.participants.find(p => p.playerName === playerName);
-  if (!player) return;
-
   player.latestClick = locationGuess;
-
   io.to(lobbyID).emit("participantsUpdate", data.getParticipants(lobbyID));
 });
 }

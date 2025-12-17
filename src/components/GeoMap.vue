@@ -14,7 +14,7 @@
           <!--"v if" nedan för å kolla att vi har klickat(o har en korrekt koordinat med)-->
           <line
             class="lineBetweenDots"
-            v-if="hasGuessed && correctLocation"
+            v-if="!timerActive && correctLocation"
             :x1="correctLocation.x"
             :y1="correctLocation.y"
             :x2="locationGuess.x"
@@ -36,7 +36,7 @@
           }"
         ></div>
         <div
-        v-if="hasGuessed && correctLocation"
+        v-if="!timerActive && correctLocation"
           class="correctMarker"
           v-bind:style="{
             left: correctLocation.x + 'px',
@@ -91,15 +91,7 @@ export default {
     },
 
   handleMapClick(pos) {
-  console.log("[GeoMapView] received map-click", pos);
-
     socket.emit("mapClick", {
-    lobbyID: this.lobbyID,
-    playerName: this.playerName,
-    locationGuess: pos
-  });
-
-  console.log("[GeoMapView] socket.emit mapClick", {
     lobbyID: this.lobbyID,
     playerName: this.playerName,
     locationGuess: pos

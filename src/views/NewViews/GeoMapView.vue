@@ -21,7 +21,7 @@
         :correct-location="correctLocation"
         :timer-active="timerActive"
         :time-left="timeLeft"
-        :diabled = "!timerActive"
+        :disabled = "!timerActive"
         @map-click="handleMapClick"
       />
       <!--timer-->
@@ -71,7 +71,7 @@ export default {
       lobbyID: null,
       playerName: "",
       numberOfQuestions:null,
-      timeLeft: 30, //Sätt antal sekunder
+      timeLeft: null, //Sätt antal sekunder
       timeInterval: null,
       timerActive: true,
     };
@@ -130,7 +130,7 @@ methods: {
     clearInterval(this.timerInterval);
     this.timerInterval = null;
   }
-  this.timeLeft = 3;
+  this.timeLeft = 10;
   this.timerActive = true;
 
   this.timerInterval = setInterval(() => {
