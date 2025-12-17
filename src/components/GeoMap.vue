@@ -27,34 +27,39 @@
     1. v-if gör så att ingen markör skrivs ut om klick ej skett (i burger va den uppe t vänster)
     ? Jag undrar om man bör använda svg circle nedan istället för en vanlig div med border radius 50%??
     https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/circle-->
-        <div
-          v-if="locationGuess.x !== null"
-          class="guessMarker"
-          v-bind:style="{
-            left: locationGuess.x + 'px',
-            top: locationGuess.y + 'px',
-          }"
-        ></div>
 
-        <div
-    v-for="(pos, i) in finalClicks"
-    :key="i"
+    <div
+    v-if="timerActive && locationGuess.x !== null"
     class="guessMarker"
     :style="{
-      left: pos.x + 'px',
-      top: pos.y + 'px'
+      left: locationGuess.x + 'px',
+      top: locationGuess.y + 'px',
     }"
   ></div>
 
-        <div
-        v-if="!timerActive && correctLocation"
-          class="correctMarker"
-          v-bind:style="{
-            left: correctLocation.x + 'px',
-            top: correctLocation.y + 'px',
-          }"
-        ></div>
-      </div>
+  <template v-for="p in participants" :key="p.playerName">
+    <div
+      v-if="p.latestClick"
+      class="guessMarker"
+      :style="{
+        left: p.latestClick.x + 'px',
+        top: p.latestClick.y + 'px',
+        backgroundColor: p.color,
+       
+      }"
+      :title="p.playerName"
+    ></div>
+  </template>
+
+  <div
+    v-if="!timerActive && correctLocation"
+    class="correctMarker"
+    :style="{
+      left: correctLocation.x + 'px',
+      top: correctLocation.y + 'px',
+    }"
+  ></div>
+</div>
     </div>
   </div>
 </template>
@@ -69,8 +74,10 @@ export default {
     timerActive: Boolean,
     timeLeft: Number,
     
-    finalClicks: {
-      type: Array },
+    participants: {
+    type: Array,
+    default: () => []
+  },
 
     continentData: {
       type: Object,
@@ -158,6 +165,7 @@ export default {
   height: 5%; /*kanske vill vi hellre ha vh? tror de heter vh (beror på skärmen ist)*/
   background-color: blue; /*Notera att här vill vi i framtiden hämta färg från user (alla har varsin)*/
   border-radius: 50%;
+  
   transform: translate(-50%, -50%);
   /*transform ovan centrerar punkten i klicket, se referens: https://stackoverflow.com/questions/46184458/transform-translate-50-50*/
   pointer-events: none;

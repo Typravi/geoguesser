@@ -22,7 +22,7 @@
         :timer-active="timerActive"
         :time-left="timeLeft"
         :disabled = "!timerActive"
-        :final-clicks="finalClicks"
+        :participants="participants"
         @map-click="handleMapClick"
       />
       <!--timer-->
@@ -75,8 +75,8 @@ export default {
       timeLeft: null, //Sätt antal sekunder
       timeInterval: null,
       timerActive: true,
-      finalClicks: [],
-    };
+      participants: [],
+        };
   },
 
   computed: {
@@ -111,10 +111,9 @@ export default {
     this.correctLocation = this.cities[0].coordinates;
   });
   socket.on("participantsUpdate", (participants) => {
-  this.finalClicks = participants
-    .map(p => p.latestClick)
-    .filter(Boolean);
+  this.participants = participants;
 });
+
 },
 
 methods: {
