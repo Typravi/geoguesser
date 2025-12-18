@@ -12,10 +12,12 @@
   "creditsQ": "Vem har skapat detta spel?",
   "creditsA": "Vi som skapat detta otroliga spel är studenterna Elin Granljung, Ivar Jonsson, Ronja Lundberg, Folke Petré och Sandra Silfverswärd",
   "close": "Stäng",
-  "NumOfQuestions": "Antal frågor:",
+  "numOfQuestions": "Antal frågor:",
   "chooseContinent": "Välj världsdel:",
   "yourName": "Ditt namn:",
   "enterYourName": "Ange ditt namn",
   "gameID": "Spel-ID",
-  "enterGameID": "Ange spel-ID"
+  "enterGameID": "Ange spel-ID",
+  "waitFor": "Väntar på att ",
+  "toStart": " ska starta spelet..."
 }

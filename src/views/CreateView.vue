@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>
-      {{ uiLabels.NumOfQuestions }} {{ numberOfQuestions }}
+      {{ uiLabels.numOfQuestions }} {{ numberOfQuestions }}
       <button @click="decreaseAmount">-</button>
       <button @click="increaseAmount">+</button>
     </p>
