@@ -207,7 +207,7 @@ header {
 }
 
 .FAQ-button {
-  background-color: rgba(108, 92, 231, 0.15);
+  background-color:  #cdcae590;
   width: 8rem;
   margin: 2rem;
 }
@@ -227,7 +227,7 @@ header {
 .languageSlider {
   position: absolute;
   inset: 0;
-  background: rgba(252, 245, 255, 0.1);
+  background:  #cdcae5;
   border-radius: 34px;
   cursor: pointer;
   transition: 0.3s;
@@ -247,7 +247,7 @@ header {
 }
 
 .languageSwitch input:checked + .languageSlider {
-  background: #6c5ce7;
+  background: #cdcae5;
 }
 
 .languageSwitch input:checked + .languageSlider::before {
