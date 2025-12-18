@@ -64,8 +64,6 @@
             <div v-show="active === 1" class="FAQanswer">
               {{ uiLabels.creditsA }}
             </div>
-            <button class="FAQquestion" @click="FAQtoggle(2)">Fråga 3</button>
-            <div v-show="active === 2" class="FAQanswer">Svar 3</div>
             <button class="closeFAQbutton" @click="closeFAQ">
               {{ uiLabels.close }}
             </button>
