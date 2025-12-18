@@ -7,9 +7,9 @@
         v-on:click="toggleNav"
       ></div>
       <div class="logo">
-        <img src="/img/jordklot.jpg" />
-        Geoguesser
-        <img src="/img/jordklot.jpg" />
+        <img src="/img/ChatGPT_jordklot.png" />
+        {{ uiLabels.ourName }}
+        <img src="/img/ChatGPT_jordklot.png" />
       </div>
     </header>
 
@@ -207,7 +207,7 @@ header {
 }
 
 .FAQ-button {
-  background-color:  #cdcae590;
+  background-color: #cdcae590;
   width: 8rem;
   margin: 2rem;
 }
@@ -227,7 +227,7 @@ header {
 .languageSlider {
   position: absolute;
   inset: 0;
-  background:  #cdcae5;
+  background: #cdcae5;
   border-radius: 34px;
   cursor: pointer;
   transition: 0.3s;

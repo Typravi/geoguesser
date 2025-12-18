@@ -1,6 +1,7 @@
 {
+  "ourName": "Geoguesser",
   "sales-pitch": "Gissa rätt koordinater och klå dina vänner!",
-  "subHeading": "Joina ett game eller starta ett eget",
+  "subHeading": "Joina ett spel eller starta ett eget",
   "createGame": "Skapa spel",
   "joinGame": "Joina spel",
   "question": "Fråga",
