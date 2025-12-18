@@ -71,6 +71,7 @@ export default {
 
   data() {
     return {
+      uiLabels: {},
       continent: null,
       cityToFind: null,
       scale: 0.35,
