@@ -11,5 +11,9 @@
   "gameInstructionsA": "Klicka på kartan där du tror att staden som efterfrågas ligger. Den av er spelare som är närmast får mest poäng. Den sammanlagda poängen efter samtliga frågor räknas ihop och vinnaren koras!",
   "creditsQ": "Vem har skapat detta spel?",
   "creditsA": "Vi som skapat detta otroliga spel är studenterna Elin Granljung, Ivar Jonsson, Ronja Lundberg, Folke Petré och Sandra Silfverswärd",
-  "close": "Stäng"
+  "close": "Stäng",
+  "NumOfQuestions": "Antal frågor:",
+  "chooseContinent": "Välj världsdel:",
+  "yourName": "Ditt namn:",
+  "enterYourName": "Ange ditt namn"
 }
