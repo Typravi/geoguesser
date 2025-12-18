@@ -19,5 +19,12 @@
   "gameID": "Game-ID",
   "enterGameID": "Enter Game-ID",
   "waitFor": "Waiting for ",
-  "toStart": " to start the game..."
+  "toStart": " to start the game...",
+  "clickOn": "Click on: ",
+  "contPlayed": "Continent played: ",
+  "timeText": "Time left...",
+  "pGuessText": "Guesses of all players: ",
+  "nextRoundText": "Next round",
+  "seeResultsText": "See results",
+  "distInPix": "Distance in pixels:"
 }

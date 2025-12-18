@@ -19,5 +19,12 @@
   "gameID": "Spel-ID",
   "enterGameID": "Ange spel-ID",
   "waitFor": "Väntar på att ",
-  "toStart": " ska starta spelet..."
+  "toStart": " ska starta spelet...",
+  "clickOn": "Klicka på: ",
+  "contPlayed": "Spelad kontinent: ",
+  "timeText": "Tid kvar...",
+  "pGuessText": "Samtliga spelares gissningar: ",
+  "nextRoundText": "Nästa runda",
+  "seeResultsText": "Se resultat",
+  "distInPix": "Avstånd i pixlar:"
 }

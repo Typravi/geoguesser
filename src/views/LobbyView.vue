@@ -2,6 +2,7 @@
   <div>
     <h1>{{ uiLabels.gameID }}: {{ lobbyID }}</h1>
     <p>Hostname: {{ hostName }}</p>
+     <p> {{uiLabels.contPlayed}} {{ continent }}</p>
     <p>{{ uiLabels.numOfQuestions }} {{ numberOfQuestions }}</p>
   </div>
   <div>
