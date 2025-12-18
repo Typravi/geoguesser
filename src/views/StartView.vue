@@ -153,6 +153,8 @@ export default {
 /*------------------------------------------------------------------------------------------------ */
 
 header {
+  display: flex;
+  justify-content: center;
   grid-area: header;
   width: 100%;
   display: grid;
@@ -161,6 +163,8 @@ header {
   font-family: var(--logo-font);
 }
 .logo {
+  display: flex;
+  align-items: center;
   text-transform: uppercase;
   letter-spacing: 0.25em;
   font-size: 4.5rem;
