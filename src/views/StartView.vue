@@ -156,7 +156,6 @@ export default {
 
 header {
   grid-area: header;
-  background-color: purple;
   width: 100%;
   display: grid;
   grid-template-columns: 2em auto;
@@ -165,9 +164,10 @@ header {
 .logo {
   text-transform: uppercase;
   letter-spacing: 0.25em;
-  font-size: 2.5rem;
-  color: white;
+  font-size: 4.5rem;
+  color: rgb(120, 159, 211);
   padding-top: 0.2em;
+  font-family: Atop;
 }
 .logo img {
   height: 2.5rem;

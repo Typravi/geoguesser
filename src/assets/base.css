@@ -1,7 +1,7 @@
 :root {
   --foreground-color: red;
   --background-color: green;
-  --main-background: radial-gradient(#e66465, #2d3ce7);
+  --main-background: radial-gradient(#477952, #2d3ce7);
 }
 body {
   margin: 0;
