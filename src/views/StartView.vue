@@ -22,8 +22,8 @@
           @change="switchLanguage"
         />
         <span class="languageSlider">
-          <span class="emoji sweEmoji">🇸🇪</span>
-          <span class="emoji engEmoji">🇬🇧</span>
+          <span class="emoji sweEmoji">🇬🇧</span>
+          <span class="emoji engEmoji">🇸🇪</span>
         </span>
       </label>
     </div>
@@ -176,7 +176,6 @@ header {
 }
 
 /*------------------------------------------------------------------------------------------------ */
-
 
 .greeting {
   font-size: smaller;
