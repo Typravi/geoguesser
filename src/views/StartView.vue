@@ -22,8 +22,8 @@
           @change="switchLanguage"
         />
         <span class="languageSlider">
-          <span class="emoji sweEmoji">🇬🇧</span>
-          <span class="emoji engEmoji">🇸🇪</span>
+          <span class="emoji sweEmoji">🇸🇪</span>
+          <span class="emoji engEmoji">🇬🇧</span>
         </span>
       </label>
     </div>
@@ -160,6 +160,7 @@ header {
   display: grid;
   grid-template-columns: 2em auto;
   padding: 1rem 2rem;
+  font-family: var(--logo-font);
 }
 .logo {
   text-transform: uppercase;
@@ -167,7 +168,6 @@ header {
   font-size: 4.5rem;
   color: rgb(120, 159, 211);
   padding-top: 0.2em;
-  font-family: Atop;
 }
 .logo img {
   height: 2.5rem;
@@ -269,21 +269,12 @@ header {
 
 .engEmoji {
   left: 8px;
-  opacity: 1;
 }
 
 .sweEmoji {
   right: 8px;
-  opacity: 0;
 }
 
-.languageSwitch input:checked + .languageSlider .engEmoji {
-  opacity: 0;
-}
-
-.languageSwitch input:checked + .languageSlider .sweEmoji {
-  opacity: 1;
-}
 /*------------------------------------------------------------------------------------------------ */
 
 .overlay {
