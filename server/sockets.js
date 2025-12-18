@@ -103,20 +103,24 @@ function sockets(io, socket, data) {
   io.to(lobbyID).emit("participantsUpdate", data.getParticipants(lobbyID));
 });
 
-socket.on('startNextRound', function(d) {
+socket.on('startNextRound', (d) => {
   const lobby = data.getGame(d.lobbyID);
-
   if (!lobby) return;
 
-  // Ta bort första staden/frågan
-  if (lobby.cities && lobby.round <= lobby.cities.length ) {
+  if (lobby.cities && lobby.round < lobby.cities.length) {
     lobby.round += 1;
+
+    io.to(d.lobbyID).emit(
+      'gameData',
+      data.getGame(d.lobbyID)
+    );
+  } else {
+    io.to(d.lobbyID).emit(
+      'resultsView',
+      data.getGame(d.lobbyID)
+    );
   }
-
-  // Skicka uppdaterad gameData till alla i lobbyn
-  io.to(d.lobbyID).emit('gameData', data.getGame(d.lobbyID));
 });
-
 
 }
 

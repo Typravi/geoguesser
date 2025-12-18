@@ -12,7 +12,7 @@
         <button v-if="playerName === participants[0].playerName && round!==numberOfQuestions && !timerActive" @click="startNextRound">
         Nästa runda
       </button>
-      <button v-if="playerName === participants[0].playerName && !timerActive && round===numberOfQuestions" @click="getResults">
+      <button v-if="playerName === participants[0].playerName && !timerActive && round===numberOfQuestions" @click="startNextRound">
         Se resultat
       </button>
       </div>
@@ -94,6 +94,11 @@ export default {
 
     socket.emit('joinGame', this.lobbyID);
 
+    socket.on("resultsView", (lobby) => {
+    console.log("Going to ResultsView", lobby);
+    this.$router.push(`/ResultsView/${this.lobbyID}/${this.playerName}`);
+  });
+
   // lyssna på gameData i GeoMapView också
   socket.on('gameData', (lobby) => {
     this.continent = lobby.continent;
@@ -121,9 +126,7 @@ export default {
 
 methods: {
 
-  getResults () {
 
-  },
 
   startNextRound() {
     this.lastClick = null;
