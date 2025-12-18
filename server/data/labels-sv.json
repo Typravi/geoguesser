@@ -1,7 +1,7 @@
 {
   "sales-pitch": "Gissa rätt koordinater och klå dina vänner!",
   "subHeading": "Joina ett game eller starta ett eget",
-  "createGame": "Skapa lobby",
+  "createGame": "Skapa spel",
   "joinGame": "Joina spel",
   "question": "Fråga",
   "changeLanguage": "Change to English",
@@ -15,5 +15,7 @@
   "NumOfQuestions": "Antal frågor:",
   "chooseContinent": "Välj världsdel:",
   "yourName": "Ditt namn:",
-  "enterYourName": "Ange ditt namn"
+  "enterYourName": "Ange ditt namn",
+  "gameID": "Spel-ID",
+  "enterGameID": "Ange spel-ID"
 }

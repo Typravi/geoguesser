@@ -15,5 +15,7 @@
   "NumOfQuestions": "Number of questions:",
   "chooseContinent": "Choose continent:",
   "yourName": "Your name:",
-  "enterYourName": "Type your name"
+  "enterYourName": "Type your name",
+  "gameID": "Game-ID",
+  "enterGameID": "Enter Game-ID"
 }
