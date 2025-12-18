@@ -71,6 +71,7 @@ export default {
 
   data() {
     return {
+      lang: localStorage.getItem("lang") || "en",
       uiLabels: {},
       continent: null,
       cityToFind: null,
@@ -96,6 +97,8 @@ export default {
     },
   },
   created() {
+    socket.on("uiLabels", (labels) => (this.uiLabels = labels));
+    socket.emit("getUILabels", this.lang);
     this.lobbyID = this.$route.params.lobbyID;
     this.playerName = this.$route.params.playerID;
 
