@@ -5,7 +5,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  background: radial-gradient(#e66465, #2d3ce7);
+  background: var(--main-background);
   min-height: 100vh;
 }
-
