@@ -88,6 +88,7 @@ export default {
       participants: [],
       hostName: "",
       round: null,
+      playerScore: 0,
     };
   },
 
@@ -180,6 +181,7 @@ export default {
               lobbyID: this.lobbyID,
               playerName: this.playerName,
               locationGuess: this.lastClick,
+              playerScore: this.distance,
             });
           }
 

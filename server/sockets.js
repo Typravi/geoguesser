@@ -96,10 +96,11 @@ function sockets(io, socket, data) {
    io.to(lobbyID).emit("gameStart", lobby); //ändrat från io.to(lobbyID).emit("gameStart", lobbyID)
  });
 
- socket.on("finalClick", ({ lobbyID, playerName, locationGuess }) => {
+ socket.on("finalClick", ({ lobbyID, playerName, locationGuess, playerScore }) => {
   const lobby = data.getGame(lobbyID);
   const player = lobby.participants.find(p => p.playerName === playerName);
   player.latestClick = locationGuess;
+  player.playerScore = playerScore;
   io.to(lobbyID).emit("participantsUpdate", data.getParticipants(lobbyID));
 });
 

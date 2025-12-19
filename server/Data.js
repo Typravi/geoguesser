@@ -66,6 +66,7 @@ Data.prototype.createGame = function(lobbyID, lang = "en", hostName = null, numb
       playerName: hostName,
       color: playerColors[0], 
       latestClick: null,
+      playerScore: 0
 }] ,
      currentQuestion: 0
    };
@@ -95,7 +96,8 @@ Data.prototype.participateInGame = function (lobbyID, playerName) {
     const player = {
       playerName: playerName,
       color: color, 
-      latestClick: null
+      latestClick: null,
+      playerScore: 0
     };
 
     lobby.participants.push(player);
