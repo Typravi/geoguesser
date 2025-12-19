@@ -1,41 +1,52 @@
 <template>
-  <div class="flexStyleWrapper">
-    <div class="numberArea">
-      {{ uiLabels.numOfQuestions }} {{ numberOfQuestions }}
-      <button class="button minusButton" @click="decreaseAmount">-</button>
-      <button class="button plusButton" @click="increaseAmount">+</button>
-    </div>
-    <div class="continentArea">
-      <p>{{ uiLabels.chooseContinent }}</p>
-      <div class="continentChooserButton">
-        <button class="button leftArrow" @click="choseNextContinent"><</button>
-        {{ continent }}
-        <button class="button rightArrow" @click="choseNextContinent">></button>
+  <div class="flexOuterWrapper">
+    <div class="flexInnerWrapper1">
+      <div class="continentArea">
+        <p>{{ uiLabels.chooseContinent }}</p>
+        <div class="continentChooserButton">
+          <button class="button leftArrow" @click="choseNextContinent">
+            <
+          </button>
+          {{ continent }}
+          <button class="button rightArrow" @click="choseNextContinent">
+            >
+          </button>
+        </div>
+      </div>
+
+      <div class="numberArea">
+        <p>{{ uiLabels.numOfQuestions }}</p>
+        <div class="numberButtons">
+          <button class="button minusButton" @click="decreaseAmount">-</button> 
+         <p>{{ numberOfQuestions }}</p> 
+          <button class="button plusButton" @click="increaseAmount">+</button>
+        </div>
       </div>
     </div>
-
-    <div class="nameArea">
-      <p>
-        <label for="name">{{ uiLabels.yourName }}</label
-        ><br />
-        <input
-          class="inputNameBox"
-          type="text"
-          v-model="playerName"
-          id="playerName"
-          :placeholder="uiLabels.enterYourName"
-        />
-      </p>
-    </div>
-    <div class="createArea">
-      <div class="createGameButtonArea">
-        <button
-          class="button createGameButton"
-          v-on:click="goToLobby"
-          :disabled="!playerName.trim()"
-        >
-          {{ uiLabels.createGame }}
-        </button>
+    <div class="flexInnerWrapper2">
+      <div class="nameArea">
+        <p>
+          <label for="name">{{ uiLabels.yourName }}</label
+          ><br />
+          <input
+            class="inputNameBox"
+            type="text"
+            v-model="playerName"
+            id="playerName"
+            :placeholder="uiLabels.enterYourName"
+          />
+        </p>
+      </div>
+      <div class="createArea">
+        <div class="createGameButtonArea">
+          <button
+            class="button createGameButton"
+            v-on:click="goToLobby"
+            :disabled="!playerName.trim()"
+          >
+            {{ uiLabels.createGame }}
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -128,14 +139,28 @@ export default {
 </script>
 
 <style>
-.flexStyleWrapper {
+.flexOuterWrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   align-items: center;
-  justify-content: space-around;
-  gap: 2rem;
+  justify-content: flex-start;
+  gap: 6rem;
 }
+
+.flexInnerWrapper1 {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  margin-top: 8rem;
+}
+
+.flexInnerWrapper2 {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 /*-------- Nedan har använts för att underlätta styling, låt gärna ligga kvar tills vi är helt klara 
 .nameArea {
   background-color: aliceblue;
@@ -153,7 +178,7 @@ export default {
 */
 
 .button {
-  width: 10rem;
+  width: 12rem;
   padding: 0.8rem 2rem;
   color: var(--button-textcolor);
   border-radius: 10px;
@@ -173,14 +198,37 @@ export default {
   height: 1.5em;
   padding: 0;
   color: black;
+  border-radius: 50%;
+  font-size: 1.2rem;
 }
 
-.createGameButton{
-  background-color: var(--createbutton-color);
+.numberArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10%;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+}
+
+.continentArea {
+  border-radius: 10%;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+}
+
+.numberButtons {
+  display: flex;
+  flex-direction: row;
 }
 
 .inputNameBox {
-color: black;
-background-color: rgb(222, 211, 238);
+  color: black;
+  background-color: rgb(222, 211, 238);
+}
+
+.createGameButton {
+  background-color: var(--createbutton-color);
 }
 </style>
