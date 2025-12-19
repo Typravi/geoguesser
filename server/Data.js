@@ -62,12 +62,11 @@ Data.prototype.createGame = function(lobbyID, lang = "en", hostName = null, numb
      round: round,
      questions: [],
      answers: [],
-     participants: hostName ? [{
+     participants: [{
       playerName: hostName,
       color: playerColors[0], 
       latestClick: null,
-}] : [],
-
+}] ,
      currentQuestion: 0
    };
    this.lobbies[lobbyID] = lobby;

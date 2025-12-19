@@ -52,7 +52,7 @@
         :title="p.playerName"
       ></div>
 
-      <div v-if="!timerActive && locationGuess.x !== null"
+      <div v-if="p.latestClick && !timerActive && locationGuess.x !== null"
         class="nameLabel"
         :style="{
           left: p.latestClick.x + 'px',
@@ -63,7 +63,7 @@
       </div>
 
       <div
-        v-if="!timerActive && locationGuess.x !== null"
+        v-if="p.latestClick && !timerActive && locationGuess.x !== null"
         class="distanceLabel"
           :style="{
           left: p.latestClick.x + 'px',

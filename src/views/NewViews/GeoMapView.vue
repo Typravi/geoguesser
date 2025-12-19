@@ -1,7 +1,7 @@
 <template>
   <div class="GeoMapView">
     <header class="header">
-      <h1>GeoMap (under utveckling hehe)</h1>
+      <h1>GeoMap</h1>
       <p>{{ uiLabels.clickOn }} {{ cityToFind }}</p>
       <div>
         <p v-if="timerActive">{{ uiLabels.timeText }} {{ timeLeft }}</p>
@@ -10,7 +10,7 @@
       <div class="initiateNew">
         <button
           v-if="
-            playerName === participants[0].playerName &&
+            playerName === participants?.[0]?.playerName &&
             round !== numberOfQuestions &&
             !timerActive
           "
@@ -20,7 +20,7 @@
         </button>
         <button
           v-if="
-            playerName === participants[0].playerName &&
+            playerName === participants?.[0]?.playerName &&
             !timerActive &&
             round === numberOfQuestions
           "
