@@ -66,7 +66,8 @@ Data.prototype.createGame = function(lobbyID, lang = "en", hostName = null, numb
       playerName: hostName,
       color: playerColors[0], 
       latestClick: null,
-      playerScore: 0
+      totalScore: 0,
+      roundScore: 0,
 }] ,
      currentQuestion: 0
    };
@@ -97,7 +98,8 @@ Data.prototype.participateInGame = function (lobbyID, playerName) {
       playerName: playerName,
       color: color, 
       latestClick: null,
-      playerScore: 0
+      totalScore: 0,
+      roundScore: 0,
     };
 
     lobby.participants.push(player);

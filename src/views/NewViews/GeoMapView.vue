@@ -88,7 +88,7 @@ export default {
       participants: [],
       hostName: "",
       round: null,
-      playerScore: 0,
+      roundScore: 0,
     };
   },
 
@@ -177,11 +177,12 @@ export default {
               this.lastClick,
               this.correctLocation
             );
+            
             socket.emit("finalClick", {
               lobbyID: this.lobbyID,
               playerName: this.playerName,
               locationGuess: this.lastClick,
-              playerScore: this.distance,
+              roundScore: this.distance,
             });
           }
 
