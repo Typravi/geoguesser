@@ -1,6 +1,6 @@
 <template>
   <div class="ScorePanel">
-    <h3>{{ scorePanelTitle }}</h3>
+    <h3>{{ title }}</h3>
     <hr />
     <ul>
       <li 
@@ -15,7 +15,7 @@
           ></span>
           <span class="name">{{ p.playerName }}</span>
         </div>
-        <span class="score">{{ p.totalScore || 0 }} p</span>
+        <span class="score">{{p.totalScore || 0 }} p</span>
       </li>
     </ul>
   </div>
@@ -27,13 +27,13 @@ export default {
   props: {
   participants: Array,
   currentPlayerName: String,
-  scorePanelTitle: String,
+  title: String,
 },
   computed: {
   sortedParticipants() {
     // Sorterar så att spelaren med LÄGST poäng (minst avstånd) hamnar först
     return [...this.participants].sort(
-      (a, b) => (a.points || 0) - (b.points || 0)
+      (a, b) => (a.totalScore || 0) - (b.totalScore|| 0)
     );
   }
 }
@@ -50,6 +50,8 @@ export default {
   border: 1px solid rgba(255, 255, 255, 0.2);
   min-width: 180px;
   color: white;
+  max-width: 200px;
+  
 }
 
 h3 {

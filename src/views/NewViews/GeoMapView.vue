@@ -47,6 +47,13 @@
       />
       <!--timer-->
     </main>
+    <div class="score-panel">
+    <ScorePanel 
+        :participants="participants"
+        :currentPlayerName="playerName"
+        :title="uiLabels.scorePanelTitle"
+      />
+    </div>
     <footer v-if="!timerActive && lastClick">
       <!--ta bort footern när ej behövs mer, anv för att få koord utskrivna så jag ser vad som händer-->
       <!--notera att även ur data och handlemapclick behövs det städas när footern tas bort -->
@@ -57,6 +64,7 @@
 
 <script>
 import GeoMap from "../../components/GeoMap.vue";
+import ScorePanel from "../../components/ScorePanel.vue";
 import continentData from "../../assets/maps.json";
 import { calculateDistance } from "../../assets/logic";
 import io from "socket.io-client";
@@ -67,6 +75,7 @@ export default {
 
   components: {
     GeoMap,
+    ScorePanel,
   },
 
   data() {
@@ -182,7 +191,7 @@ export default {
               lobbyID: this.lobbyID,
               playerName: this.playerName,
               locationGuess: this.lastClick,
-              roundScore: this.distance,
+              roundScore: Math.round(this.distance),
             });
           }
 
@@ -217,5 +226,11 @@ export default {
   justify-content: center; /* centrerar horisontellt */
   align-items: center; /* centrerar vertikalt */
   padding: 16px;
+}
+
+.score-panel {
+  position: absolute;
+  justify-content: center;
+  margin: 30px;
 }
 </style>
