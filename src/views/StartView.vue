@@ -168,7 +168,7 @@ header {
   text-transform: uppercase;
   letter-spacing: 0.25em;
   font-size: 4.5rem;
-  color: rgb(120, 159, 211);
+  color: var(--logo-color);
   padding-top: 0.2em;
 }
 .logo img {
@@ -197,8 +197,8 @@ header {
   display: inline-block;
   width: 10rem;
   padding: 0.8rem 2rem;
-  background-color: rgb(57, 142, 57);
-  color: white;
+  background-color: var(--createbutton-color);
+  color: var(--button-textcolor);
   border-radius: 10px;
   text-decoration: none; /* tar bort blå underline */
   font-size: 1.2rem;
@@ -207,11 +207,11 @@ header {
 }
 
 .create-button {
-  background-color: #95b29f;
+  background-color: var(--joinbutton-color);
 }
 
 .FAQ-button {
-  background-color: #cdcae590;
+  background-color: var(--button-purplecolor);
   width: 8rem;
   margin: 2rem;
 }
@@ -231,7 +231,7 @@ header {
 .languageSlider {
   position: absolute;
   inset: 0;
-  background: #cdcae5;
+  background: var( --languageSwitch-BG); /*färgen på slidern om ej icheckad */
   border-radius: 34px;
   cursor: pointer;
   transition: 0.3s;
@@ -244,14 +244,14 @@ header {
   height: 28px;
   left: 3px;
   top: 3px;
-  background: #ffffff;
+  background: var(--languageSwitch-circle);
   border-radius: 50%;
   transition: 0.3s;
   z-index: 2;
 }
 
 .languageSwitch input:checked + .languageSlider {
-  background: #cdcae5;
+  background: var( --languageSwitch-BG); /*färgen på slidern om icheckad */
 }
 
 .languageSwitch input:checked + .languageSlider::before {
@@ -282,7 +282,7 @@ header {
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55); /* genomskinlig */
+  background: var(--overlay-BG); /* genomskinlig */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -290,7 +290,7 @@ header {
 }
 
 .FAQmodal {
-  background: #f6f7fb;
+  background: var(--FAQ-modal-BG);
   width: 90%;
   max-width: 600px;
   max-height: 85vh;
@@ -309,7 +309,7 @@ header {
 .FAQquestion {
   width: 100%;
   text-align: left;
-  background: #ffffff;
+  background: var(--FAQ-Q-color);
   border: none;
   border-radius: 12px;
   padding: 1rem;
@@ -320,17 +320,17 @@ header {
 }
 
 .FAQquestion:hover {
-  background: rgba(108, 92, 231, 0.15);
-  color: #2d2e32;
+  background: var(--FAQ-Q-hover-color);
+  color: var(--FAQ-Q-hover-textcolor);
 }
 
 .FAQanswer {
   padding: 0.75rem 1rem 1rem;
-  background: rgba(238, 197, 255, 0.1);
+  background: var(--FAQ-A-color);
   border-radius: 0 0 12px 12px;
   font-size: 0.95rem;
   line-height: 1.5;
-  color: #333;
+  color: var(--FAQ-A-textcolor);
 }
 
 .closeFAQbutton {
@@ -342,8 +342,8 @@ header {
   border: none;
   border-radius: 10px;
 
-  background: #6c5ce7;
-  color: white;
+  background: var(--FAQ-closebutton-color);
+  color: var(--FAQ-closebutton-textcolor);
   font-weight: 600;
 
   cursor: pointer;
@@ -351,7 +351,7 @@ header {
 }
 
 .closeFAQbutton:hover {
-  background: #5a4bd6;
+  background: var(--FAQ-closebutton-hover-color);
 }
 
 /*------------------------------------------------------------------------------------------------ */

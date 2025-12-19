@@ -3,8 +3,26 @@
   --background-color: green;
   --main-background: radial-gradient(#477952, #2d3ce7);
   --logo-font: Atop;
+  --logo-color: rgb(120, 159, 211);
+  --createbutton-color: rgb(57, 142, 57);
+  --joinbutton-color:  #95b29f;
+  --button-textcolor: white;
+  --button-purplecolor: #cdcae590;
+  --FAQ-modal-BG: #f6f7fb;
+  --FAQ-Q-color: #ffffff;
+  --FAQ-Q-hover-color:  rgba(108, 92, 231, 0.15);
+  --FAQ-Q-hover-textcolor:  #2d2e32;
+  --FAQ-A-color:  rgba(238, 197, 255, 0.1);
+  --FAQ-A-textcolor:  #333;
+  --FAQ-closebutton-color:  #6c5ce7;
+  --FAQ-closebutton-textcolor: white;
+  --FAQ-closebutton-hover-color: #5a4bd6;
+  --overlay-BG:  rgba(0, 0, 0, 0.55);
+  --languageSwitch-BG: #cdcae5;
+  --languageSwitch-circle: #ffffff;
 }
 body {
   margin: 0;
   padding: 0;
 }
+
