@@ -197,7 +197,6 @@ header {
   display: inline-block;
   width: 10rem;
   padding: 0.8rem 2rem;
-  background-color: var(--createbutton-color);
   color: var(--button-textcolor);
   border-radius: 10px;
   text-decoration: none; /* tar bort blå underline */
@@ -207,9 +206,12 @@ header {
 }
 
 .create-button {
+  background-color: var(--createbutton-color);
+}
+.join-button {
   background-color: var(--joinbutton-color);
 }
-
+/*------------------------------------------------------------------------------------------------ */
 .FAQ-button {
   background-color: var(--button-purplecolor);
   width: 8rem;
@@ -231,7 +233,7 @@ header {
 .languageSlider {
   position: absolute;
   inset: 0;
-  background: var( --languageSwitch-BG); /*färgen på slidern om ej icheckad */
+  background: var(--languageSwitch-BG); /*färgen på slidern om ej icheckad */
   border-radius: 34px;
   cursor: pointer;
   transition: 0.3s;
@@ -251,7 +253,7 @@ header {
 }
 
 .languageSwitch input:checked + .languageSlider {
-  background: var( --languageSwitch-BG); /*färgen på slidern om icheckad */
+  background: var(--languageSwitch-BG); /*färgen på slidern om icheckad */
 }
 
 .languageSwitch input:checked + .languageSlider::before {
