@@ -4,18 +4,18 @@
     <hr />
     <ul>
       <li 
-        v-for="player in sortedParticipants" 
-        :key="player.playerName"
-        :class="{ 'is-me': player.playerName === currentPlayerName }"
+        v-for="p in sortedParticipants" 
+        :key="p.playerName"
+        :class="{ 'is-me': p.playerName === currentPlayerName }"
       >
         <div class="player-info">
           <span 
             class="color-dot" 
-            :style="{ backgroundColor: player.color }"
+            :style="{ backgroundColor: p.color }"
           ></span>
-          <span class="name">{{ player.playerName }}</span>
+          <span class="name">{{ p.playerName }}</span>
         </div>
-        <span class="score">{{ player.playerScore || 0 }} p</span>
+        <span class="score">{{ p.totalScore || 0 }} p</span>
       </li>
     </ul>
   </div>
@@ -30,12 +30,13 @@ export default {
   scorePanelTitle: String,
 },
   computed: {
-    sortedParticipants() {
-      
-      return [...this.participants].sort(
-        (a, b) => (b.points || 0) - (a.points || 0)); //gör en kopia av deltagarlistan och sorterar den så att spelaren med högst poäng hamnar först,
-    }
+  sortedParticipants() {
+    // Sorterar så att spelaren med LÄGST poäng (minst avstånd) hamnar först
+    return [...this.participants].sort(
+      (a, b) => (a.points || 0) - (b.points || 0)
+    );
   }
+}
   
 };
 </script>
