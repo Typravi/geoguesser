@@ -27,5 +27,6 @@
   "pGuessText": "Samtliga spelares gissningar: ",
   "nextRoundText": "Nästa runda",
   "seeResultsText": "Se resultat",
-  "distInPix": "Avstånd i pixlar:"
+  "distInPix": "Avstånd i pixlar:",
+  "scorePanelTitle": "Resultattavla"
 }

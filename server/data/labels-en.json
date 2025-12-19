@@ -27,5 +27,6 @@
   "pGuessText": "Guesses of all players: ",
   "nextRoundText": "Next round",
   "seeResultsText": "See results",
-  "distInPix": "Distance in pixels:"
+  "distInPix": "Distance in pixels:",
+  "scorePanelTitle": "Leaderboard"
 }
