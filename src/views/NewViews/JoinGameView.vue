@@ -1,5 +1,8 @@
 <template>
   <div class="flexWrapper">
+    <header class="logoHeader">
+      <LogoComponent :text="uiLabels.ourName" />
+    </header>
     <div class="innerWrapper">
       <div class="enterNameArea">
         <p>
@@ -44,11 +47,13 @@
 </template>
 
 <script>
+import LogoComponent from "../../components/LogoComponent.vue";
 import io from "socket.io-client";
 const socket = io("localhost:3000");
 
 export default {
   name: "JoinGameView",
+  components: { LogoComponent },
   data: function () {
     return {
       lang: localStorage.getItem("lang") || "en",
@@ -115,6 +120,12 @@ export default {
   justify-content: flex-start;
   gap: 4rem;
 }
+.logoHeader {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 1rem 2rem;
+}
 
 .innerWrapper {
   display: flex;
@@ -152,4 +163,5 @@ export default {
 .joinButton {
   background-color: var(--joinbutton-color);
 }
+
 </style>

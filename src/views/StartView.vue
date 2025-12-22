@@ -1,16 +1,8 @@
 <template>
   <div class="gridstyleWrapper">
     <!--wrapper till gridlayouten-->
-    <header>
-      <div
-        v-bind:class="['hamburger', { close: !hideNav }]"
-        v-on:click="toggleNav"
-      ></div>
-      <div class="logo">
-        <img src="/img/ChatGPT_jordklot.png" />
-        {{ uiLabels.ourName }}
-        <img src="/img/ChatGPT_jordklot.png" />
-      </div>
+    <header class="header">
+      <LogoComponent :text="uiLabels.ourName" />
     </header>
 
     <div class="leftGridColumn">
@@ -75,15 +67,13 @@
 </template>
 
 <script>
-import ResponsiveNav from "@/components/ResponsiveNav.vue";
+import LogoComponent from "../components/LogoComponent.vue";
 import io from "socket.io-client";
 const socket = io("localhost:3000");
 
 export default {
   name: "StartView",
-  components: {
-    ResponsiveNav,
-  },
+  components: { LogoComponent },
   data: function () {
     return {
       uiLabels: {},
@@ -152,29 +142,12 @@ export default {
 }
 /*------------------------------------------------------------------------------------------------ */
 
-header {
+.header {
+  grid-area: header;
   display: flex;
   justify-content: center;
-  grid-area: header;
   width: 100%;
-  display: grid;
-  grid-template-columns: 2em auto;
   padding: 1rem 2rem;
-  font-family: var(--logo-font);
-}
-.logo {
-  display: flex;
-  align-items: center;
-  text-transform: uppercase;
-  letter-spacing: 0.25em;
-  font-size: 4.5rem;
-  color: var(--logo-color);
-  padding-top: 0.2em;
-}
-.logo img {
-  height: 2.5rem;
-  vertical-align: bottom;
-  margin-right: 0.5rem;
 }
 
 /*------------------------------------------------------------------------------------------------ */
@@ -356,15 +329,5 @@ header {
   background: var(--FAQ-closebutton-hover-color);
 }
 
-/*------------------------------------------------------------------------------------------------ */
-
-@media screen and (max-width: 50em) {
-  .logo {
-    font-size: 5vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
 /*------------------------------------------------------------------------------------------------ */
 </style>
