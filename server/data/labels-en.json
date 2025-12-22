@@ -21,6 +21,7 @@
   "enterGameID": "Enter Game-ID",
   "waitFor": "Waiting for ",
   "toStart": " to start the game...",
+  "friendsList": "Friends to battle against:",
   "clickOn": "Click on: ",
   "contPlayed": "Continent played: ",
   "timeText": "Time left...",
