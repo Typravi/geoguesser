@@ -1,5 +1,8 @@
 <template>
   <div class="flexOuterWrapper">
+    <header class="logoHeader">
+      <LogoComponent :text="uiLabels.ourName" />
+    </header>
     <div class="flexInnerWrapper1">
       <div class="continentArea">
         <p>{{ uiLabels.chooseContinent }}</p>
@@ -53,6 +56,7 @@
 </template>
 
 <script>
+import LogoComponent from "../components/LogoComponent.vue";
 import io from "socket.io-client";
 import { getRandomCity } from "@/assets/logic.js";
 import continentData from "@/assets/maps.json";
@@ -60,6 +64,7 @@ const socket = io("localhost:3000");
 
 export default {
   name: "CreateView",
+  components: { LogoComponent },
   data: function () {
     return {
       lang: localStorage.getItem("lang") || "en",
@@ -145,14 +150,19 @@ export default {
   min-height: 100vh;
   align-items: center;
   justify-content: flex-start;
-  gap: 6rem;
+  gap: 5rem;
+}
+.logoHeader {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 1rem 2rem;
 }
 
 .flexInnerWrapper1 {
   display: flex;
   flex-direction: row;
-  gap: 2rem;
-  margin-top: 8rem;
+  gap: 1rem;
 }
 
 .flexInnerWrapper2 {
