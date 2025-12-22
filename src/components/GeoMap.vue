@@ -50,7 +50,8 @@
           }"
           
         :title="p.playerName"
-      ></div>
+      >
+    <!--det är denna diven som ritar ut den färgade pricken på ens sista klick, efter tiden gått ut--></div>
 
       <div v-if="p.latestClick && !timerActive && locationGuess.x !== null"
         class="nameLabel"

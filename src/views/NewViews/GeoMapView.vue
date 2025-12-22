@@ -1,14 +1,14 @@
 <template>
-  <div class="GeoMapView">
+  <div class="outerWrapperGeo">
     <header class="header">
-      <h1>GeoMap</h1>
+      <h1>GeoMap hehe</h1>
       <p>{{ uiLabels.clickOn }} {{ cityToFind }}</p>
-      <div>
+      <div class="timerShower">
         <p v-if="timerActive">{{ uiLabels.timeText }} {{ timeLeft }}</p>
-        <p v-else>{{ uiLabels.pGuessText }}</p>
       </div>
       <div class="initiateNew">
         <button
+          class="button nextRoundButton"
           v-if="
             playerName === participants?.[0]?.playerName &&
             round !== numberOfQuestions &&
@@ -19,6 +19,7 @@
           {{ uiLabels.nextRoundText }}
         </button>
         <button
+          class="button seeResultsButtons"
           v-if="
             playerName === participants?.[0]?.playerName &&
             !timerActive &&
@@ -48,7 +49,7 @@
       <!--timer-->
     </main>
     <div class="score-panel">
-    <ScorePanel 
+      <ScorePanel
         :participants="participants"
         :currentPlayerName="playerName"
         :title="uiLabels.scorePanelTitle"
@@ -186,7 +187,7 @@ export default {
               this.lastClick,
               this.correctLocation
             );
-            
+
             socket.emit("finalClick", {
               lobbyID: this.lobbyID,
               playerName: this.playerName,
@@ -205,8 +206,7 @@ export default {
 </script>
 
 <style scoped>
-.GeoMapView {
-  color: #eee;
+.outerWrapperGeo {
   min-height: 100vh;
 
   display: flex;
@@ -215,6 +215,7 @@ export default {
 
 /* Rubrik + current continent-text */
 .header {
+  color: #dbc3c3;
   text-align: center;
   padding: 16px 16px 0;
 }
@@ -232,5 +233,18 @@ export default {
   position: absolute;
   justify-content: center;
   margin: 30px;
+}
+
+.button {
+  display: inline-block;
+  width: 12rem;
+  padding: 0.8rem 2rem;
+  color: var(--button-textcolor);
+  background-color: var(--button-purplecolor);
+  border-radius: 10px;
+  text-decoration: none; /* tar bort blå underline */
+  font-size: 1.1rem;
+  font-weight: bold;
+  transition: 0.2s ease;
 }
 </style>
