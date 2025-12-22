@@ -1,31 +1,39 @@
 <template>
-  <div>
-    <p>
-      <label for="name">{{ uiLabels.yourName }}</label
-      ><br />
-      <input
-        type="text"
-        v-model="playerName"
-        id="playerName"
-        :placeholder="uiLabels.enterYourName"
-      />
-    </p>
-
-    <p>
-      <label for="lobbyID"> {{ uiLabels.gameID }} </label><br />
-      <input
-        type="text"
-        @input="checkgameID"
-        id="lobbyID"
-        v-model="lobbyID"
-        :placeholder="uiLabels.enterGameID"
-      />
-    </p>
-    <p v-if="gameIsChecked && !gameExists" class="error-message">
-      <!--  lägg till felmedellande här-->
-    </p>
+  <div class="flexWrapper">
+    <div class="innerWrapper">
+      <div class="enterNameArea">
+        <p>
+          <label for="name">{{ uiLabels.yourName }}</label
+          ><br />
+          <input
+            type="text"
+            v-model="playerName"
+            id="playerName"
+            :placeholder="uiLabels.enterYourName"
+          />
+        </p>
+      </div>
+      <div class="game-IDArea">
+        <p>
+          <label for="lobbyID"> {{ uiLabels.gameID }} </label><br />
+          <input
+            type="text"
+            @input="checkgameID"
+            id="lobbyID"
+            v-model="lobbyID"
+            :placeholder="uiLabels.enterGameID"
+          />
+        </p>
+      </div>
+      <div class="joinArea">
+        <p v-if="gameIsChecked && !gameExists" class="error-message">
+          <!--  lägg till felmedellande här-->
+        </p>
+      </div>
+    </div>
     <p>
       <button
+        class="button joinButton"
         v-on:click="joinGame"
         :disabled="!gameExists || !gameIsChecked || !playerName.trim()"
       >
@@ -98,3 +106,50 @@ export default {
   },
 };
 </script>
+
+<style>
+.flexWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 4rem;
+}
+
+.innerWrapper {
+  display: flex;
+  flex-direction: row;
+  margin-top: 4rem;
+}
+
+.enterNameArea {
+  border-radius: 10%;
+  padding: 1em;
+  margin: 1em;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+}
+
+.game-IDArea {
+  padding: 1em;
+  margin: 1em;
+  border-radius: 10%;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+}
+
+.button {
+  width: 12rem;
+  padding: 0.8rem 2rem;
+  color: var(--button-textcolor);
+  border-radius: 10px;
+  text-decoration: none; /* tar bort blå underline */
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: 0.2s ease;
+}
+
+.joinButton {
+  background-color: var(--joinbutton-color);
+}
+</style>

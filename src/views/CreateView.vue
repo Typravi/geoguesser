@@ -15,10 +15,10 @@
       </div>
 
       <div class="numberArea">
-        <p>{{ uiLabels.numOfQuestions }}</p>
+        <p class="uiLabNumQ">{{ uiLabels.numOfQuestions }}</p>
         <div class="numberButtons">
-          <button class="button minusButton" @click="decreaseAmount">-</button> 
-         <p>{{ numberOfQuestions }}</p> 
+          <button class="button minusButton" @click="decreaseAmount">-</button>
+          <p>{{ numberOfQuestions }}</p>
           <button class="button plusButton" @click="increaseAmount">+</button>
         </div>
       </div>
@@ -159,6 +159,9 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+.uiLabNumQ {
+  margin: 1em;
 }
 
 /*-------- Nedan har använts för att underlätta styling, låt gärna ligga kvar tills vi är helt klara 
