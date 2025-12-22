@@ -55,10 +55,10 @@
         :title="uiLabels.scorePanelTitle"
       />
     </div>
-    <footer v-if="!timerActive && lastClick">
-      <!--ta bort footern när ej behövs mer, anv för att få koord utskrivna så jag ser vad som händer-->
-      <!--notera att även ur data och handlemapclick behövs det städas när footern tas bort -->
-      <p>{{ uiLabels.distInPix }} {{ this.distance }}</p>
+    <footer>
+      <div class="footerLogo">
+        <LogoComponent :text="uiLabels.ourName" />
+      </div>
     </footer>
   </div>
 </template>
@@ -66,6 +66,7 @@
 <script>
 import GeoMap from "../../components/GeoMap.vue";
 import ScorePanel from "../../components/ScorePanel.vue";
+import LogoComponent from "../../components/LogoComponent.vue";
 import continentData from "../../assets/maps.json";
 import { calculateDistance } from "../../assets/logic";
 import io from "socket.io-client";
@@ -77,6 +78,7 @@ export default {
   components: {
     GeoMap,
     ScorePanel,
+    LogoComponent,
   },
 
   data() {
@@ -246,5 +248,12 @@ export default {
   font-size: 1.1rem;
   font-weight: bold;
   transition: 0.2s ease;
+}
+
+.footerLogo {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 1rem 1rem;
 }
 </style>
