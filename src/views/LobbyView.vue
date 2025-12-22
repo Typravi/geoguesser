@@ -5,12 +5,18 @@
     </header>
 
     <div class="leftGridUpper">
-      <ul>
-        <li v-for="p in participants" :key="p.playerName" class="participant">
-          <span class="color-dot" :style="{ backgroundColor: p.color }"></span>
-          {{ p.playerName }}
-        </li>
-      </ul>
+      <div class="hasJoinedList">
+        <h4>{{ uiLabels.whoHasJoined }}</h4>
+        <ul>
+          <li v-for="p in participants" :key="p.playerName" class="participant">
+            <span
+              class="color-dot"
+              :style="{ backgroundColor: p.color }"
+            ></span>
+            {{ p.playerName }}
+          </li>
+        </ul>
+      </div>
     </div>
 
     <div class="middleGridUpper">
@@ -37,12 +43,13 @@
       >
         {{ uiLabels.startGame }}
       </button>
-    </div>
 
-    <div class="WaitForHost"></div>
-    <p v-if="playerName != hostName">
-      {{ uiLabels.waitFor }} {{ hostName }} {{ uiLabels.toStart }}
-    </p>
+      <div class="WaitForHost">
+        <p v-if="playerName != hostName">
+          {{ uiLabels.waitFor }} {{ hostName }} {{ uiLabels.toStart }}
+        </p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -105,11 +112,24 @@ export default {
 };
 </script>
 <style scoped>
+/* Notera att...
+
+  padding: 1em;
+  margin: 1em;
+  border-radius: 10%;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+
+  ...är det som gör den blurrade bakgrunden
+  
+  Detta kanske vi inte vill ha på hela gridArean som de är nu?
+  Men den får ligga där sålänge*/
+
 .outerWrapperLobby {
   min-height: 100vh;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: auto 1fr 1fr;
+  grid-template-rows: auto auto 1fr;
   grid-template-areas:
     "header header header"
     "leftGridUpper middleGridUpper rightGridUpper"
@@ -122,13 +142,19 @@ export default {
 
 .participant {
   display: flex;
-  align-items: center;
+  align-items: baseline;
 }
+
 .leftGridUpper {
   grid-area: leftGridUpper;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 1em;
+  margin: 1em;
+  border-radius: 10%;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
 }
 
 .middleGridUpper {
@@ -137,14 +163,11 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-}
-
-.hostArea {
-  grid-area: middleGridUpper;
-}
-
-.waitForHost {
-  grid-area: middleGridLower;
+  padding: 1em;
+  margin: 1em;
+  border-radius: 10%;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
 }
 
 .rightGridUpper {
@@ -152,6 +175,11 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 1em;
+  margin: 1em;
+  border-radius: 10%;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
 }
 
 .middleGridLower {
@@ -159,6 +187,13 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.hasJoinedList {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .color-dot {
