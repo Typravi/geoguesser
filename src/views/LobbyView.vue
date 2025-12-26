@@ -30,7 +30,8 @@
 
     <div class="rightGridUpper">
       <div class="infoArea">
-        <p>{{ uiLabels.contPlayed }} {{ continent }}</p>
+        <h4>{{ uiLabels.contPlayed }}</h4>
+        <p>{{ continent }}</p>
         <p>{{ uiLabels.numOfQuestions }} {{ numberOfQuestions }}</p>
       </div>
     </div>

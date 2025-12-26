@@ -195,7 +195,6 @@ export default {
   padding: 0.8rem 2rem;
   color: var(--button-textcolor);
   border-radius: 10px;
-  text-decoration: none; /* tar bort blå underline */
   font-size: 1.2rem;
   font-weight: bold;
   transition: 0.2s ease;
@@ -220,6 +219,7 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  min-width: 12rem;
   border-radius: 10%;
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(6px);
@@ -227,6 +227,7 @@ export default {
 
 .continentArea {
   border-radius: 10%;
+  min-width: 12rem;
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(6px);
 }
