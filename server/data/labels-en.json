@@ -29,5 +29,7 @@
   "nextRoundText": "Next round",
   "seeResultsText": "See results",
   "distInPix": "Distance in pixels:",
-  "scorePanelTitle": "Leaderboard"
+  "scorePanelTitle": "Leaderboard",
+  "wellDone": "Well done! Final results:",
+  "rankLabels": ["🏅1st", "🥈2nd", "🥉3rd"]
 }

@@ -29,5 +29,7 @@
   "nextRoundText": "Nästa runda",
   "seeResultsText": "Se resultat",
   "distInPix": "Avstånd i pixlar:",
-  "scorePanelTitle": "Resultattavla"
+  "scorePanelTitle": "Resultattavla",
+  "wellDone": "Bra jobbat! Slutresultat:",
+  "rankLabels": ["🏅1a", "🥈2a", "🥉3a"]
 }

@@ -4,7 +4,7 @@
     <hr />
     <ul>
       <li 
-        v-for="p in sortedParticipants" 
+        v-for="(p,index) in sortedParticipants" 
         :key="p.playerName"
         :class="{ 'is-me': p.playerName === currentPlayerName }"
       >
@@ -95,7 +95,7 @@ li {
 
 .is-me .name {
   font-weight: bold;
-  color: #00ffcc; /* Markeringsfärg för dig själv */
+  color: #00ffcc; 
 }
 
 .points {
