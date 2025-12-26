@@ -35,7 +35,6 @@
       </div>
     </div>
     <div class="buttonArea">
-      
       <button
         class="button joinButton"
         v-on:click="joinGame"
@@ -43,9 +42,9 @@
       >
         {{ uiLabels.joinGame }}
       </button>
-        <router-link to="/" class="button goBackButton">
-          {{ uiLabels.goBack }}
-        </router-link>
+      <router-link to="/" class="button goBackButton">
+        {{ uiLabels.goBack }}
+      </router-link>
     </div>
   </div>
 </template>
@@ -168,7 +167,6 @@ export default {
   background-color: var(--joinbutton-color);
 }
 
-
 .buttonArea {
   display: flex;
   flex-direction: column;
@@ -191,5 +189,4 @@ export default {
   margin-top: 6rem;
   background-color: rgba(0, 0, 139, 0.25);
 }
-
 </style>

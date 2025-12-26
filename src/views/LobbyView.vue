@@ -51,6 +51,24 @@
         </p>
       </div>
     </div>
+    <div class="leftGridLower">
+      <div class="leaveLobby">
+        <router-link
+          to="/"
+          class="leaveLobbyButton"
+          v-if="playerName != hostName"
+        >
+          {{ uiLabels.leaveLobby }}
+        </router-link>
+        <router-link
+          to="/"
+          class="leaveLobbyButton"
+          v-if="playerName === hostName"
+        >
+          {{ uiLabels.discardLobby }}
+        </router-link>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -183,6 +201,13 @@ export default {
   backdrop-filter: blur(6px);
 }
 
+.leftGridLower {
+  grid-area: leftGridLower;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
 .middleGridLower {
   grid-area: middleGridLower;
   display: flex;
@@ -214,5 +239,18 @@ export default {
   font-size: 1.2rem;
   font-weight: bold;
   transition: 0.2s ease;
+}
+
+.leaveLobbyButton {
+  display: inline-block;
+  width: 6.4rem;
+  padding: 0.8rem 2rem;
+  color: var(--button-textcolor);
+  border-radius: 10px;
+  text-decoration: none; /* tar bort blå underline */
+  font-weight: normal;
+  transition: 0.2s ease;
+  margin-bottom: 2rem;
+  background-color: rgba(0, 0, 139, 0.25);
 }
 </style>
