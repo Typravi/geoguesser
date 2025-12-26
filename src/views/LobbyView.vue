@@ -25,6 +25,7 @@
       </div>
       <div class="hostArea">
         <p>Hostname: {{ hostName }}</p>
+        <p>Your name: {{ playerName }}</p>
       </div>
     </div>
 
@@ -61,7 +62,7 @@
           {{ uiLabels.leaveLobby }}
         </router-link>
         <router-link
-          to="/"
+          to="/create/"
           class="leaveLobbyButton"
           v-if="playerName === hostName"
         >
