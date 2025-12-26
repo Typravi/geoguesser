@@ -1,26 +1,39 @@
 <template>
-  <div class="wrapOuterResultView">
-    <header class="header well-done">
-      <h2>{{ uiLabels.wellDone }}</h2>
+  <div class="gridStyleWrapperResultView">
+    <header class="header wellDone">
+      <h1>{{ uiLabels.wellDone }}</h1>
     </header>
-    <main class="mainArea">
-      <div class="ResultListArea">
-        <ul class="finalResultList">
-          <li v-for="(p, index) in finalResults" :key="p.playerName">
-            <!--uiLabels.rankLabels?.[index] här har vi ett ? för annars kraschar koden när uiLabels är undefined-->
-            <span class="ranking"> {{ uiLabels.rankLabels?.[index] }}</span>
-            <span class="nameInRankingList"> {{ p.playerName }} </span>
-            <span class="scoreInRankingList">{{ p.totalScore }} pixels</span>
-          </li>
-        </ul>
+    <div class="leftArea"></div>
+    <div class="middleArea">
+      <main>
+        <div class="ResultListArea">
+          <ul class="finalResultList">
+            <li v-for="(p, index) in finalResults" :key="p.playerName">
+              <!--uiLabels.rankLabels?.[index] här har vi ett ? för annars kraschar koden när uiLabels är undefined-->
+              <span class="ranking"> {{ uiLabels.rankLabels?.[index] }}</span>
+              <span class="nameInRankingList"> {{ p.playerName }} </span>
+              <!-- <span class="scoreInRankingList">{{ p.totalScore }} Score </span> -->
+              <!--Jag tycker inte att poänget(score) behövs? eller vill man se det?-->
+            </li>
+          </ul>
+        </div>
+      </main>
+    </div>
+    <div class="rightArea">
+      <div class="buttonArea">
+        <router-link to="/" class="button quitButton">
+          {{ uiLabels.quitLabel }}
+        </router-link>
       </div>
-    </main>
+    </div>
 
-    <footer>
-      <div class="footerLogo">
-        <LogoComponent :text="uiLabels.ourName" />
-      </div>
-    </footer>
+    <div class="footerArea">
+      <footer>
+        <div class="footerLogo">
+          <LogoComponent :text="uiLabels.ourName" />
+        </div>
+      </footer>
+    </div>
   </div>
 </template>
 
@@ -66,26 +79,44 @@ export default {
 </script>
 
 <style>
-.footerLogo {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  padding: 0.5rem 0.5rem;
-}
-.wrapOuterResultView {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.gridStyleWrapperResultView {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header header header"
+    "leftArea middleArea rightArea"
+    "footerArea footerArea footerArea";
   min-height: 100vh;
 }
 
-.mainArea {
-  flex: 1;
+.header {
+  grid-area: header;
+}
+
+.wellDone {
+  font-size: larger;
+}
+
+.leftArea {
+  grid-area: leftArea;
+}
+
+.middleArea {
+  grid-area: middleArea;
+  display: flex;
+  justify-content: center;
+}
+
+.rightArea {
+  grid-area: rightArea;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  margin-top: 4rem;
+}
+
+.footerArea {
+  grid-area: footerArea;
 }
 
 footer {
@@ -100,15 +131,19 @@ header {
 }
 
 .ResultListArea {
+  margin-top: 6rem;
   display: flex;
   justify-content: center;
   width: 100%;
   padding: 0.5em;
-  margin: 0.5em;
+  min-width: 10em;
+  min-height: 10em;
   border-radius: 10%;
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(6px);
-  font-family: var(--logo-font), monospace;
+  font-family: monospace;
+  font-weight: bold;
+  font-size: 1.4rem;
   color: rgba(0, 0, 136, 0.668);
 }
 .finalResultList {
@@ -135,5 +170,23 @@ header {
 /*Nedan ser till att olika långa namn nt skapar kaoz i listan m.a.p bredd*/
 .nameInRankingList {
   flex: 1;
+}
+.buttonArea {
+  margin-top: auto;
+  padding-bottom: 2rem;
+}
+
+.quitButton {
+  display: inline-block;
+  width: 6rem;
+  padding: 0.8rem 2rem;
+  color: var(--button-textcolor);
+  border-radius: 10px;
+  text-decoration: none; /* tar bort blå underline */
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: 0.2s ease;
+  margin: 2rem 2rem 2rem 2rem;
+  background-color: rgba(0, 0, 139, 0.511);
 }
 </style>
