@@ -69,6 +69,8 @@ import ScorePanel from "../../components/ScorePanel.vue";
 import LogoComponent from "../../components/LogoComponent.vue";
 import continentData from "../../assets/maps.json";
 import { calculateDistance } from "../../assets/logic";
+import { calculatePunishment } from "../../assets/logic";
+
 import io from "socket.io-client";
 const socket = io("localhost:3000");
 
@@ -198,14 +200,17 @@ export default {
               roundScore: Math.round(this.distance),
             });
           } else {
-            const maxDistance = 1000;
-            this.distance = maxDistance;
+            const maxDistance = Math.sqrt(
+              this.currentMap.originalWidth ** 2 +
+                this.currentMap.originalWidth ** 2
+            );
+            const noClickScore = calculatePunishment(maxDistance);
 
             socket.emit("finalClick", {
               lobbyID: this.lobbyID,
               playerName: this.playerName,
               locationGuess: null,
-              roundScore: maxDistance,
+              roundScore: noClickScore,
             });
           }
 
