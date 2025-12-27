@@ -24,8 +24,13 @@
         <h1>{{ uiLabels.gameID }}: {{ lobbyID }}</h1>
       </div>
       <div class="hostArea">
-        <p>Hostname: {{ hostName }}</p>
-        <p>Your name: {{ playerName }}</p>
+        <div v-if="playerName != hostName">
+          <p>{{ uiLabels.showHostName }} {{ hostName }}</p>
+          <p>{{ uiLabels.showYourName }} {{ playerName }}</p>
+        </div>
+        <div v-else>
+          <p>{{ hostName }} {{ uiLabels.uAreHost }}</p>
+        </div>
       </div>
     </div>
 
@@ -33,7 +38,8 @@
       <div class="infoArea">
         <h4>{{ uiLabels.contPlayed }}</h4>
         <p>{{ continent }}</p>
-        <p>{{ uiLabels.numOfQuestions }} {{ numberOfQuestions }}</p>
+        <h4>{{ uiLabels.numOfQuestions }}</h4>
+        <p>{{ numberOfQuestions }}</p>
       </div>
     </div>
 
