@@ -92,6 +92,7 @@ export default {
       correctLocation: null,
       distance: null,
       lobbyID: null,
+      cities: [],
       playerName: "",
       numberOfQuestions: null,
       timeLeft: 20, //Sätt antal sekunder
@@ -195,6 +196,16 @@ export default {
               playerName: this.playerName,
               locationGuess: this.lastClick,
               roundScore: Math.round(this.distance),
+            });
+          } else {
+            const maxDistance = 1000;
+            this.distance = maxDistance;
+
+            socket.emit("finalClick", {
+              lobbyID: this.lobbyID,
+              playerName: this.playerName,
+              locationGuess: null,
+              roundScore: maxDistance,
             });
           }
 
