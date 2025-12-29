@@ -130,6 +130,12 @@ function sockets(io, socket, data) {
       io.to(d.lobbyID).emit("resultsView", data.getGame(d.lobbyID));
     }
   });
+
+  socket.on("discardLobby", (lobbyID) => {
+    console.log("Host discarded lobby", lobbyID);
+
+    io.to(lobbyID).emit("lobbyDiscardedByHost");
+  });
 }
 
 export { sockets };

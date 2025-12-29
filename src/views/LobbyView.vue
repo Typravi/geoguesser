@@ -67,13 +67,13 @@
         >
           {{ uiLabels.leaveLobby }}
         </router-link>
-        <router-link
-          to="/create/"
+        <button
           class="leaveLobbyButton"
           v-if="playerName === hostName"
+          @click="confirmDiscardLobby"
         >
           {{ uiLabels.discardLobby }}
-        </router-link>
+        </button>
       </div>
     </div>
   </div>
@@ -81,8 +81,11 @@
 
 <script>
 import LogoComponent from "../components/LogoComponent.vue";
+
 import io from "socket.io-client";
 const socket = io("localhost:3000");
+
+import Swal from "sweetalert2";
 
 export default {
   name: "LobbyView",
@@ -128,11 +131,50 @@ export default {
       console.log("Game start for lobby", lobbyID); //check
       this.$router.push(`/GeoMapView/${this.lobbyID}/${this.playerName}`); //pushar alla spelare till GeoMapView
     });
+
+    socket.on("lobbyDiscardedByHost", () => {
+      Swal.fire({
+        title: "Lobby closed",
+        text: "The host closed the lobby",
+        icon: "info",
+      }).then(() => {
+        this.$router.push("/");
+      });
+    });
   },
   methods: {
     startGame() {
       console.log("Start game by clicking"); //check
       socket.emit("startGame", this.lobbyID); //skickar "startGame" till server med aktuell lobby
+    },
+
+    //Se länken nedan för förklaring
+    // https://sweetalert2.github.io/
+    confirmDiscardLobby() {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "This cancels the game for all players and you wont be able to regret this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "hotpink",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, discard lobby",
+        cancelButtonText: "Cancel",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          socket.emit("discardLobby", this.lobbyID);
+
+          Swal.fire({
+            title: "Lobby discarded",
+            text: "You deleted the lobby",
+            icon: "success",
+            timer: 1500,
+            showConfirmButton: false,
+          });
+
+          this.$router.push("/");
+        }
+      });
     },
   },
 };
