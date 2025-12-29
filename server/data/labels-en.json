@@ -29,6 +29,8 @@
   "uAreHost": " , you are the Host",
   "showHostName": "Host name: ",
   "showYourName": "Your name: ",
+  "uSure": "Are you sure?",
+  "cancel": "Cancel",
   "clickOn": "Click on: ",
   "contPlayed": "Continent played: ",
   "timeText": "Time left...",

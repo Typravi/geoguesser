@@ -152,14 +152,14 @@ export default {
     // https://sweetalert2.github.io/
     confirmDiscardLobby() {
       Swal.fire({
-        title: "Are you sure?",
+        title: this.uiLabels.uSure,
         text: "This cancels the game for all players and you wont be able to regret this!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "hotpink",
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, discard lobby",
-        cancelButtonText: "Cancel",
+        cancelButtonText: this.uiLabels.cancel,
       }).then((result) => {
         if (result.isConfirmed) {
           socket.emit("discardLobby", this.lobbyID);
