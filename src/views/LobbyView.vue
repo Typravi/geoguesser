@@ -52,7 +52,7 @@
         {{ uiLabels.startGame }}
       </button>
 
-      <div class="WaitForHost">
+      <div class="waitForHost">
         <p v-if="playerName != hostName">
           {{ uiLabels.waitFor }} {{ hostName }} {{ uiLabels.toStart }}
         </p>
@@ -62,13 +62,13 @@
       <div class="leaveLobby">
         <router-link
           to="/"
-          class="leaveLobbyButton"
+          class="button leaveLobbyButton"
           v-if="playerName != hostName"
         >
           {{ uiLabels.leaveLobby }}
         </router-link>
         <button
-          class="leaveLobbyButton"
+          class="button discardLobbyButton"
           v-if="playerName === hostName"
           @click="confirmDiscardLobby"
         >
@@ -271,6 +271,10 @@ export default {
   align-items: flex-start;
 }
 
+.waitForHost {
+  color: lightskyblue;
+}
+
 .color-dot {
   width: 10px;
   height: 10px;
@@ -291,13 +295,22 @@ export default {
 }
 
 .leaveLobbyButton {
+  width: 6rem;
+  text-decoration: none; /*  font-weight: normal; */
+  transition: 0.2s ease;
+  margin-bottom: 2rem;
+  font-size: smaller;
+  background-color: rgba(0, 0, 139, 0.25);
+}
+.discardLobbyButton {
   display: inline-block;
-  width: 6.4rem;
-  padding: 0.8rem 2rem;
+  width: 8rem;
+  padding: 0.8rem 0.8rem;
   color: var(--button-textcolor);
   border-radius: 10px;
   text-decoration: none; /* tar bort blå underline */
   font-weight: normal;
+  font-size: smaller;
   transition: 0.2s ease;
   margin-bottom: 2rem;
   background-color: rgba(0, 0, 139, 0.25);

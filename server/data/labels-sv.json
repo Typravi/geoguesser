@@ -13,7 +13,7 @@
   "about": "Om oss",
   "startGame": "Starta spel",
   "gameInstructionsQ": "Hur spelar man?",
-  "gameInstructionsA": "Klicka på kartan där du tror att staden som efterfrågas ligger. Den av er spelare som är närmast får mest poäng. Den sammanlagda poängen efter samtliga frågor räknas ihop och vinnaren koras!",
+  "gameInstructionsA": "Klicka på kartan där du tror att staden som efterfrågas ligger. Alla spelare får poäng utifrån hur nära de var, närmast är bäst! Den sammanlagda poängen efter samtliga frågor räknas ihop och vinnaren koras!",
   "creditsQ": "Vem har skapat detta spel?",
   "creditsA": "Vi som skapat detta otroliga spel är studenterna Elin Granljung, Ivar Jonsson, Ronja Lundberg, Folke Petré och Sandra Silfverswärd",
   "close": "Stäng",
@@ -45,5 +45,5 @@
   "distInPix": "Avstånd i pixlar:",
   "scorePanelTitle": "Resultattavla",
   "wellDone": "Bra jobbat!",
-  "rankLabels": ["🏅1a", "🥈2a", "🥉3a", "4a", "5a"]
+  "rankLabels": ["🏅1a", "🥈2a", "🥉3a", " 4a", " 5a"]
 }

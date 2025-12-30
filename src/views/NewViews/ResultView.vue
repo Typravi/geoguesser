@@ -10,6 +10,7 @@
           <ul class="finalResultList">
             <li v-for="(p, index) in finalResults" :key="p.playerName">
               <!--uiLabels.rankLabels?.[index] här har vi ett ? för annars kraschar koden när uiLabels är undefined-->
+              <!--hmm men u har jagt till fem st ranklabels nu hade vi kunnat ta bort det, men kanske ha kvar för stabilitet?-->
               <span class="ranking"> {{ uiLabels.rankLabels?.[index] }}</span>
               <span class="nameInRankingList"> {{ p.playerName }} </span>
               <!-- <span class="scoreInRankingList">{{ p.totalScore }} Score </span> -->
