@@ -134,8 +134,8 @@ export default {
 
     socket.on("lobbyDiscardedByHost", () => {
       Swal.fire({
-        title: "Lobby closed",
-        text: "The host closed the lobby",
+        title: this.uiLabels.discardLobbyDoneTitle,
+        text: this.uiLabels.discardLobbyDoneTitleParticipant,
         icon: "info",
       }).then(() => {
         this.$router.push("/");
@@ -153,20 +153,20 @@ export default {
     confirmDiscardLobby() {
       Swal.fire({
         title: this.uiLabels.uSure,
-        text: "This cancels the game for all players and you wont be able to regret this!",
+        text: this.uiLabels.discardLobbyInfo,
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "hotpink",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, discard lobby",
+        confirmButtonText: this.uiLabels.discardLobbyConfirmButton,
         cancelButtonText: this.uiLabels.cancel,
       }).then((result) => {
         if (result.isConfirmed) {
           socket.emit("discardLobby", this.lobbyID);
 
           Swal.fire({
-            title: "Lobby discarded",
-            text: "You deleted the lobby",
+            title: this.uiLabels.discardLobbyDoneTitle,
+            text: this.uiLabels.discardLobbyDoneTextHost,
             icon: "success",
             timer: 1500,
             showConfirmButton: false,
