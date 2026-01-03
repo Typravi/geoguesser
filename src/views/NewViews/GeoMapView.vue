@@ -41,8 +41,10 @@
     </header>
 
     <main class="map-area">
-      <div class="timerBox" v-if="timerActive && timeLeft !== null">
+      <div class="timerBox" v-if="timerActive && timeLeft !== null"
+        :class="{ hurry: timeLeft <= 3 }">
       {{ timeLeft }}
+
       </div>
       <GeoMap
         :key="round"
@@ -307,4 +309,20 @@ export default {
   top: 3rem;
   right: 3rem;
 }
+
+.timerBox.hurry{
+  color: red;
+  animation: shake 0.30s infinite; /* beroende på hur snabb skakningen ska vara*/
+}
+
+@keyframes shake {
+  0% { transform: translateX(0) }
+ 25% { transform: translateX(5px) }
+ 50% { transform: translateX(-5px) }
+ 75% { transform: translateX(5px) }
+ 100% { transform: translateX(0) }
+}
+
+
+
 </style>
