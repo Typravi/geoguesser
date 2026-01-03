@@ -3,8 +3,12 @@
     <header class="header">
       <h1>GeoMap hehe</h1>
 
-
-      <p>{{ uiLabels.clickOn }} {{ cityToFind }}</p>
+      <div class="whichCity">
+        <p v-if="timerActive">{{ uiLabels.clickOn }} <span class="cityName">{{ cityToFind }}</span></p>
+        <p v-else><span class="cityName">{{ cityToFind }}</span></p>
+      </div>
+      
+      
       <!-- Gamla timern ifall den föredras 
       <div class="timerShower">
         <p v-if="timerActive">{{ uiLabels.timeText }} {{ timeLeft }}</p>
@@ -255,6 +259,7 @@ export default {
   color: #dbc3c3;
   text-align: center;
   padding: 16px 16px 0;
+  position: relative;
 }
 
 /*I CSS koden nedan centreras kartan*/
@@ -347,5 +352,14 @@ export default {
   left: 1.5rem;
 }
 
+.whichCity{
+  color: white;
+  font-size: 1.5rem;    
+  margin: 0 auto;    
+  line-height: 0.01;      
+  letter-spacing: 0.05em;
+  opacity: 0.9;
+  width: fit-content;
+}
 
 </style>
