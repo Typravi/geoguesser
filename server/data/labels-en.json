@@ -46,5 +46,6 @@
   "scorePanelTitle": "Leaderboard",
   "wellDone": "Well done!",
   "rankLabels": ["🏅1st", "🥈2nd", "🥉3rd", "4th", "5th"], 
-  "numOfTime" : "Time per round"
+  "numOfTime" : "Time per round", 
+  "whichRound": "Round"
 }

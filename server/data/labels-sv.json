@@ -46,5 +46,6 @@
   "scorePanelTitle": "Resultattavla",
   "wellDone": "Bra jobbat!",
   "rankLabels": ["🏅1a", "🥈2a", "🥉3a", " 4a", " 5a"], 
-   "numOfTime" : "Tid per runda"
+   "numOfTime" : "Tid per runda", 
+   "whichRound": "Runda"
 }

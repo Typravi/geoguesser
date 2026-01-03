@@ -2,6 +2,11 @@
   <div class="outerWrapperGeo">
     <header class="header">
       <h1>GeoMap hehe</h1>
+      <!-- Visar vilken runda man är på -->
+      <p v-if="round && numberOfQuestions">
+        {{ uiLabels.whichRound }} {{ round }} / {{ numberOfQuestions }}
+      </p>
+
       <p>{{ uiLabels.clickOn }} {{ cityToFind }}</p>
       <div class="timerShower">
         <p v-if="timerActive">{{ uiLabels.timeText }} {{ timeLeft }}</p>
