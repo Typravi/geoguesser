@@ -2,10 +2,7 @@
   <div class="outerWrapperGeo">
     <header class="header">
       <h1>GeoMap hehe</h1>
-      <!-- Visar vilken runda man är på -->
-      <p v-if="round && numberOfQuestions">
-        {{ uiLabels.whichRound }} {{ round }} / {{ numberOfQuestions }}
-      </p>
+
 
       <p>{{ uiLabels.clickOn }} {{ cityToFind }}</p>
       <!-- Gamla timern ifall den föredras 
@@ -44,8 +41,15 @@
       <div class="timerBox" v-if="timerActive && timeLeft !== null"
         :class="{ hurry: timeLeft <= 3 }">
       {{ timeLeft }}
-
       </div>
+
+      <div class="whichRound"v-if="round && numberOfQuestions">
+        <p>
+          {{ uiLabels.whichRound }} <br/> {{ round }} / {{ numberOfQuestions }}
+        </p>
+      </div>
+
+
       <GeoMap
         :key="round"
         v-if="currentMap"
@@ -306,7 +310,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  top: 3rem;
+  top: 7rem;
   right: 3rem;
 }
 
@@ -323,6 +327,25 @@ export default {
  100% { transform: translateX(0) }
 }
 
+.whichRound{
+  background: rgba(0, 0, 0, 0.8);
+  padding: 15px;
+  border-radius: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+
+  font-size: 1rem;
+  font-weight: 1000;
+
+  position: absolute;
+  width: 4rem;     
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 2rem;
+  left: 1.5rem;
+}
 
 
 </style>
