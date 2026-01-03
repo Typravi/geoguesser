@@ -8,9 +8,12 @@
       </p>
 
       <p>{{ uiLabels.clickOn }} {{ cityToFind }}</p>
+      <!-- Gamla timern ifall den föredras 
       <div class="timerShower">
         <p v-if="timerActive">{{ uiLabels.timeText }} {{ timeLeft }}</p>
       </div>
+      -->
+      
       <div class="initiateNew">
         <button
           class="button nextRoundButton"
@@ -38,6 +41,9 @@
     </header>
 
     <main class="map-area">
+      <div class="timerBox" v-if="timerActive && timeLeft !== null">
+      {{ timeLeft }}
+      </div>
       <GeoMap
         :key="round"
         v-if="currentMap"
@@ -252,6 +258,8 @@ export default {
   justify-content: center; /* centrerar horisontellt */
   align-items: center; /* centrerar vertikalt */
   padding: 16px;
+  position: relative; /*tillagd för att timern ska få plats*/
+
 }
 
 .score-panel {
@@ -278,5 +286,25 @@ export default {
   justify-content: center;
   width: 100%;
   padding: 1rem 1rem;
+}
+
+.timerBox {
+  background: rgba(0, 0, 0, 0.8);
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+
+  font-size: 4rem;
+  font-weight: 1000;
+
+  position: absolute;
+  width: 4.5rem;     
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 3rem;
+  right: 3rem;
 }
 </style>
