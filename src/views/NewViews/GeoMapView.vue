@@ -97,7 +97,8 @@ export default {
       cities: [],
       playerName: "",
       numberOfQuestions: null,
-      timeLeft: 20, //Sätt antal sekunder
+      timePerRound: 10, //default
+      timeLeft: null, 
       timerInterval: null,
       timerActive: true,
       participants: [],
@@ -133,6 +134,7 @@ export default {
       this.round = lobby.round;
       this.cityToFind = this.cities[this.round - 1].name;
       this.correctLocation = this.cities[this.round - 1].coordinates;
+      this.timePerRound = lobby.time;
       this.startTimer();
 
       console.log(
@@ -178,7 +180,7 @@ export default {
         clearInterval(this.timerInterval);
         this.timerInterval = null;
       }
-      this.timeLeft = 10;
+      this.timeLeft = this.timePerRound;
       this.timerActive = true;
 
       this.timerInterval = setInterval(() => {

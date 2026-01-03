@@ -11,7 +11,8 @@ function sockets(io, socket, data) {
       d.numberOfQuestions,
       d.continent,
       d.cities,
-      d.round
+      d.round, 
+      d.time
     );
 
     socket.emit("gameData", data.getGame(d.lobbyID));

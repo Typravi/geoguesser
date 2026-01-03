@@ -51,7 +51,7 @@ Data.prototype.getUILabels = function (lang) {
 }
 
 
-Data.prototype.createGame = function(lobbyID, lang = "en", hostName = null, numberOfQuestions = 0, continent = null, cities = [], round = null) {
+Data.prototype.createGame = function(lobbyID, lang = "en", hostName = null, numberOfQuestions = 0, continent = null, cities = [], round = null, time = 0) {
  if (!this.gameExists(lobbyID)) {
    const lobby = {
      lang: lang,
@@ -69,7 +69,9 @@ Data.prototype.createGame = function(lobbyID, lang = "en", hostName = null, numb
       totalScore: 0,
       roundScore: 0,
 }] ,
-     currentQuestion: 0
+     currentQuestion: 0, 
+     time: time, 
+  
    };
    this.lobbies[lobbyID] = lobby;
    console.log("lobby created", lobbyID, lobby);

@@ -21,10 +21,20 @@
         <p class="uiLabNumQ">{{ uiLabels.numOfQuestions }}</p>
         <div class="numberButtons">
           <button class="button minusButton" @click="decreaseAmount">-</button>
-          <p>{{ numberOfQuestions }}</p>
+          <p>{{ numberOfQuestions }} </p>
           <button class="button plusButton" @click="increaseAmount">+</button>
         </div>
       </div>
+ <!--Tillagd knapp för timer -->
+      <div class="numberTimeArea">
+        <p class="uiLabNumT">{{ uiLabels.numOfTime }}</p>
+        <div class="timerButtons">
+          <button class="button minusButtonTime" @click="decreaseTime">-</button>
+          <p>{{ numOfTime }} s</p>
+          <button class="button plusButtonTime" @click="increaseTime">+</button>
+        </div>
+      </div>
+
     </div>
     <div class="flexInnerWrapper2">
       <div class="nameArea">
@@ -73,6 +83,7 @@ export default {
       playerName: "",
       uiLabels: {},
       numberOfQuestions: 1,
+      numOfTime: 10, 
       lobbyID: null,
       continent: "europe",
       cities: [],
@@ -106,6 +117,7 @@ export default {
         continent: this.continent,
         cities: this.cities,
         round: 1,
+        time: this.numOfTime
       });
     },
 
@@ -141,7 +153,20 @@ export default {
       const nextIndex = (currentIndex + 1) % continents.length;
       this.continent = continents[nextIndex];
     },
+
+    increaseTime() {
+      if (this.numOfTime< 60) {  //maxgräns på 1 min
+        this.numOfTime+= 5;
+      }
+    },
+    decreaseTime() {
+      if (this.numOfTime > 5) {
+        this.numOfTime -= 5;
+      }
   },
+
+  },
+    
 };
 </script>
 
@@ -205,7 +230,9 @@ export default {
 .leftArrow,
 .rightArrow,
 .minusButton,
-.plusButton {
+.plusButton, 
+.minusButtonTime, 
+.plusButtonTime {
   background-color: var(--button-purplecolor);
   margin: 1rem;
   width: 1.5em;
@@ -228,13 +255,36 @@ export default {
 }
 
 .continentArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
   border-radius: 10%;
   min-width: 12rem;
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(6px);
 }
 
+/* Området för timer rutan */
+.numberTimeArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 12rem;
+  border-radius: 10%;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px)
+}
+
 .numberButtons {
+  display: flex;
+  flex-direction: row;
+}
+
+.timerButtons {
   display: flex;
   flex-direction: row;
 }

@@ -40,6 +40,8 @@
         <p>{{ continent }}</p>
         <h4>{{ uiLabels.numOfQuestions }}</h4>
         <p>{{ numberOfQuestions }}</p>
+        <h4>{{ uiLabels.numOfTime }}</h4>
+        <p>{{ numOfTime }} s</p>
       </div>
     </div>
 
@@ -101,6 +103,7 @@ export default {
       numberOfQuestions: 0,
       continent: "",
       cities: [],
+      numOfTime: 0,
     };
   },
   created() {
@@ -114,6 +117,7 @@ export default {
       this.continent = lobby.continent;
       this.cities = lobby.cities;
       this.round = lobby.round;
+      this.numOfTime = lobby.time;
       console.log("lista med städer lobby view", this.cities);
     });
 
