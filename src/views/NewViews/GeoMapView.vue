@@ -38,6 +38,13 @@
         >
           {{ uiLabels.seeResultsText }}
         </button>
+
+        <div class="waitForHostNewRound">
+          <p v-if="playerName !== participants?.[0]?.playerName &&
+            round !== numberOfQuestions && !timerActive">
+              {{ uiLabels.waitFor }} {{ participants?.[0]?.playerName }} {{ uiLabels.toStartRound }}
+          </p>
+        </div>
       </div>
     </header>
 

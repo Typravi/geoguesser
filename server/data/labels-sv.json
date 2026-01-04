@@ -25,6 +25,7 @@
   "enterGameID": "Ange spel-ID",
   "waitFor": "Väntar på att ",
   "toStart": " ska starta spelet...",
+  "toStartRound": " ska starta nästa runda",
   "whoHasJoined": "Vänner att fightas mot:",
   "uAreHost": " , du är värden",
   "showHostName": "Värdens namn: ",
