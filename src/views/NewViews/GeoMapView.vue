@@ -78,7 +78,7 @@
     </div>
     <footer>
       <div class="footerLogo">
-        <LogoComponent :text="uiLabels.ourName" />
+        <LogoComponent :text="uiLabels.ourName || ''"  />
       </div>
     </footer>
   </div>
@@ -130,10 +130,17 @@ export default {
   },
 
   computed: {
+  
     currentMap() {
+      if (!this.continent) return null;
+      if (this.continent == "Planet earth") {
+        const city = this.cities[this.round - 1]; // tar fram stadens data för just den rundan - behövs för att vi ska kunna slumpa mellan kontinenter och få upp deras kartor 
+        return continentData[city.continent]; //visar kartan som tillhör till den specifika staden 
+      }
       return continentData[this.continent] || null;
     },
   },
+
   created() {
     socket.on("uiLabels", (labels) => (this.uiLabels = labels));
     socket.emit("getUILabels", this.lang);

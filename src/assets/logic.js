@@ -38,3 +38,13 @@ export function calculatePunishment (maxDistance) {
   Math.ceil(extraTimesMax/step)*step;
   return Math.max(minPunishment, punishmentRoundedUpToNextStep);
 }
+
+//Funktion för planet earth 
+export function getCityPlanetEarth(allContinents) {
+  const continentNames = Object.keys(allContinents);
+  const randomContinent =
+    continentNames[Math.floor(Math.random() * continentNames.length)];
+  const city = getRandomCity(allContinents[randomContinent]);
+
+  return { name: city.name, coordinates: city.coordinates,continent: randomContinent };
+  };

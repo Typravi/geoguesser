@@ -70,7 +70,7 @@
 <script>
 import LogoComponent from "../components/LogoComponent.vue";
 import io from "socket.io-client";
-import { getRandomCity } from "@/assets/logic.js";
+import { getRandomCity, getCityPlanetEarth } from "@/assets/logic.js";
 import continentData from "@/assets/maps.json";
 const socket = io("localhost:3000");
 
@@ -108,7 +108,15 @@ export default {
 
     goToLobby() {
       this.lobbyID = this.getGameID();
-      this.getCitiesForContinentInArray();
+
+      if (this.continent === "Planet earth") {
+        this.getPlanetEarthCities();
+      } 
+      
+      else {
+        this.getCitiesForContinentInArray();
+      }
+
       socket.emit("createGame", {
         lobbyID: this.lobbyID,
         lang: this.lang,
@@ -123,7 +131,6 @@ export default {
 
     getCitiesForContinentInArray() {
       this.cities = [];
-
       const continentKey = this.continent.toLowerCase();
       const continentObj = continentData[continentKey];
 
@@ -137,6 +144,16 @@ export default {
         this.cities.push(city);
       }
     },
+
+    //funktion från planetEarth
+    getPlanetEarthCities() {
+      this.cities = [];
+      for (let i = 0; i < this.numberOfQuestions; i++) {
+        const city = getCityPlanetEarth(continentData);
+        this.cities.push(city);
+  }
+},
+
     increaseAmount() {
       if (this.numberOfQuestions < 10) {
         this.numberOfQuestions++;
