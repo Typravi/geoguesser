@@ -13,6 +13,7 @@ export default {
     text: {
       type: String,
       required: true,
+      default: "",
     },
   },
 };

@@ -4,8 +4,8 @@
       <h1>GeoMap hehe</h1>
 
       <div class="whichCity">
-        <p v-if="timerActive">{{ uiLabels.clickOn }} <span class="cityName">{{ cityToFind }}</span></p>
-        <p v-else><span class="cityName">{{ cityToFind }}</span></p>
+        <p v-if="timerActive">{{ uiLabels.clickOn }} <span class="cityName">{{ displayCityName }}</span></p>
+        <p v-else><span class="cityName">{{ displayCityName }}</span></p>
       </div>
       
       
@@ -139,6 +139,11 @@ export default {
       }
       return continentData[this.continent] || null;
     },
+
+    displayCityName() {
+      return this.uiLabels.cityNamesLang[this.cityToFind] || this.cityToFind
+    }
+
   },
 
   created() {

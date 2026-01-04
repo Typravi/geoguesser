@@ -47,5 +47,47 @@
   "wellDone": "Bra jobbat!",
   "rankLabels": ["🏅1a", "🥈2a", "🥉3a", " 4a", " 5a"], 
    "numOfTime" : "Tid per runda", 
-   "whichRound": "Runda"
-}
+   "whichRound": "Runda", 
+
+   "cityNamesLang": {
+    "Stockholm": "Stockholm",
+      "Paris": "Paris",
+      "Berlin": "Berlin",
+      "Madrid": "Madrid",
+      "Rom": "Rom",
+      "London": "London",
+      "Athen": "Aten",
+      "Oslo": "Oslo",
+      "Helsinki": "Helsingfors",
+      "Warszawa": "Warszawa",
+      "Lissabon": "Lissabon",
+      "Budapest": "Budapest",
+      "Dublin": "Dublin",
+      "Köpenhamn": "Köpenhamn",
+      "Vienna": "Wien",
+      "Prague": "Prag",
+      "Amsterdam": "Amsterdam",
+      "Brussels": "Bryssel",
+      "Zurich": "Zürich",
+      "Milan": "Milano",
+      "Barcelona": "Bacelona",
+      "Munich": "München",
+      "Hamburg": "Hamburg",
+      "Reykjavik": "Reykjavik",
+      "Edinburgh": "Edinburgh",
+      "Sofia": "Sofia",
+      "Bucharest": "Bukarest",
+      "Belgrade": "Belgrad",
+      "Zagreb": "Zagreb",
+      "Kyiv": "Kiev",
+      "Moscow": "Moskva",
+      "Istanbul": "Istanbul",
+      "Riga": "Riga",
+      "Tallinn": "Tallinn", 
+
+      "Kairo": "Kairo",
+      "Kapstaden": "Kapstaden",
+      "Addis Adeba": "Addis Abeba"
+    }
+  }
+  
