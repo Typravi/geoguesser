@@ -139,18 +139,34 @@ export default {
         return;
       }
 
-      for (let i = 0; i < this.numberOfQuestions; i++) {
-        const city = getRandomCity(continentObj);
-        this.cities.push(city);
-      }
-    },
+      // Kör loopen tills vi har exakt så många frågor som valdes
+    while (this.cities.length < this.numberOfQuestions) {
+    
+      const city = getRandomCity(continentObj);
+
+    // Kolla Finns den här staden redan i listan? .some() returnerar true om den hittar en matchning
+      const alreadyExists = this.cities.some(c => c.name === city.name);
+
+    // Om den INTE finns, lägg till den
+    if (!alreadyExists) {
+      this.cities.push(city);
+    }
+  }
+},
 
     //funktion från planetEarth
     getPlanetEarthCities() {
       this.cities = [];
-      for (let i = 0; i < this.numberOfQuestions; i++) {
+      while (this.cities.length < this.numberOfQuestions) {
+    
         const city = getCityPlanetEarth(continentData);
-        this.cities.push(city);
+
+        const alreadyExists = this.cities.some(c => c.name === city.name);
+
+
+      if (!alreadyExists) {
+      this.cities.push(city);
+    }
   }
 },
 
