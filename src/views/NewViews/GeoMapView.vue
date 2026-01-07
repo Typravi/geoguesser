@@ -1,7 +1,7 @@
 <template>
   <div class="outerWrapperGeo">
     <header class="header">
-      <h1>GeoMap hehe</h1>
+     
 
       <div class="whichCity">
         <p v-if="timerActive">{{ uiLabels.clickOn }} <span class="cityName">{{ displayCityName }}</span></p>

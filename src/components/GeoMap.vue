@@ -153,7 +153,7 @@ export default {
   width: 100%;
   height: 100%;
   overflow: auto; /* verkar som att auto/scroll gör samma här, är lite osäker dock */
-  background-color: aqua;
+
 }
 
 .mapWrapper {
@@ -166,7 +166,7 @@ export default {
   ); /*!!! samma som ovan (orginal flr centrering men visas endå scaled rent visuellt) */
   transform-origin: top left;
   transform: scale(var(--map-scale));
-  border: 20px solid pink;
+ 
   /* rosa border ligger kvar för CSS förståelse, man ser bara ena hörnet pga resten täcks av annat */
   /* OBS sätt inget overflow här*/
 }
