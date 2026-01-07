@@ -43,7 +43,7 @@
     <div class="rightGridUpper">
       <div class="infoArea">
         <h4>{{ uiLabels.contPlayed }}</h4>
-        <p>{{ continent }}</p>
+        <p>{{translatedContinent}}</p>
         <h4>{{ uiLabels.numOfQuestions }}</h4>
         <p>{{ numberOfQuestions }}</p>
         <h4>{{ uiLabels.numOfTime }}</h4>
@@ -115,6 +115,21 @@ export default {
       numOfTime: 0,
     };
   },
+   computed: {
+    
+  translatedContinent() {
+    if (this.continent === "africa") {
+      return this.uiLabels.africa || "Africa";
+    } 
+    else if (this.continent === "europe") {
+      return this.uiLabels.europe || "Europe";
+    } 
+    else if (this.continent === "Planet earth") {
+      return this.uiLabels.planetEarth || "Planet Earth";
+    }
+    return this.continent; 
+  }
+},
   created() {
     this.lobbyID = this.$route.params.lobbyID;
     this.playerName = this.$route.params.playerID;

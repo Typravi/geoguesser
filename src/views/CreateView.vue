@@ -16,7 +16,7 @@
           <button class="button leftArrow" @click="chooseNextContinent">
             <
           </button>
-          {{ continent }}
+          {{ translatedContinent }}
           <button class="button rightArrow" @click="chooseNextContinent">
             >
           </button>
@@ -95,6 +95,23 @@ export default {
       round: null,
     };
   },
+
+  computed: {
+    // Fixar så att kontinentnamnet visas på rätt språk
+  // Denna funktion översätter det valda värdet till ett snyggt label
+  translatedContinent() {
+    if (this.continent === "africa") {
+      return this.uiLabels.africa || "Africa";
+    } 
+    else if (this.continent === "europe") {
+      return this.uiLabels.europe || "Europe";
+    } 
+    else if (this.continent === "Planet earth") {
+      return this.uiLabels.planetEarth || "Planet Earth";
+    }
+    return this.continent; // Fallback om något går fel
+  }
+},
   created: function () {
     socket.on("uiLabels", (labels) => (this.uiLabels = labels));
     socket.on("gameData", (data) => {
@@ -159,7 +176,8 @@ export default {
 
   },
     
-};
+}
+
 </script>
 
 <style>
