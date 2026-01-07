@@ -55,7 +55,29 @@
       "Khartoum": {"x":1068, "y":465},
       "Tunis": {"x":625, "y":30}, 
       "Accra": {"x":390, "y":673}, 
-      "Bamako":{"x":243, "y":515}
+      "Bamako":{"x":243, "y":515}, 
+      "Dakar": {"x":70, "y":460}, 
+      "Niamey": {"x":458, "y":505}, 
+      "Banjul": {"x":70, "y":489}, 
+      "Freetown":{"x":144, "y":609}, 
+      "Bissau": {"x":93, "y":526}, 
+      "Monrovia":{"x":187, "y":655}, 
+      "Antananarivo": {"x":1367, "y":1183}, 
+      "Asmara": {"x":1196, "y":455}, 
+      "Bangui": {"x":784, "y":700}, 
+      "Brazzaville": {"x":713, "y":877}, 
+      "Gaborone": {"x":924, "y":1303}, 
+      "Lusaka": {"x":987, "y":1109}, 
+      "Harare": {"x":1041, "y":1169}, 
+      "Kampala": {"x":1084, "y":786}, 
+      "Maputo":{"x":1053, "y":1329}, 
+      "Mogadishu": {"x":1327, "y":740}, 
+      "Nairobi": {"x":1178, "y":817}, 
+      "N'Djamena": {"x":713, "y":540},
+      "Porto-Novo": {"x":447, "y":652}, 
+      "Windhoek": {"x":767, "y":1263}, 
+      "Yamoussoukro": {"x":296, "y":637}, 
+      "Yaoundé": {"x":638, "y":712}
     }
   }
 }
