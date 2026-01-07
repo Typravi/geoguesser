@@ -1,6 +1,9 @@
 <template>
   <div class="flexWrapper">
-    <header class="logoHeader">
+    <header class="header">
+      <div class="header-lang">
+        <LanguageComponent :lang="lang" @switchLang="switchLanguage" />
+      </div>
       <LogoComponent :text="uiLabels.ourName" />
     </header>
     <div class="innerWrapper">
@@ -51,12 +54,13 @@
 
 <script>
 import LogoComponent from "../../components/LogoComponent.vue";
+import LanguageComponent from "../../components/LanguageComponent.vue";
 import io from "socket.io-client";
 const socket = io("localhost:3000");
 
 export default {
   name: "JoinGameView",
-  components: { LogoComponent },
+  components: { LogoComponent, LanguageComponent},
   data: function () {
     return {
       lang: localStorage.getItem("lang") || "en",
@@ -81,6 +85,12 @@ export default {
     });
   },
   methods: {
+    switchLanguage: function () {
+      this.lang = this.lang === "sv" ? "en" : "sv"; //kollar om SV isf EN annars SV (vid klick)
+      localStorage.setItem("lang", this.lang);
+      socket.emit("getUILabels", this.lang);
+    },
+
     checkgameID() {
       this.lobbyID = this.lobbyID.replace(/\D/g, "");
 
@@ -123,11 +133,19 @@ export default {
   justify-content: flex-start;
   gap: 4rem;
 }
-.logoHeader {
+.header {
   display: flex;
   justify-content: center;
   width: 100%;
   padding: 1rem 2rem;
+  position: relative;
+}
+
+.header-lang {
+  position: absolute; 
+  left: 2rem;        
+  top: 50%;          
+  transform: translateY(-50%); 
 }
 
 .innerWrapper {

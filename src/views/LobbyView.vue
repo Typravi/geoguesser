@@ -1,6 +1,9 @@
 <template>
   <div class="outerWrapperLobby">
-    <header class="logoHeader">
+    <header class="header">
+      <div class="header-lang">
+        <LanguageComponent :lang="lang" @switchLang="switchLanguage" />
+      </div>
       <LogoComponent :text="uiLabels.ourName" />
     </header>
 
@@ -83,15 +86,16 @@
 
 <script>
 import LogoComponent from "../components/LogoComponent.vue";
-
+import LanguageComponent from "../components/LanguageComponent.vue";
 import io from "socket.io-client";
 const socket = io("localhost:3000");
 
 import Swal from "sweetalert2";
 
+
 export default {
   name: "LobbyView",
-  components: { LogoComponent },
+  components: { LogoComponent, LanguageComponent},
   data: function () {
     return {
       playerName: "",
@@ -147,6 +151,11 @@ export default {
     });
   },
   methods: {
+    switchLanguage: function () {
+      this.lang = this.lang === "sv" ? "en" : "sv"; //kollar om SV isf EN annars SV (vid klick)
+      localStorage.setItem("lang", this.lang);
+      socket.emit("getUILabels", this.lang);
+    },
     startGame() {
       console.log("Start game by clicking"); //check
       socket.emit("startGame", this.lobbyID); //skickar "startGame" till server med aktuell lobby
@@ -208,8 +217,20 @@ export default {
     "leftGridLower middleGridLower rightGridLower";
 }
 
-.logoHeader {
+.header {
   grid-area: header;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 1rem 2rem;
+  position: relative;
+}
+
+.header-lang {
+  position: absolute; 
+  left: 2rem;        
+  top: 50%;          
+  transform: translateY(-50%); 
 }
 
 .participant {

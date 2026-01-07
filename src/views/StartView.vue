@@ -2,23 +2,12 @@
   <div class="gridstyleWrapper">
     <!--wrapper till gridlayouten-->
     <header class="header">
+      <div class="header-lang">
+        <LanguageComponent :lang="lang" @switchLang="switchLanguage" />
+      </div>
       <LogoComponent :text="uiLabels.ourName" />
     </header>
 
-    <div class="leftGridColumn">
-      <!--vänstra området i gridlayouten-->
-      <label class="languageSwitch">
-        <input
-          type="checkbox"
-          :checked="lang === 'sv'"
-          @change="switchLanguage"
-        />
-        <span class="languageSlider">
-          <span class="emoji sweEmoji">🇸🇪</span>
-          <span class="emoji engEmoji">🇬🇧</span>
-        </span>
-      </label>
-    </div>
     <main class="mainArea">
       <!--mittenområdet i gridlayouten-->
       <div class="greeting">
@@ -68,12 +57,13 @@
 
 <script>
 import LogoComponent from "../components/LogoComponent.vue";
+import LanguageComponent from "../components/LanguageComponent.vue";
 import io from "socket.io-client";
 const socket = io("localhost:3000");
 
 export default {
   name: "StartView",
-  components: { LogoComponent },
+  components: { LogoComponent , LanguageComponent},
   data: function () {
     return {
       uiLabels: {},
@@ -148,6 +138,14 @@ export default {
   justify-content: center;
   width: 100%;
   padding: 1rem 2rem;
+  position: relative;
+}
+
+.header-lang {
+  position: absolute; 
+  left: 2rem;        
+  top: 50%;          
+  transform: translateY(-50%); 
 }
 
 /*------------------------------------------------------------------------------------------------ */
@@ -199,67 +197,6 @@ export default {
 }
 .FAQ-button:hover {
   background-color: var(--button-purplecolor-hover);
-}
-/*------------------------------------------------------------------------------------------------ */
-.languageSwitch {
-  position: relative;
-  width: 70px;
-  height: 34px;
-  display: inline-block;
-  margin: 2rem;
-}
-
-.languageSwitch input {
-  display: none;
-}
-
-.languageSlider {
-  position: absolute;
-  inset: 0;
-  background: var(--languageSwitch-BG); /*färgen på slidern om ej icheckad */
-  border-radius: 34px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.languageSlider::before {
-  content: "";
-  position: absolute;
-  width: 28px;
-  height: 28px;
-  left: 3px;
-  top: 3px;
-  background: var(--languageSwitch-circle);
-  border-radius: 50%;
-  transition: 0.3s;
-  z-index: 2;
-}
-
-.languageSwitch input:checked + .languageSlider {
-  background: var(--languageSwitch-BG); /*färgen på slidern om icheckad */
-}
-
-.languageSwitch input:checked + .languageSlider::before {
-  transform: translateX(36px);
-}
-
-/* Emojis */
-.emoji {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 18px;
-  pointer-events: none;
-  transition: opacity 0.3s;
-  z-index: 3;
-}
-
-.engEmoji {
-  left: 8px;
-}
-
-.sweEmoji {
-  right: 8px;
 }
 
 /*------------------------------------------------------------------------------------------------ */
