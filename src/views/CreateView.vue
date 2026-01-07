@@ -1,6 +1,9 @@
 <template>
   <div class="flexOuterWrapper">
-    <header class="logoHeader">
+    <header class="header">
+      <div class="header-lang">
+        <LanguageComponent :lang="lang" @switchLang="switchLanguage" />
+      </div>
       <LogoComponent :text="uiLabels.ourName" />
     </header>
     <div class="flexInnerWrapper1">
@@ -69,6 +72,7 @@
 
 <script>
 import LogoComponent from "../components/LogoComponent.vue";
+import LanguageComponent from "../components/LanguageComponent.vue";
 import io from "socket.io-client";
 import { getRandomCity, getCityPlanetEarth } from "@/assets/logic.js";
 import continentData from "@/assets/maps.json";
@@ -76,7 +80,7 @@ const socket = io("localhost:3000");
 
 export default {
   name: "CreateView",
-  components: { LogoComponent },
+  components: { LogoComponent, LanguageComponent },
   data: function () {
     return {
       lang: localStorage.getItem("lang") || "en",
@@ -101,6 +105,11 @@ export default {
     socket.emit("getUILabels", this.lang);
   },
   methods: {
+    switchLanguage: function () {
+      this.lang = this.lang === "sv" ? "en" : "sv"; //kollar om SV isf EN annars SV (vid klick)
+      localStorage.setItem("lang", this.lang);
+      socket.emit("getUILabels", this.lang);
+    },
     getGameID() {
       const lobbyID = Math.floor(100000 + Math.random() * 900000);
       return lobbyID;
@@ -212,11 +221,20 @@ export default {
   justify-content: flex-start;
   gap: 5rem;
 }
-.logoHeader {
+
+.header {
   display: flex;
   justify-content: center;
   width: 100%;
   padding: 1rem 2rem;
+  position: relative;
+}
+
+.header-lang {
+  position: absolute; 
+  left: 2rem;        
+  top: 50%;          
+  transform: translateY(-50%); 
 }
 
 .flexInnerWrapper1 {
