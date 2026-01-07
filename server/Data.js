@@ -178,6 +178,12 @@ Data.prototype.getParticipants = function(lobbyID) {
  return [];
 }
 
+Data.prototype.removeParticpant = function(lobbyID, playerName){
+  if (!this.gameExists(lobbyID)) return;
+
+  const lobby = this.lobbies[lobbyID];
+  lobby.participants = lobby.participants.filter(p => p.playerName !== playerName)
+}
 
 Data.prototype.addQuestion = function(lobbyID, q) {
  if (this.gameExists(lobbyID)) {

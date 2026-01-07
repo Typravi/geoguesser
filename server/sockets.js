@@ -140,6 +140,14 @@ function sockets(io, socket, data) {
 
     io.to(lobbyID).emit("lobbyDiscardedByHost");
   });
+
+  socket.on("playerLeaveLobby", ({lobbyID, playername})=> {
+   data.removeParticipant(lobbyID, playerName);
+   socket.leave(lobbyID);
+  
+   io.to(lobbyID).emit("participantsUpdate", data.getParticipants(lobbyID))
+  });
 }
 
 export { sockets };
+
