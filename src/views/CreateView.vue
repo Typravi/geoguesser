@@ -13,14 +13,18 @@
       <div class="continentArea">
         <p>{{ uiLabels.chooseContinent }}</p>
         <div class="continentChooserButton">
-          <button class="button leftArrow" @click="chooseNextContinent">
-            <
+          <button class="button leftArrow" @click="choosePreviousContinent">
+            &lt;
           </button>
-          {{ translatedContinent }}
-          <button class="button rightArrow" @click="chooseNextContinent">
-            >
-          </button>
-        </div>
+  
+          <span class="continent-text">
+            {{ translatedContinent }}
+          </span>
+
+         <button class="button rightArrow" @click="chooseNextContinent">
+          &gt;
+        </button>
+    </div>
       </div>
 
       <div class="numberArea">
@@ -162,6 +166,13 @@ export default {
       const nextIndex = (currentIndex + 1) % continents.length;
       this.continent = continents[nextIndex];
     },
+
+    choosePreviousContinent() {
+  const continents = ["africa", "europe", "Planet earth"];
+  const currentIndex = continents.indexOf(this.continent);
+  const prevIndex = (currentIndex - 1 + continents.length) % continents.length;
+  this.continent = continents[prevIndex];
+},
 
     increaseTime() {
       if (this.numOfTime< 60) {  //maxgräns på 1 min
@@ -305,6 +316,14 @@ button:hover {
   backdrop-filter: blur(6px);
 }
 
+.continent-text {
+  display: inline-block;
+  width: 7rem;         
+  text-align: center;   
+  
+
+}
+
 /* Området för timer rutan */
 .numberTimeArea {
   display: flex;
@@ -318,11 +337,7 @@ button:hover {
   backdrop-filter: blur(6px)
 }
 
-.numberButtons {
-  display: flex;
-  flex-direction: row;
-}
-
+.numberButtons, 
 .timerButtons {
   display: flex;
   flex-direction: row;
