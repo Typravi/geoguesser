@@ -70,8 +70,6 @@
 <script>
 import LogoComponent from "../components/LogoComponent.vue";
 import io from "socket.io-client";
-import { getRandomCity, getCityPlanetEarth } from "@/assets/logic.js";
-import continentData from "@/assets/maps.json";
 const socket = io("localhost:3000");
 
 export default {
@@ -86,7 +84,6 @@ export default {
       numOfTime: 10, 
       lobbyID: null,
       continent: "europe",
-      cities: [],
       round: null,
     };
   },
@@ -95,7 +92,6 @@ export default {
     socket.on("gameData", (data) => {
       console.log("Lobby created:", data);
       this.$router.push(`/lobby/${this.lobbyID}/${data.hostName}`);
-      console.log("Lista med alla städer", this.cities);
     });
 
     socket.emit("getUILabels", this.lang);
@@ -109,66 +105,16 @@ export default {
     goToLobby() {
       this.lobbyID = this.getGameID();
 
-      if (this.continent === "Planet earth") {
-        this.getPlanetEarthCities();
-      } 
-      
-      else {
-        this.getCitiesForContinentInArray();
-      }
-
       socket.emit("createGame", {
         lobbyID: this.lobbyID,
         lang: this.lang,
         playerName: this.playerName,
         numberOfQuestions: this.numberOfQuestions,
         continent: this.continent,
-        cities: this.cities,
         round: 1,
         time: this.numOfTime
       });
     },
-
-    getCitiesForContinentInArray() {
-      this.cities = [];
-      const continentKey = this.continent.toLowerCase();
-      const continentObj = continentData[continentKey];
-
-      if (!continentObj) {
-        console.error("Okänd kontinent:", this.continent);
-        return;
-      }
-
-      // Kör loopen tills vi har exakt så många frågor som valdes
-    while (this.cities.length < this.numberOfQuestions) {
-    
-      const city = getRandomCity(continentObj);
-
-    // Kolla Finns den här staden redan i listan? .some() returnerar true om den hittar en matchning
-      const alreadyExists = this.cities.some(c => c.name === city.name);
-
-    // Om den INTE finns, lägg till den
-    if (!alreadyExists) {
-      this.cities.push(city);
-    }
-  }
-},
-
-    //funktion från planetEarth
-    getPlanetEarthCities() {
-      this.cities = [];
-      while (this.cities.length < this.numberOfQuestions) {
-    
-        const city = getCityPlanetEarth(continentData);
-
-        const alreadyExists = this.cities.some(c => c.name === city.name);
-
-
-      if (!alreadyExists) {
-      this.cities.push(city);
-    }
-  }
-},
 
     increaseAmount() {
       if (this.numberOfQuestions < 10) {

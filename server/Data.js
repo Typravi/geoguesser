@@ -1,6 +1,13 @@
 'use strict';
 import {readFileSync} from "fs";
 
+const continentData = JSON.parse(
+  readFileSync(new URL("./data/maps.json", import.meta.url), "utf-8")
+);
+function randomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
 const playerColors = [
   "#e6194b", // röd
   "#3cb44b", // grön
@@ -51,14 +58,14 @@ Data.prototype.getUILabels = function (lang) {
 }
 
 
-Data.prototype.createGame = function(lobbyID, lang = "en", hostName = null, numberOfQuestions = 0, continent = null, cities = [], round = null, time = 0) {
+Data.prototype.createGame = function(lobbyID, lang = "en", hostName = null, numberOfQuestions = 0, continent = null, round = null, time = 0) {
  if (!this.gameExists(lobbyID)) {
    const lobby = {
      lang: lang,
      hostName: hostName,
      numberOfQuestions: numberOfQuestions,
      continent: continent,
-     cities: cities,
+     cities: [],
      round: round,
      questions: [],
      answers: [],
@@ -107,7 +114,58 @@ Data.prototype.participateInGame = function (lobbyID, playerName) {
     lobby.participants.push(player);
   }
 }
+Data.prototype.generateCitiesForLobby = function (continent, numberOfQuestions) {
+  const isPlanetEarth = continent === "Planet earth";
 
+  const allContinents = Object.keys(continentData);
+
+  const citiesOut = [];
+
+  // helper to pick one city from a specific continent
+  const pickOneFromContinent = (continentKey) => {
+    const entry = continentData[continentKey];
+    if (!entry || !entry.cities) return null;
+
+    const cityNames = Object.keys(entry.cities);
+    if (cityNames.length === 0) return null;
+
+    const name = cityNames[randomInt(cityNames.length)];
+    const coords = entry.cities[name]; // {x,y}
+
+    return {
+      name,
+      coordinates: { x: coords.x, y: coords.y },
+      continent: continentKey,
+    };
+  };
+
+  // ensure uniqueness by (continent + name) so Planet earth can still avoid duplicates
+  const used = new Set();
+
+  while (citiesOut.length < numberOfQuestions) {
+    const continentKey = isPlanetEarth
+      ? allContinents[randomInt(allContinents.length)]
+      : String(continent).toLowerCase();
+
+    const city = pickOneFromContinent(continentKey);
+    if (!city) break;
+
+    const key = `${city.continent}:${city.name}`;
+    if (used.has(key)) continue;
+
+    used.add(key);
+    citiesOut.push(city);
+  }
+
+  return citiesOut;
+};
+
+Data.prototype.assignCities = function (lobbyID) {
+  if (!this.gameExists(lobbyID)) return;
+
+  const lobby = this.lobbies[lobbyID];
+  lobby.cities = this.generateCitiesForLobby(lobby.continent, lobby.numberOfQuestions);
+};
 
 
 

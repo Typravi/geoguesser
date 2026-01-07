@@ -1,0 +1,4 @@
+{
+  "europe": { "image": "/img/Europe_map.png", "originalWidth": 2395, "originalHeight": 2049 },
+  "africa": { "image": "/img/africa.png", "originalWidth": 1500, "originalHeight": 1522 }
+}

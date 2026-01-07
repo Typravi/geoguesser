@@ -10,12 +10,15 @@ function sockets(io, socket, data) {
       d.playerName,
       d.numberOfQuestions,
       d.continent,
-      d.cities,
       d.round, 
       d.time
     );
+    data.assignCities(d.lobbyID);
 
-    socket.emit("gameData", data.getGame(d.lobbyID));
+     // Join room and emit data
+    socket.join(d.lobbyID);
+    io.to(d.lobbyID).emit("gameData", data.getGame(d.lobbyID));
+
     console.log("gameData sent for", d.lobbyID);
   });
 

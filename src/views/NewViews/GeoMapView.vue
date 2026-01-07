@@ -95,7 +95,7 @@
 import GeoMap from "../../components/GeoMap.vue";
 import ScorePanel from "../../components/ScorePanel.vue";
 import LogoComponent from "../../components/LogoComponent.vue";
-import continentData from "../../assets/maps.json";
+import continentData from "../../assets/maps_public.json";
 import { calculateDistance } from "../../assets/logic";
 import { calculatePunishment } from "../../assets/logic";
 
@@ -140,11 +140,16 @@ export default {
   
     currentMap() {
       if (!this.continent) return null;
-      if (this.continent == "Planet earth") {
-        const city = this.cities[this.round - 1]; // tar fram stadens data för just den rundan - behövs för att vi ska kunna slumpa mellan kontinenter och få upp deras kartor 
-        return continentData[city.continent]; //visar kartan som tillhör till den specifika staden 
+
+      if (this.continent === "Planet earth") {
+        const idx = (Number(this.round) || 1) - 1;
+        const city = this.cities?.[idx];
+        if (!city?.continent) return null;
+
+        return continentData[city.continent] ?? null;
       }
-      return continentData[this.continent] || null;
+
+      return continentData[this.continent] ?? null;
     },
 
     displayCityName() {
@@ -170,14 +175,22 @@ export default {
 
     // lyssna på gameData i GeoMapView också
     socket.on("gameData", (lobby) => {
-      this.continent = lobby.continent;
-      this.numberOfQuestions = lobby.numberOfQuestions;
-      this.cities = lobby.cities;
-      this.round = lobby.round;
-      this.cityToFind = this.cities[this.round - 1].name;
-      this.correctLocation = this.cities[this.round - 1].coordinates;
-      this.timePerRound = lobby.time;
-      this.startTimer();
+      this.continent = lobby?.continent ?? null;
+      this.numberOfQuestions = lobby?.numberOfQuestions ?? null;
+      this.cities = Array.isArray(lobby?.cities) ? lobby.cities : [];
+      this.round = Number(lobby?.round) || 1;
+      this.timePerRound = lobby?.time ?? 10;
+
+      const idx = this.round - 1;
+      const city = this.cities[idx];
+
+      this.cityToFind = city?.name ?? null;
+      this.correctLocation = city?.coordinates ?? null;
+
+      // Only start timer when we actually have round data
+      if (this.cityToFind && this.correctLocation) {
+        this.startTimer();
+      }
 
       console.log(
         "GeoMapView created for lobby",
@@ -246,7 +259,7 @@ export default {
           } else {
             const maxDistance = Math.sqrt(
               this.currentMap.originalWidth ** 2 +
-                this.currentMap.originalWidth ** 2
+                this.currentMap.originalHeight ** 2
             );
             const noClickScore = calculatePunishment(maxDistance);
 
