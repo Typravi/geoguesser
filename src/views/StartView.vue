@@ -6,6 +6,9 @@
         <LanguageComponent :lang="lang" @switchLang="switchLanguage" />
       </div>
       <LogoComponent :text="uiLabels.ourName" />
+      <div class="header-faq">
+        <FAQComponent :uiLabels="uiLabels" />
+      </div>
     </header>
 
     <main class="mainArea">
@@ -25,32 +28,7 @@
       </div>
     </main>
     <div class="rightGridColumn">
-      <button class="button FAQ-button" @click="open = true">FAQ</button>
-      <!--byt ut "FAQ" till ett label senare-->
-      <div v-if="open" class="overlay" @click.self="closeFAQ">
-        <!--gör så att FAQ-modalen stängs om man klickar utanför den-->
-        <div class="FAQmodal">
-          <div class="FAQaccordion">
-            <!--accordion=rullgardinsmeny (betyder egentligen dragspel tror jag)-->
-
-            <button class="FAQquestion" @click="FAQtoggle(0)">
-              {{ uiLabels.gameInstructionsQ }}
-            </button>
-            <div v-show="active === 0" class="FAQanswer">
-              {{ uiLabels.gameInstructionsA }}
-            </div>
-            <button class="FAQquestion" @click="FAQtoggle(1)">
-              {{ uiLabels.creditsQ }}
-            </button>
-            <div v-show="active === 1" class="FAQanswer">
-              {{ uiLabels.creditsA }}
-            </div>
-            <button class="closeFAQbutton" @click="closeFAQ">
-              {{ uiLabels.close }}
-            </button>
-          </div>
-        </div>
-      </div>
+      
     </div>
   </div>
 </template>
@@ -58,12 +36,13 @@
 <script>
 import LogoComponent from "../components/LogoComponent.vue";
 import LanguageComponent from "../components/LanguageComponent.vue";
+import FAQComponent from "../components/FAQComponent.vue";
 import io from "socket.io-client";
 const socket = io("localhost:3000");
 
 export default {
   name: "StartView",
-  components: { LogoComponent , LanguageComponent},
+  components: { LogoComponent , LanguageComponent, FAQComponent},
   data: function () {
     return {
       uiLabels: {},
@@ -144,8 +123,21 @@ export default {
 .header-lang {
   position: absolute; 
   left: 2rem;        
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+}
+
+
+.header-faq {
+  position: absolute; 
+  right: 2rem;        
   top: 50%;          
-  transform: translateY(-50%); 
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
 }
 
 /*------------------------------------------------------------------------------------------------ */
