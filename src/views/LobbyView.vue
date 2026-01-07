@@ -72,6 +72,7 @@
           to="/"
           class="button leaveLobbyButton"
           v-if="playerName != hostName"
+          @click="playerLeaveLobby"
         >
           {{ uiLabels.leaveLobby }}
         </router-link>
@@ -165,6 +166,9 @@ export default {
       socket.emit("startGame", this.lobbyID); //skickar "startGame" till server med aktuell lobby
     },
 
+    playerLeaveLobby(){
+      socket.emit("playerLeaveLobby", this.player, this.lobbyID);
+    },
     //Se länken nedan för förklaring
     // https://sweetalert2.github.io/
     confirmDiscardLobby() {
