@@ -2,10 +2,20 @@
   <div class="outerWrapperGeo">
     <header class="header">
      
-
       <div class="whichCity">
         <p v-if="timerActive">{{ uiLabels.clickOn }} <span class="cityName">{{ displayCityName }}</span></p>
         <p v-else><span class="cityName">{{ displayCityName }}</span></p>
+      </div>
+
+      <div class="timerBox" v-if="timerActive && timeLeft !== null"
+        :class="{ hurry: timeLeft <= 3 }">
+        <span class="timerInner">{{ timeLeft }}</span>
+      </div>
+
+      <div class="whichRound"v-if="round && numberOfQuestions && timerActive">
+        <p>
+          {{ uiLabels.whichRound }} <br/> {{ round }} / {{ numberOfQuestions }}
+        </p>
       </div>
       
       
@@ -49,18 +59,6 @@
     </header>
 
     <main class="map-area">
-      <div class="timerBox" v-if="timerActive && timeLeft !== null"
-        :class="{ hurry: timeLeft <= 3 }">
-      {{ timeLeft }}
-      </div>
-
-      <div class="whichRound"v-if="round && numberOfQuestions">
-        <p>
-          {{ uiLabels.whichRound }} <br/> {{ round }} / {{ numberOfQuestions }}
-        </p>
-      </div>
-
-
       <GeoMap
         :key="round"
         v-if="currentMap"
@@ -78,6 +76,7 @@
     </main>
     <div class="score-panel">
       <ScorePanel
+        v-if="!timerActive"
         :participants="participants"
         :currentPlayerName="playerName"
         :title="uiLabels.scorePanelTitle"
@@ -294,6 +293,7 @@ export default {
   text-align: center;
   padding: 16px 16px 0;
   position: relative;
+  --hud-offset: clamp(90px, 14vw, 170px);
 }
 
 /*I CSS koden nedan centreras kartan*/
@@ -334,26 +334,29 @@ export default {
 }
 
 .timerBox {
+  position: absolute;
+  top: clamp(8px, 1.6vw, 16px);
+
+  /* Ankare i mitten */
+  left: 50%;
+  transform: translateX(
+    clamp(140px, 22vw, 260px)
+  );
+
+  width: clamp(44px, 7vw, 72px);
+  height: clamp(44px, 7vw, 72px);
+  font-size: clamp(1.2rem, 3.5vw, 2.5rem);
+
+  display: grid;
+  place-items: center;
+
   background: rgba(0, 0, 0, 0.8);
-  padding: 15px;
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: white;
-
-  font-size: 4rem;
-  font-weight: 1000;
-
-  position: absolute;
-  width: 4.5rem;     
-  height: 4rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  top: 7rem;
-  right: 3rem;
 }
 
-.timerBox.hurry{
+.timerBox.hurry .timerInner{
   color: red;
   animation: shake 0.30s infinite; /* beroende på hur snabb skakningen ska vara*/
 }
@@ -366,24 +369,34 @@ export default {
  100% { transform: translateX(0) }
 }
 
-.whichRound{
+.whichRound {
+  position: absolute;
+  top: clamp(8px, 1.6vw, 16px);
+
+  left: 25%;
+  transform: translateX(calc(var(--hud-offset) * -1));
+
+  width: clamp(52px, 8vw, 86px);
+  height: clamp(52px, 8vw, 86px);
+
   background: rgba(0, 0, 0, 0.8);
-  padding: 15px;
   border-radius: 100%;
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: white;
 
-  font-size: 1rem;
-  font-weight: 1000;
+  display: grid;
+  place-items: center;
+  text-align: center;
 
-  position: absolute;
-  width: 4rem;     
-  height: 4rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  top: 2rem;
-  left: 1.5rem;
+  font-size: clamp(0.85rem, 1.3vw, 1rem);
+  font-weight: 1000;
+  padding: 0;
+}
+
+/* Bara för att få texten snyggt centrerad */
+.whichRound p {
+  margin: 0;
+  line-height: 1.15;
 }
 
 .whichCity{
