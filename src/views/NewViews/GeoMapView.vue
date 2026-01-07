@@ -148,7 +148,9 @@ export default {
     },
 
     displayCityName() {
-      return this.uiLabels.cityNamesLang[this.cityToFind] || this.cityToFind
+      const cityNames = this.uiLabels?.cityNamesLang;
+      if (!cityNames || !this.cityToFind) return this.cityToFind || "";
+      return cityNames[this.cityToFind] ?? this.cityToFind;
     }
 
   },
