@@ -259,6 +259,12 @@ export default {
   font-weight: bold;
   transition: 0.2s ease;
 }
+button:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  background-color: var(--button-purplecolor-hover);
+}
+
 
 .leftArrow,
 .rightArrow,
@@ -330,6 +336,9 @@ export default {
 .createGameButton {
   margin-top: 2rem;
   background-color: var(--createbutton-color);
+}
+.createGameButton:hover {
+  background-color: var(--createbutton-color-hover);
 }
 
 .buttonArea {

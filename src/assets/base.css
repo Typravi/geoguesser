@@ -4,10 +4,14 @@
   --main-background: radial-gradient(#477952, #2d3ce7);
   --logo-font: Atop;
   --logo-color: rgb(120, 159, 211);
-  --joinbutton-color: rgb(57, 142, 57);
-  --createbutton-color:  rgb(85, 85, 170);
+  --joinbutton-color: rgb(57, 142, 57, 0.75);
+  --joinbutton-color-hover: rgb(57, 142, 57, 1);
+  --createbutton-color:  rgb(85, 85, 170, 0.75);
+  --createbutton-color-hover: rgb(85, 85, 170, 1);
   --button-textcolor: white;
-  --button-purplecolor: #cdcae590;
+  --button-purplecolor: rgb(205, 202, 229, 0.565);
+  --button-purplecolor-hover: rgb(205, 202, 229, 1);
+
   --FAQ-modal-BG: #f6f7fb;
   --FAQ-Q-color: #ffffff;
   --FAQ-Q-hover-color:  rgba(108, 92, 231, 0.15);
