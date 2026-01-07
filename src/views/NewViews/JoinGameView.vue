@@ -160,11 +160,13 @@ export default {
   text-decoration: none; /* tar bort blå underline */
   font-size: 1.2rem;
   font-weight: bold;
-  transition: 0.2s ease;
 }
 
 .joinButton {
   background-color: var(--joinbutton-color);
+}
+.joinButton:hover {
+  background-color: var(--joinbutton-color-hover);
 }
 
 .buttonArea {
@@ -185,7 +187,6 @@ export default {
   text-decoration: none; /* tar bort blå underline */
   font-size: 1.2rem;
   font-weight: normal;
-  transition: 0.2s ease;
   margin-top: 6rem;
   background-color: rgba(0, 0, 139, 0.25);
 }

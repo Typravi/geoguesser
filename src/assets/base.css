@@ -30,3 +30,8 @@ body {
   padding: 0;
 }
 
+
+.button:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}

@@ -183,16 +183,12 @@ export default {
 }
 .create-button:hover {
   background-color: var(--createbutton-color-hover);
-  cursor: pointer;
-  transform: scale(1.1);
 }
 .join-button {
   background-color: var(--joinbutton-color);
 }
 .join-button:hover {
   background-color: var(--joinbutton-color-hover);
-  cursor: pointer;
-  transform: scale(1.1);
 }
 /*------------------------------------------------------------------------------------------------ */
 .FAQ-button {
@@ -203,8 +199,6 @@ export default {
 }
 .FAQ-button:hover {
   background-color: var(--button-purplecolor-hover);
-  cursor: pointer;
-  transform: scale(1.1);
 }
 /*------------------------------------------------------------------------------------------------ */
 .languageSwitch {
