@@ -319,4 +319,10 @@ export default {
   margin-bottom: 2rem;
   background-color: rgba(0, 0, 139, 0.25);
 }
+.startGameButton {
+  background-color: var(--createbutton-color);
+}
+.startGameButton:hover {
+  background-color: var(--createbutton-color-hover);
+}
 </style>

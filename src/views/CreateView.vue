@@ -363,4 +363,7 @@ button:hover {
   margin-top: 6rem;
   background-color: rgba(0, 0, 139, 0.25);
 }
+.goBackButton:hover {
+  transform: scale(1.1);
+}
 </style>

@@ -190,4 +190,7 @@ header {
   margin: 2rem 2rem 2rem 2rem;
   background-color: rgba(0, 0, 139, 0.511);
 }
+.quitButton:hover {
+  transform: scale(1.1);
+}
 </style>
