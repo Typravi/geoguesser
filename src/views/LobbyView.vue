@@ -167,7 +167,10 @@ export default {
     },
 
     playerLeaveLobby(){
-      socket.emit("playerLeaveLobby", this.player, this.lobbyID);
+      socket.emit("playerLeaveLobby", {
+        lobbyID: this.lobbyID,
+        playerName: this.playerName
+      });
     },
     //Se länken nedan för förklaring
     // https://sweetalert2.github.io/

@@ -178,7 +178,7 @@ Data.prototype.getParticipants = function(lobbyID) {
  return [];
 }
 
-Data.prototype.removeParticpant = function(lobbyID, playerName){
+Data.prototype.removeParticipant = function(lobbyID, playerName){
   if (!this.gameExists(lobbyID)) return;
 
   const lobby = this.lobbies[lobbyID];

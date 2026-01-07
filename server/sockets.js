@@ -141,7 +141,7 @@ function sockets(io, socket, data) {
     io.to(lobbyID).emit("lobbyDiscardedByHost");
   });
 
-  socket.on("playerLeaveLobby", ({lobbyID, playername})=> {
+  socket.on("playerLeaveLobby", ({lobbyID, playerName})=> {
    data.removeParticipant(lobbyID, playerName);
    socket.leave(lobbyID);
   
