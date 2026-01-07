@@ -5,6 +5,9 @@
         <LanguageComponent :lang="lang" @switchLang="switchLanguage" />
       </div>
       <LogoComponent :text="uiLabels.ourName" />
+      <div class="header-faq">
+        <FAQComponent :uiLabels="uiLabels" />
+      </div>
     </header>
 
     <div class="leftGridUpper">
@@ -87,15 +90,16 @@
 <script>
 import LogoComponent from "../components/LogoComponent.vue";
 import LanguageComponent from "../components/LanguageComponent.vue";
+import FAQComponent from "../components/FAQComponent.vue";
 import io from "socket.io-client";
-const socket = io("localhost:3000");
+const socket = io(sessionStorage.getItem("dataServer")); // ändrat från localhost till min lokala IP-adress
 
 import Swal from "sweetalert2";
 
 
 export default {
   name: "LobbyView",
-  components: { LogoComponent, LanguageComponent},
+  components: { LogoComponent, LanguageComponent, FAQComponent},
   data: function () {
     return {
       playerName: "",
@@ -229,8 +233,21 @@ export default {
 .header-lang {
   position: absolute; 
   left: 2rem;        
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+}
+
+
+.header-faq {
+  position: absolute; 
+  right: 2rem;        
   top: 50%;          
-  transform: translateY(-50%); 
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
 }
 
 .participant {

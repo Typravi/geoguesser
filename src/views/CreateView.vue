@@ -5,16 +5,19 @@
         <LanguageComponent :lang="lang" @switchLang="switchLanguage" />
       </div>
       <LogoComponent :text="uiLabels.ourName" />
+      <div class="header-faq">
+        <FAQComponent :uiLabels="uiLabels" />
+      </div>
     </header>
     <div class="flexInnerWrapper1">
       <div class="continentArea">
         <p>{{ uiLabels.chooseContinent }}</p>
         <div class="continentChooserButton">
-          <button class="button leftArrow" @click="choseNextContinent">
+          <button class="button leftArrow" @click="chooseNextContinent">
             <
           </button>
           {{ continent }}
-          <button class="button rightArrow" @click="choseNextContinent">
+          <button class="button rightArrow" @click="chooseNextContinent">
             >
           </button>
         </div>
@@ -73,12 +76,13 @@
 <script>
 import LogoComponent from "../components/LogoComponent.vue";
 import LanguageComponent from "../components/LanguageComponent.vue";
+import FAQComponent from "../components/FAQComponent.vue";
 import io from "socket.io-client";
-const socket = io("localhost:3000");
+const socket = io(sessionStorage.getItem("dataServer")); // ändrat från localhost till min lokala IP-adress
 
 export default {
   name: "CreateView",
-  components: { LogoComponent, LanguageComponent },
+  components: { LogoComponent, LanguageComponent, FAQComponent },
   data: function () {
     return {
       lang: localStorage.getItem("lang") || "en",
@@ -135,7 +139,7 @@ export default {
         this.numberOfQuestions--;
       }
     },
-    choseNextContinent() {
+    chooseNextContinent() {
       const continents = ["africa", "europe", "Planet earth"];
       const currentIndex = continents.indexOf(this.continent);
       const nextIndex = (currentIndex + 1) % continents.length;
@@ -179,9 +183,23 @@ export default {
 .header-lang {
   position: absolute; 
   left: 2rem;        
-  top: 50%;          
-  transform: translateY(-50%); 
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
 }
+
+
+.header-faq {
+  position: absolute; 
+  right: 2rem;        
+  top: 50%;          
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+}
+
 
 .flexInnerWrapper1 {
   display: flex;

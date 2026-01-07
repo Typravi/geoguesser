@@ -100,7 +100,7 @@ import { calculateDistance } from "../../assets/logic";
 import { calculatePunishment } from "../../assets/logic";
 
 import io from "socket.io-client";
-const socket = io("localhost:3000");
+const socket = io(sessionStorage.getItem("dataServer")); // ändrat från localhost till min lokala IP-adress
 
 export default {
   name: "GeoMapView",
