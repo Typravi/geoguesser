@@ -92,12 +92,12 @@
 </template>
 
 <script>
-import GeoMap from "../../components/GeoMap.vue";
-import ScorePanel from "../../components/ScorePanel.vue";
-import LogoComponent from "../../components/LogoComponent.vue";
-import continentData from "../../assets/maps_public.json";
-import { calculateDistance } from "../../assets/logic";
-import { calculatePunishment } from "../../assets/logic";
+import GeoMap from "../components/GeoMap.vue";
+import ScorePanel from "../components/ScorePanel.vue";
+import LogoComponent from "../components/LogoComponent.vue";
+import continentData from "../assets/maps_public.json";
+import { calculateDistance } from "../assets/logic";
+import { calculatePunishment } from "../assets/logic";
 
 import io from "socket.io-client";
 const socket = io(sessionStorage.getItem("dataServer")); // ändrat från localhost till min lokala IP-adress

@@ -22,14 +22,7 @@ function Data() {
  this.lobbies = {};
  this.lobbies['test'] = {
    lang: "en",
-   questions: [
-     {q: "How old are you?",
-      a: ["0-13", "14-18", "19-25", "26-35", "36-45","45-"]
-     },
-     {q: "How much do you enjoy coding?",
-      a: ["1", "2", "3", "4", "5"]
-     }
-   ],
+   questions: [],
    answers: [],
    currentQuestion: 0,
    participants: []
@@ -183,58 +176,6 @@ Data.prototype.removeParticipant = function(lobbyID, playerName){
 
   const lobby = this.lobbies[lobbyID];
   lobby.participants = lobby.participants.filter(p => p.playerName !== playerName)
-}
-
-Data.prototype.addQuestion = function(lobbyID, q) {
- if (this.gameExists(lobbyID)) {
-   this.lobbies[lobbyID].questions.push(q);
- }
-}
-
-
-Data.prototype.activateQuestion = function(lobbyID, qId = null) {
- if (this.gameExists(lobbyID)) {
-   const poll = this.lobbies[lobbyID];
-   if (qId !== null) {
-     poll.currentQuestion = qId;
-   }
-   return poll.questions[poll.currentQuestion];
- }
- return {}
-}
-
-
-Data.prototype.getSubmittedAnswers = function(lobbyID) {
- if (this.gameExists(lobbyID)) {
-   const poll = this.lobbies[lobbyID];
-   const answers = poll.answers[poll.currentQuestion];
-   if (typeof poll.questions[poll.currentQuestion] !== 'undefined') {
-     return answers;
-   }
- }
- return {}
-}
-
-
-Data.prototype.submitAnswer = function(lobbyID, answer) {
- if (this.gameExists(lobbyID)) {
-   const poll = this.lobbies[lobbyID];
-   let answers = poll.answers[poll.currentQuestion];
-   // create answers object if no answers have yet been submitted
-   if (typeof answers !== 'object') {
-     answers = {};
-     answers[answer] = 1;
-     poll.answers.push(answers);
-   }
-   // create answer property if that specific answer has not yet been submitted
-   else if (typeof answers[answer] === 'undefined') {
-     answers[answer] = 1;
-   }
-   // if the property already exists, increase the number
-   else
-     answers[answer] += 1
-   console.log("answers looks like ", answers, typeof answers);
- }
 }
 
 

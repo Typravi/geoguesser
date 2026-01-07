@@ -56,9 +56,9 @@
 </template>
 
 <script>
-import LogoComponent from "../../components/LogoComponent.vue";
-import LanguageComponent from "../../components/LanguageComponent.vue";
-import FAQComponent from "../../components/FAQComponent.vue";
+import LogoComponent from "../components/LogoComponent.vue";
+import LanguageComponent from "../components/LanguageComponent.vue";
+import FAQComponent from "../components/FAQComponent.vue";
 import io from "socket.io-client";
 const socket = io(sessionStorage.getItem("dataServer")); // ändrat från localhost till min lokala IP-adress
 

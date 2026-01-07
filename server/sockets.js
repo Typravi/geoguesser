@@ -22,16 +22,11 @@ function sockets(io, socket, data) {
     console.log("gameData sent for", d.lobbyID);
   });
 
-  socket.on("addQuestion", function (d) {
-    data.addQuestion(d.lobbyID, { q: d.q, a: d.a });
-    socket.emit("questionUpdate", data.activateQuestion(d.lobbyID));
-  });
+ 
 
   socket.on("joinGame", function (lobbyID) {
     socket.join(lobbyID);
     socket.emit("gameData", data.getGame(lobbyID));
-    socket.emit("questionUpdate", data.activateQuestion(lobbyID));
-    socket.emit("submittedAnswersUpdate", data.getSubmittedAnswers(lobbyID));
     socket.emit("participantsUpdate", data.getParticipants(lobbyID));
   });
 
@@ -43,14 +38,11 @@ function sockets(io, socket, data) {
       console.log("Lobby full:", d.lobbyID);
       return;
     }
-
-    // kolla om namnet redan används (nu är p ett objekt)
     const nameTaken = lobby.participants.some(
       (p) => p.playerName === d.playerName
     );
 
     if (!nameTaken) {
-      // lägg till spelaren (Data.participateInGame ger färg)
       data.participateInGame(d.lobbyID, d.playerName);
       socket.emit("playerJoined");
       socket.join(d.lobbyID);
@@ -59,7 +51,6 @@ function sockets(io, socket, data) {
       console.log("name taken:", d.playerName, "in", d.lobbyID);
       return;
     }
-
     console.log("adding participant", d.playerName, "to", d.lobbyID);
     io.to(d.lobbyID).emit(
       "participantsUpdate",
@@ -67,22 +58,7 @@ function sockets(io, socket, data) {
     );
   });
 
-  socket.on("runQuestion", function (d) {
-    let question = data.activateQuestion(d.lobbyID, d.questionNumber);
-    io.to(d.lobbyID).emit("questionUpdate", question);
-    io.to(d.lobbyID).emit(
-      "submittedAnswersUpdate",
-      data.getSubmittedAnswers(d.lobbyID)
-    );
-  });
-
-  socket.on("submitAnswer", function (d) {
-    data.submitAnswer(d.lobbyID, d.answer);
-    io.to(d.lobbyID).emit(
-      "submittedAnswersUpdate",
-      data.getSubmittedAnswers(d.lobbyID)
-    );
-  });
+ 
 
   socket.on("validateLobbyID", (lobbyID, callback) => {
     console.log("[sockets] validateLobbyID received:", lobbyID);
