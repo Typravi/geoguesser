@@ -88,7 +88,7 @@
 import LogoComponent from "../components/LogoComponent.vue";
 import LanguageComponent from "../components/LanguageComponent.vue";
 import io from "socket.io-client";
-const socket = io("localhost:3000");
+const socket = io(sessionStorage.getItem("dataServer")); // ändrat från localhost till min lokala IP-adress
 
 import Swal from "sweetalert2";
 
