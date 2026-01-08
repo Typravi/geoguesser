@@ -1,8 +1,10 @@
+@import url("https://fonts.cdnfonts.com/css/atop");
+
 :root {
   --foreground-color: red;
   --background-color: green;
   --main-background: radial-gradient(#477952, #2d3ce7);
-  --logo-font: Times;
+  --logo-font: atop;
   --logo-color: rgb(120, 159, 211);
   --joinbutton-color: rgb(57, 142, 57, 0.75);
   --joinbutton-color-hover: rgb(57, 142, 57, 1);
