@@ -1,6 +1,6 @@
 <template>
-  <div class="app-header">
-    <header class="header">
+  <div class="page-wrapper JoinGameView">
+    <header class="app-header">
       <div class="header-lang">
         <LanguageComponent :lang="lang" @switchLang="switchLanguage" />
       </div>
@@ -9,7 +9,7 @@
         <FAQComponent :uiLabels="uiLabels" />
       </div>
     </header>
-    <div class="innerWrapper">
+    <div class="responsive-row">
       <div class="enterNameArea">
         <p>
           <label for="name">{{ uiLabels.yourName }}</label
@@ -130,19 +130,6 @@ export default {
 </script>
 
 <style>
-.app-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 4rem;
-}
-
-.innerWrapper {
-  display: flex;
-  flex-direction: row;
-  margin-top: 4rem;
-}
 
 .enterNameArea {
   border-radius: 10%;

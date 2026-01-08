@@ -1,6 +1,6 @@
 <template>
-  <div class="app-header">
-    <header class="header">
+  <div class="page-wrapper LobbyView">
+    <header class="app-header">
       <div class="header-lang">
         <LanguageComponent :lang="lang" @switchLang="switchLanguage" />
       </div>

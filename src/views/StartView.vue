@@ -1,7 +1,7 @@
 <template>
-  <div class="app-header">
+  <div class="page-wrapper StartView">
     <!--wrapper till gridlayouten-->
-    <header class="header">
+    <header class="app-header">
       <div class="header-lang">
         <LanguageComponent :lang="lang" @switchLang="switchLanguage" />
       </div>

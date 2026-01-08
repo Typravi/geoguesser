@@ -1,6 +1,6 @@
 <template>
-  <div class="app-header">
-    <header class="header">
+  <div class="page-wrapper CreateView">
+    <header class="app-header">
       <div class="header-lang">
         <LanguageComponent :lang="lang" @switchLang="switchLanguage" />
       </div>
@@ -9,7 +9,7 @@
         <FAQComponent :uiLabels="uiLabels" />
       </div>
     </header>
-    <div class="flexInnerWrapper1">
+    <div class="responsive-row">
       <div class="continentArea">
         <p>{{ uiLabels.chooseContinent }}</p>
         <div class="continentChooserButton">
@@ -192,20 +192,6 @@ export default {
 </script>
 
 <style>
-.flexOuterWrapper {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 5rem;
-}
-
-.flexInnerWrapper1 {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-}
 
 .flexInnerWrapper2 {
   display: flex;
