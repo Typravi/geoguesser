@@ -20,7 +20,7 @@
             <line
               class="lineBetweenDots"
               v-for="p in participantsWhoHasClicked"
-              :key="p.playername"
+              :key="p.playerName"
               :x1="correctLocation.x"
               :y1="correctLocation.y"
               :x2="p.latestClick.x"
@@ -70,7 +70,7 @@
           >
             {{ p.playerName }}
           </div>
-<!-- Nu har jag kommenterat bort detta. Jag tycker inte alls att vi borde ha kvar det, eftersom vi visar omgångens resultat i leaderboard.
+          <!-- Nu har jag kommenterat bort detta. Jag tycker inte alls att vi borde ha kvar det, eftersom vi visar omgångens resultat i leaderboard.
 
           <div
             v-if="p.latestClick && !timerActive && locationGuess.x !== null"
@@ -93,6 +93,15 @@
             top: correctLocation.y + 'px',
           }"
         ></div>
+         <div
+          v-if="!timerActive && correctLocation"
+          class="correctCityNameLabel"
+          :style="{
+            left: correctLocation.x + 'px',
+            top: correctLocation.y + 'px',
+          }"
+        > {{ correctCityName }} </div>
+
       </div>
     </div>
   </div>
@@ -114,6 +123,11 @@ export default {
       required: true,
     },
     correctLocation: Object, //tillagd för att ta emot korrekta koordinater från vår förälder GeoMapView
+    //tillagd för att ta emot korrekt namn så staden till markören
+    correctCityName: {
+      type: String,
+    default: "",
+  }, 
   },
   data() {
     return {
@@ -125,16 +139,16 @@ export default {
   computed: {
     //participantsWhoHasClicked städar bort folk som inte klickat
     participantsWhoHasClicked() {
-      //om participants finns anv den annars ta ny tom array 
+      //om participants finns anv den annars ta ny tom array
       //filter går igenom alla participants i participants och lägger till dom som uppfyller villkoret i en ny array
       //villkoret är att om p finns och latestclick finns och latestclick koordinaterna är nummer (ej string elr null exempelvis)
-      return (this.participants || []).filter( 
+      return (this.participants || []).filter(
         (p) =>
           p?.latestClick &&
           typeof p.latestClick.x === "number" &&
           typeof p.latestClick.y === "number"
       );
-    }
+    },
   },
 
   methods: {
@@ -225,6 +239,20 @@ export default {
   pointer-events: none;
 }
 
+.correctCityNameLabel{
+  position: absolute;
+  transform: translate(20%, -100%); /*Flyttar namnet bort från pricken relativt sin egen storlek */
+  color: #0f1a0f;
+  font-weight: bold;
+  background: #01fa01;
+  padding: 2px 6px;
+  font-size: 40px;
+  white-space: nowrap;
+  border-radius: 0%;
+  pointer-events: none;
+  border: 2px solid white;
+}
+
 .svgLayerOnMap {
   position: absolute;
   inset: 0; /*ist för å manuellt sätta top,bottom,left, right till 0*/
@@ -234,7 +262,7 @@ export default {
 }
 
 .lineBetweenDots {
- /* stroke: red;*/
+  /* stroke: red;*/
   stroke-dasharray: 2 2;
   stroke-width: 6;
 }
@@ -258,9 +286,12 @@ export default {
     20%,
     -100%
   ); /*kan bli tokigt med olika längd så eventuellt byta */
-  color: white;
+  color: #0f1a0f;
   padding: 2px 6px;
-  font-size: 40px;
+  font-size: 35px;
+  font-style: italic;
+  font-weight: bold;
   white-space: nowrap;
+  border-radius: 50%;
 }
 </style>
