@@ -147,7 +147,7 @@ export default {
   backdrop-filter: blur(6px);
 }
 
-.button {
+.joinButton {
   width: 12rem;
   padding: 0.8rem 2rem;
   color: var(--button-textcolor);
@@ -155,9 +155,6 @@ export default {
   text-decoration: none; /* tar bort blå underline */
   font-size: 1.2rem;
   font-weight: bold;
-}
-
-.joinButton {
   background-color: var(--joinbutton-color);
 }
 .joinButton:hover {
