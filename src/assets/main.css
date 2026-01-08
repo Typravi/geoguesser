@@ -8,3 +8,9 @@
   background: var(--main-background);
   min-height: 100vh;
 }
+
+@font-face{
+  font-family: "Atop4Logo";
+  src: url("./assets/fonts/Atop-R9903ttf") format("trueType");
+  font-display: swap;
+}
