@@ -10,55 +10,64 @@ function sockets(io, socket, data) {
       d.playerName,
       d.numberOfQuestions,
       d.continent,
-      d.round, 
+      d.round,
       d.time
     );
     data.assignCities(d.lobbyID);
 
-     // Join room and emit data
+    // Join room and emit data
     socket.join(d.lobbyID);
     io.to(d.lobbyID).emit("gameData", data.getGame(d.lobbyID));
 
     console.log("gameData sent for", d.lobbyID);
   });
 
- 
-
   socket.on("joinGame", function (lobbyID) {
     socket.join(lobbyID);
     socket.emit("gameData", data.getGame(lobbyID));
     socket.emit("participantsUpdate", data.getParticipants(lobbyID));
   });
+socket.on("participateInGame", function (d) {
 
-  socket.on("participateInGame", function (d) {
-    const lobby = data.getGame(d.lobbyID);
+  const lobby = data.getGame(d.lobbyID);
 
-    if (lobby.participants.length >= 5) {
-      socket.emit("lobbyError", "Lobby is full (max 5 players).");
-      console.log("Lobby full:", d.lobbyID);
-      return;
-    }
-    const nameTaken = lobby.participants.some(
-      (p) => p.playerName === d.playerName
-    );
+  //Kollar om playerName redan finns i participate och släpper isf igenom (så man kan refresh/reconnect utan att blockas av låst lobby)
+  const existing = lobby.participants.find((p) => p.playerName === d.playerName);
+  if (existing) {
+    socket.join(d.lobbyID);
+    socket.emit("playerJoined");
+    io.to(d.lobbyID).emit("participantsUpdate", data.getParticipants(d.lobbyID));
+    return;
+  }
 
-    if (!nameTaken) {
-      data.participateInGame(d.lobbyID, d.playerName);
-      socket.emit("playerJoined");
-      socket.join(d.lobbyID);
-    } else {
-      socket.emit("lobbyError", "Name taken");
-      console.log("name taken:", d.playerName, "in", d.lobbyID);
-      return;
-    }
-    console.log("adding participant", d.playerName, "to", d.lobbyID);
-    io.to(d.lobbyID).emit(
-      "participantsUpdate",
-      data.getParticipants(d.lobbyID)
-    );
-  });
+  //Låser ute nya spelare ifall lobbyn är låst
+  if (lobby.locked) {
+    socket.emit("lobbyError", "Lobbyn är låst (spelet har redan startats av hosten)");
+    return;
+  }
 
- 
+  //Kollar så att max antal (5) spelare ej är uppnått, ifall det är uppnåt får man nt gå med 
+  if (lobby.participants.length >= 5) {
+    socket.emit("lobbyError", "Lobby is full (max 5 players)");
+    console.log("Lobby full:", d.lobbyID);
+    return;
+  }
+
+  //Kollar så att ingen spelare försöker ha samma playerName som en annan
+  const nameTaken = lobby.participants.some((p) => p.playerName === d.playerName);
+  if (nameTaken) {
+    socket.emit("lobbyError", "Name already taken");
+    console.log("Name taken:", d.playerName, "is already used in lobby:", d.lobbyID);
+    return;
+  }
+
+  //Lägger till spelaren i participants om inte något av de ovan har nekat/låst ute spelaren
+  data.participateInGame(d.lobbyID, d.playerName);
+  socket.join(d.lobbyID);
+  socket.emit("playerJoined");
+  console.log("adding participant", d.playerName, "to", d.lobbyID);
+  io.to(d.lobbyID).emit("participantsUpdate", data.getParticipants(d.lobbyID));
+});
 
   socket.on("validateLobbyID", (lobbyID, callback) => {
     console.log("[sockets] validateLobbyID received:", lobbyID);
@@ -81,6 +90,9 @@ function sockets(io, socket, data) {
     //starta spelet
     const lobby = data.getGame(lobbyID);
     console.log("startGame to server", lobbyID); //check
+    lobby.locked = true;
+    lobby.started = true;
+
     io.to(lobbyID).emit("gameStart", lobby); //ändrat från io.to(lobbyID).emit("gameStart", lobbyID)
   });
 
@@ -117,13 +129,12 @@ function sockets(io, socket, data) {
     io.to(lobbyID).emit("lobbyDiscardedByHost");
   });
 
-  socket.on("playerLeaveLobby", ({lobbyID, playerName})=> {
-   data.removeParticipant(lobbyID, playerName);
-   socket.leave(lobbyID);
-  
-   io.to(lobbyID).emit("participantsUpdate", data.getParticipants(lobbyID))
+  socket.on("playerLeaveLobby", ({ lobbyID, playerName }) => {
+    data.removeParticipant(lobbyID, playerName);
+    socket.leave(lobbyID);
+
+    io.to(lobbyID).emit("participantsUpdate", data.getParticipants(lobbyID));
   });
 }
 
 export { sockets };
-
