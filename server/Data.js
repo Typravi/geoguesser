@@ -10,7 +10,7 @@ function randomInt(max) {
 
 const playerColors = [
   "#e6194b", // röd
-  "#00ff22ff", // grön
+  "#00d0ffff", // ljusblå
   "#ff00ddff", // rosa
   "#f58231", // orange
   "#911eb4"  // lila

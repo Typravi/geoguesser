@@ -12,14 +12,22 @@
       <div class="map" ref="map" @click="onClick">
         <svg class="svgLayerOnMap">
           <!--"v if" nedan för å kolla att vi har klickat(o har en korrekt koordinat med)-->
-          <line
-            class="lineBetweenDots"
-            v-if="!timerActive && correctLocation"
-            :x1="correctLocation.x"
-            :y1="correctLocation.y"
-            :x2="locationGuess.x"
-            :y2="locationGuess.y"
-          />
+
+          <template v-if="!timerActive && correctLocation">
+            <!--en extra <template> tillåter oss att ha både vif och vfor-->
+            <!--participantsWhoHasClicked är den "städade" participants listan och fixas i computed-->
+
+            <line
+              class="lineBetweenDots"
+              v-for="p in participantsWhoHasClicked"
+              :key="p.playername"
+              :x1="correctLocation.x"
+              :y1="correctLocation.y"
+              :x2="p.latestClick.x"
+              :y2="p.latestClick.y"
+              :style="{ stroke: p.color }"
+            />
+          </template>
         </svg>
       </div>
       <div id="dots">
@@ -28,64 +36,65 @@
     ? Jag undrar om man bör använda svg circle nedan istället för en vanlig div med border radius 50%??
     https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/circle-->
 
-    <div
-        v-if="timerActive && locationGuess.x !== null"
-        class="guessMarker"
-        :style="{
-          left: locationGuess.x + 'px',
-          top: locationGuess.y + 'px',
-         }"
-      ></div>
-
-  <template v-for="p in participants" :key="p.playerName"> <!--Ev kolla om ok med 2 templates i en / alternativ lösning -->
-    
-  
-      <div
-        v-if="p.latestClick && !timerActive"
-        class="guessMarker"
-        :style="{
-          left: p.latestClick.x + 'px',
-          top: p.latestClick.y + 'px',
-          backgroundColor: p.color,
-          }"
-          
-        :title="p.playerName"
-      >
-    <!--det är denna diven som ritar ut den färgade pricken på ens sista klick, efter tiden gått ut--></div>
-
-      <div v-if="p.latestClick && !timerActive && locationGuess.x !== null"
-        class="nameLabel"
-        :style="{
-          left: p.latestClick.x + 'px',
-          top: p.latestClick.y + 'px',
-          backgroundColor: p.color,
-          }"> 
-          {{p.playerName }}
-      </div>
-
-      <div
-        v-if="p.latestClick && !timerActive && locationGuess.x !== null"
-        class="distanceLabel"
+        <div
+          v-if="timerActive && locationGuess.x !== null"
+          class="guessMarker"
           :style="{
-          left: p.latestClick.x + 'px',
-          top: p.latestClick.y + 'px',
-          backgroundColor: p.color,
+            left: locationGuess.x + 'px',
+            top: locationGuess.y + 'px',
           }"
-          >Avstånd {{distance }} **i pixlar**
+        ></div>
+
+        <template v-for="p in participants" :key="p.playerName">
+          <div
+            v-if="p.latestClick && !timerActive"
+            class="guessMarker"
+            :style="{
+              left: p.latestClick.x + 'px',
+              top: p.latestClick.y + 'px',
+              backgroundColor: p.color,
+            }"
+            :title="p.playerName"
+          >
+            <!--det är denna diven som ritar ut den färgade pricken på ens sista klick, efter tiden gått ut-->
+          </div>
+
+          <div
+            v-if="p.latestClick && !timerActive && locationGuess.x !== null"
+            class="nameLabel"
+            :style="{
+              left: p.latestClick.x + 'px',
+              top: p.latestClick.y + 'px',
+              backgroundColor: p.color,
+            }"
+          >
+            {{ p.playerName }}
+          </div>
+<!-- Nu har jag kommenterat bort detta. Jag tycker inte alls att vi borde ha kvar det, eftersom vi visar omgångens resultat i leaderboard.
+
+          <div
+            v-if="p.latestClick && !timerActive && locationGuess.x !== null"
+            class="distanceLabel"
+            :style="{
+              left: p.latestClick.x + 'px',
+              top: p.latestClick.y + 'px',
+              backgroundColor: p.color,
+            }"
+          >
+            Avstånd {{ distance }} **i pixlar**
+          </div> -->
+        </template>
+
+        <div
+          v-if="!timerActive && correctLocation"
+          class="correctMarker"
+          :style="{
+            left: correctLocation.x + 'px',
+            top: correctLocation.y + 'px',
+          }"
+        ></div>
       </div>
-    </template>
-
-  <div
-    v-if="!timerActive && correctLocation"
-    class="correctMarker"
-    :style="{
-      left: correctLocation.x + 'px',
-      top: correctLocation.y + 'px',
-    }"
-  ></div>
-
-  </div>
-  </div>
+    </div>
   </div>
 </template>
 
@@ -98,7 +107,7 @@ export default {
     disabled: Boolean,
     timerActive: Boolean,
     timeLeft: Number,
-    participants: Array, 
+    participants: Array,
     distance: Number,
     continentData: {
       type: Object,
@@ -113,10 +122,25 @@ export default {
     };
   },
 
+  computed: {
+    //participantsWhoHasClicked städar bort folk som inte klickat
+    participantsWhoHasClicked() {
+      //om participants finns anv den annars ta ny tom array 
+      //filter går igenom alla participants i participants och lägger till dom som uppfyller villkoret i en ny array
+      //villkoret är att om p finns och latestclick finns och latestclick koordinaterna är nummer (ej string elr null exempelvis)
+      return (this.participants || []).filter( 
+        (p) =>
+          p?.latestClick &&
+          typeof p.latestClick.x === "number" &&
+          typeof p.latestClick.y === "number"
+      );
+    }
+  },
+
   methods: {
     onClick(event) {
       if (this.disabled) return;
-    //  if (this.hasGuessed) return;
+      //  if (this.hasGuessed) return;
 
       const rect = this.$refs.map.getBoundingClientRect();
 
@@ -133,14 +157,13 @@ export default {
       this.$emit("map-click", { x, y });
     },
 
-  handleMapClick(pos) {
-    socket.emit("mapClick", {
-    lobbyID: this.lobbyID,
-    playerName: this.playerName,
-    locationGuess: pos
-  });
-}
-
+    handleMapClick(pos) {
+      socket.emit("mapClick", {
+        lobbyID: this.lobbyID,
+        playerName: this.playerName,
+        locationGuess: pos,
+      });
+    },
   },
 };
 </script>
@@ -153,7 +176,6 @@ export default {
   width: 100%;
   height: 100%;
   overflow: auto; /* verkar som att auto/scroll gör samma här, är lite osäker dock */
-
 }
 
 .mapWrapper {
@@ -166,7 +188,7 @@ export default {
   ); /*!!! samma som ovan (orginal flr centrering men visas endå scaled rent visuellt) */
   transform-origin: top left;
   transform: scale(var(--map-scale));
- 
+
   /* rosa border ligger kvar för CSS förståelse, man ser bara ena hörnet pga resten täcks av annat */
   /* OBS sätt inget overflow här*/
 }
@@ -186,19 +208,18 @@ export default {
   height: 5%; /*kanske vill vi hellre ha vh? tror de heter vh (beror på skärmen ist)*/
   /*Notera att här vill vi i framtiden hämta färg från user (alla har varsin)*/
   border-radius: 50%;
-  
+
   transform: translate(-50%, -50%);
   /*transform ovan centrerar punkten i klicket, se referens: https://stackoverflow.com/questions/46184458/transform-translate-50-50*/
   pointer-events: none;
   /*Raden ovan gör pricken "genomskinlig för klick" dvs fångar ej klick, vet ej om de behövs sen men tänker kan va bra till när flera gamers är med?*/
   background-color: black;
-
 }
 .correctMarker {
   position: absolute;
   width: 5%;
   height: 5%;
-  background-color: greenyellow;
+  background-color: rgb(4, 251, 0);
   border-radius: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
@@ -213,14 +234,17 @@ export default {
 }
 
 .lineBetweenDots {
-  stroke: red;
+ /* stroke: red;*/
   stroke-dasharray: 2 2;
   stroke-width: 6;
 }
 
 .distanceLabel {
   position: absolute;
-  transform: translate(10%, 10%); /*kan bli tokigt med olika längd så eventuellt byta */
+  transform: translate(
+    10%,
+    10%
+  ); /*kan bli tokigt med olika längd så eventuellt byta */
   background: black;
   color: white;
   padding: 2px 6px;
@@ -230,11 +254,13 @@ export default {
 
 .nameLabel {
   position: absolute;
-  transform: translate(20%, -100%); /*kan bli tokigt med olika längd så eventuellt byta */
+  transform: translate(
+    20%,
+    -100%
+  ); /*kan bli tokigt med olika längd så eventuellt byta */
   color: white;
   padding: 2px 6px;
   font-size: 40px;
   white-space: nowrap;
 }
-
 </style>
