@@ -93,15 +93,16 @@
             top: correctLocation.y + 'px',
           }"
         ></div>
-         <div
+        <div
           v-if="!timerActive && correctLocation"
           class="correctCityNameLabel"
           :style="{
             left: correctLocation.x + 'px',
             top: correctLocation.y + 'px',
           }"
-        > {{ correctCityName }} </div>
-
+        >
+          {{ correctCityName }}
+        </div>
       </div>
     </div>
   </div>
@@ -126,8 +127,8 @@ export default {
     //tillagd för att ta emot korrekt namn så staden till markören
     correctCityName: {
       type: String,
-    default: "",
-  }, 
+      default: "",
+    },
   },
   data() {
     return {
@@ -239,9 +240,12 @@ export default {
   pointer-events: none;
 }
 
-.correctCityNameLabel{
+.correctCityNameLabel {
   position: absolute;
-  transform: translate(20%, -100%); /*Flyttar namnet bort från pricken relativt sin egen storlek */
+  transform: translate(
+    20%,
+    -100%
+  ); /*Flyttar namnet bort från pricken relativt sin egen storlek */
   color: #0f1a0f;
   font-weight: bold;
   background: #01fa01;

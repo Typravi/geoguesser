@@ -1,30 +1,37 @@
 <template>
   <div class="outerWrapperGeo">
     <header class="header">
-     
       <div class="whichCity">
-        <p v-if="timerActive">{{ uiLabels.clickOn }} <span class="cityName">{{ displayCityName }}</span></p>
-        <p v-else><span class="cityName">{{ displayCityName }}</span></p>
+        <p v-if="timerActive">
+          {{ uiLabels.clickOn }}
+          <span class="cityName">{{ displayCityName }}</span>
+        </p>
+        <p v-else>
+          <span class="cityName">{{ displayCityName }}</span>
+        </p>
       </div>
 
-      <div class="timerBox" v-if="timerActive && timeLeft !== null"
-        :class="{ hurry: timeLeft <= 3 }">
+      <div
+        class="timerBox"
+        v-if="timerActive && timeLeft !== null"
+        :class="{ hurry: timeLeft <= 3 }"
+      >
         <span class="timerInner">{{ timeLeft }}</span>
       </div>
 
-      <div class="whichRound"v-if="round && numberOfQuestions && timerActive">
+      <div class="whichRound" v-if="round && numberOfQuestions && timerActive">
         <p>
-          {{ uiLabels.whichRound }} <br/> {{ round }} / {{ numberOfQuestions }}
+          {{ uiLabels.whichRound }} <br />
+          {{ round }} / {{ numberOfQuestions }}
         </p>
       </div>
-      
-      
+
       <!-- Gamla timern ifall den föredras 
       <div class="timerShower">
         <p v-if="timerActive">{{ uiLabels.timeText }} {{ timeLeft }}</p>
       </div>
       -->
-      
+
       <div class="initiateNew">
         <button
           class="button nextRoundButton"
@@ -50,9 +57,15 @@
         </button>
 
         <div class="waitForHostNewRound">
-          <p v-if="playerName !== participants?.[0]?.playerName &&
-            round !== numberOfQuestions && !timerActive">
-              {{ uiLabels.waitFor }} {{ participants?.[0]?.playerName }} {{ uiLabels.toStartRound }}
+          <p
+            v-if="
+              playerName !== participants?.[0]?.playerName &&
+              round !== numberOfQuestions &&
+              !timerActive
+            "
+          >
+            {{ uiLabels.waitFor }} {{ participants?.[0]?.playerName }}
+            {{ uiLabels.toStartRound }}
           </p>
         </div>
       </div>
@@ -85,7 +98,7 @@
     </div>
     <footer>
       <div class="footerLogo">
-        <LogoComponent :text="uiLabels.ourName || ''"  />
+        <LogoComponent :text="uiLabels.ourName || ''" />
       </div>
     </footer>
   </div>
@@ -126,7 +139,7 @@ export default {
       playerName: "",
       numberOfQuestions: null,
       timePerRound: 10, //default
-      timeLeft: null, 
+      timeLeft: null,
       timerInterval: null,
       timerActive: true,
       participants: [],
@@ -137,7 +150,6 @@ export default {
   },
 
   computed: {
-  
     currentMap() {
       if (!this.continent) return null;
 
@@ -156,8 +168,7 @@ export default {
       const cityNames = this.uiLabels?.cityNamesLang;
       if (!cityNames || !this.cityToFind) return this.cityToFind || "";
       return cityNames[this.cityToFind] ?? this.cityToFind;
-    }
-
+    },
   },
 
   created() {
@@ -213,8 +224,7 @@ export default {
     socket.off("gameData");
     socket.off("participantsUpdate");
     socket.off("resultsView");
-    
-    
+
     if (this.timerInterval) {
       clearInterval(this.timerInterval);
     }
@@ -317,7 +327,6 @@ export default {
   align-items: center; /* centrerar vertikalt */
   padding: 16px;
   position: relative; /*tillagd för att timern ska få plats*/
-
 }
 
 .score-panel {
@@ -352,9 +361,7 @@ export default {
 
   /* Ankare i mitten */
   left: 50%;
-  transform: translateX(
-    clamp(140px, 22vw, 260px)
-  );
+  transform: translateX(clamp(140px, 22vw, 260px));
 
   width: clamp(44px, 7vw, 72px);
   height: clamp(44px, 7vw, 72px);
@@ -369,17 +376,27 @@ export default {
   color: white;
 }
 
-.timerBox.hurry .timerInner{
+.timerBox.hurry .timerInner {
   color: red;
-  animation: shake 0.30s infinite; /* beroende på hur snabb skakningen ska vara*/
+  animation: shake 0.3s infinite; /* beroende på hur snabb skakningen ska vara*/
 }
 
 @keyframes shake {
-  0% { transform: translateX(0) }
- 25% { transform: translateX(5px) }
- 50% { transform: translateX(-5px) }
- 75% { transform: translateX(5px) }
- 100% { transform: translateX(0) }
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(5px);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 .whichRound {
@@ -412,14 +429,13 @@ export default {
   line-height: 1.15;
 }
 
-.whichCity{
+.whichCity {
   color: white;
-  font-size: 1.5rem;    
-  margin: 0 auto;    
-  line-height: 0.01;      
+  font-size: 1.5rem;
+  margin: 0 auto;
+  line-height: 0.01;
   letter-spacing: 0.05em;
   opacity: 0.9;
   width: fit-content;
 }
-
 </style>

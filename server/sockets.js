@@ -27,47 +27,64 @@ function sockets(io, socket, data) {
     socket.emit("gameData", data.getGame(lobbyID));
     socket.emit("participantsUpdate", data.getParticipants(lobbyID));
   });
-socket.on("participateInGame", function (d) {
+  socket.on("participateInGame", function (d) {
+    const lobby = data.getGame(d.lobbyID);
 
-  const lobby = data.getGame(d.lobbyID);
+    //Kollar om playerName redan finns i participate och släpper isf igenom (så man kan refresh/reconnect utan att blockas av låst lobby)
+    const existing = lobby.participants.find(
+      (p) => p.playerName === d.playerName
+    );
+    if (existing) {
+      socket.join(d.lobbyID);
+      socket.emit("playerJoined");
+      io.to(d.lobbyID).emit(
+        "participantsUpdate",
+        data.getParticipants(d.lobbyID)
+      );
+      return;
+    }
 
-  //Kollar om playerName redan finns i participate och släpper isf igenom (så man kan refresh/reconnect utan att blockas av låst lobby)
-  const existing = lobby.participants.find((p) => p.playerName === d.playerName);
-  if (existing) {
+    //Låser ute nya spelare ifall lobbyn är låst
+    if (lobby.locked) {
+      socket.emit(
+        "lobbyError",
+        "Lobbyn är låst (spelet har redan startats av hosten)"
+      );
+      return;
+    }
+
+    //Kollar så att max antal (5) spelare ej är uppnått, ifall det är uppnåt får man nt gå med
+    if (lobby.participants.length >= 5) {
+      socket.emit("lobbyError", "Lobby is full (max 5 players)");
+      console.log("Lobby full:", d.lobbyID);
+      return;
+    }
+
+    //Kollar så att ingen spelare försöker ha samma playerName som en annan
+    const nameTaken = lobby.participants.some(
+      (p) => p.playerName === d.playerName
+    );
+    if (nameTaken) {
+      socket.emit("lobbyError", "Name already taken");
+      console.log(
+        "Name taken:",
+        d.playerName,
+        "is already used in lobby:",
+        d.lobbyID
+      );
+      return;
+    }
+
+    //Lägger till spelaren i participants om inte något av de ovan har nekat/låst ute spelaren
+    data.participateInGame(d.lobbyID, d.playerName);
     socket.join(d.lobbyID);
     socket.emit("playerJoined");
-    io.to(d.lobbyID).emit("participantsUpdate", data.getParticipants(d.lobbyID));
-    return;
-  }
-
-  //Låser ute nya spelare ifall lobbyn är låst
-  if (lobby.locked) {
-    socket.emit("lobbyError", "Lobbyn är låst (spelet har redan startats av hosten)");
-    return;
-  }
-
-  //Kollar så att max antal (5) spelare ej är uppnått, ifall det är uppnåt får man nt gå med 
-  if (lobby.participants.length >= 5) {
-    socket.emit("lobbyError", "Lobby is full (max 5 players)");
-    console.log("Lobby full:", d.lobbyID);
-    return;
-  }
-
-  //Kollar så att ingen spelare försöker ha samma playerName som en annan
-  const nameTaken = lobby.participants.some((p) => p.playerName === d.playerName);
-  if (nameTaken) {
-    socket.emit("lobbyError", "Name already taken");
-    console.log("Name taken:", d.playerName, "is already used in lobby:", d.lobbyID);
-    return;
-  }
-
-  //Lägger till spelaren i participants om inte något av de ovan har nekat/låst ute spelaren
-  data.participateInGame(d.lobbyID, d.playerName);
-  socket.join(d.lobbyID);
-  socket.emit("playerJoined");
-  console.log("adding participant", d.playerName, "to", d.lobbyID);
-  io.to(d.lobbyID).emit("participantsUpdate", data.getParticipants(d.lobbyID));
-});
+    console.log("adding participant", d.playerName, "to", d.lobbyID);
+    io.to(d.lobbyID).emit(
+      "participantsUpdate",
+      data.getParticipants(d.lobbyID)
+    );
+  });
 
   socket.on("validateLobbyID", (lobbyID, callback) => {
     console.log("[sockets] validateLobbyID received:", lobbyID);
@@ -137,7 +154,6 @@ socket.on("participateInGame", function (d) {
   });
 
   socket.on("playAgain", (lobbyID) => {
-    
     const lobby = data.resetGame(lobbyID);
 
     if (lobby) {
@@ -146,7 +162,5 @@ socket.on("participateInGame", function (d) {
     }
   });
 }
-
-
 
 export { sockets };

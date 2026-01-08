@@ -189,11 +189,9 @@ Data.prototype.removeParticipant = function (lobbyID, playerName) {
   );
 };
 
-
 Data.prototype.resetGame = function (lobbyID) {
- 
   const lobby = this.lobbies[lobbyID];
-  
+
   if (!lobby) {
     return null;
   }
