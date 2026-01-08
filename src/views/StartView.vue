@@ -26,9 +26,6 @@
           {{ uiLabels.createGame }}
         </router-link>
       </div>
-      <div class="faq">
-        <FAQComponent :uiLabels="uiLabels" />
-      </div>
     </main>
     <div class="rightGridColumn">
       

@@ -40,7 +40,7 @@ html, body {
 }
 /* FAQ button gjorde så man behövede scrolla till höger, inte längre;) */
 .header-faq {
-  padding-right: 0.75rem;
+  padding-right: 2rem;
 }
 .header-faq .button {
   transform-origin: right center;

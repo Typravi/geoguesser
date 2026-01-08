@@ -69,14 +69,13 @@ export default {
   color: var(--button-textcolor);
   border-radius: 10px;
   text-decoration: none; /* tar bort blå underline */
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: bold;
   transition: 0.2s ease;
 }
 
 .FAQ-button {
   background-color: var(--button-purplecolor);
-  width: 8rem;
   margin: 2rem;
   
 }
@@ -85,12 +84,14 @@ export default {
 }
 .FAQ-button {
   background-color: var(--button-purplecolor);
-  width: 8rem;
+  width: 70px;
+  height: 34px;
+  border-radius: 34px;
   margin: 2rem;
+  display: flex;
+  align-items: center;      /* vertical centering */
+  justify-content: center;  /* horizontal centering */
   
-}
-.FAQ-button:hover {
-  background-color: var(--button-purplecolor-hover);
 }
 
 
