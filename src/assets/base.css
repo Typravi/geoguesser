@@ -29,12 +29,23 @@ body {
   margin: 0;
   padding: 0;
 }
-
+/* förhindrar horizontal scrolling */
+html, body {
+  overflow-x: hidden;
+}
 
 .button:hover {
   transform: scale(1.1);
   cursor: pointer;
 }
+/* FAQ button gjorde så man behövede scrolla till höger, inte längre;) */
+.header-faq {
+  padding-right: 0.75rem;
+}
+.header-faq .button {
+  transform-origin: right center;
+}
+
 
 /* Global header layout */
 .app-header {
