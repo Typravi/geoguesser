@@ -65,6 +65,7 @@
         :scale="scale"
         :continent-data="currentMap"
         :correct-location="correctLocation"
+        :correctCityName="displayCityName"
         :timer-active="timerActive"
         :time-left="timeLeft"
         :disabled="!timerActive"
