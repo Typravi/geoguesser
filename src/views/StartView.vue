@@ -38,8 +38,8 @@ import LogoComponent from "../components/LogoComponent.vue";
 import LanguageComponent from "../components/LanguageComponent.vue";
 import FAQComponent from "../components/FAQComponent.vue";
 import io from "socket.io-client";
-sessionStorage.setItem("dataServer", "192.168.0.33:3000"); // lägger till dataseverns IP-adress i sessionStorage Ivars hemma wiFi
-//sessionStorage.setItem("dataServer", "localhost:3000"); // för testning på lokal dator
+//sessionStorage.setItem("dataServer", "192.168.0.33:3000"); // lägger till dataseverns IP-adress i sessionStorage Ivars hemma wiFi
+sessionStorage.setItem("dataServer", "localhost:3000"); // för testning på lokal dator
 const socket = io(sessionStorage.getItem("dataServer")); // ändrat från localhost till min lokala IP-adress
 
 export default {
