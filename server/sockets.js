@@ -135,6 +135,18 @@ socket.on("participateInGame", function (d) {
 
     io.to(lobbyID).emit("participantsUpdate", data.getParticipants(lobbyID));
   });
+
+  socket.on("playAgain", (lobbyID) => {
+    
+    const lobby = data.resetGame(lobbyID);
+
+    if (lobby) {
+      io.to(lobbyID).emit("gameReset", lobby);
+      io.to(lobbyID).emit("participantsUpdate", lobby.participants);
+    }
+  });
 }
+
+
 
 export { sockets };

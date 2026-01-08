@@ -50,6 +50,7 @@
   "rankLabels": ["🏅1st", "🥈2nd", "🥉3rd", "4th", "5th"], 
   "numOfTime" : "Time per round:", 
   "whichRound": "Round", 
+  "playAgainLabel": "Play Again",
   "africa": "Africa",
   "europe": "Europe",
   "planetEarth": "Planet Earth",

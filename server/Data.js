@@ -189,4 +189,30 @@ Data.prototype.removeParticipant = function (lobbyID, playerName) {
   );
 };
 
+
+Data.prototype.resetGame = function (lobbyID) {
+ 
+  const lobby = this.lobbies[lobbyID];
+  
+  if (!lobby) {
+    return null;
+  }
+  //Nollställ runda och status
+  lobby.round = 1;
+  lobby.started = false;
+  lobby.locked = false;
+
+  //Nollställ poängen
+  lobby.participants.forEach((player) => {
+    player.totalScore = 0;
+    player.roundScore = 0;
+    player.latestClick = null;
+  });
+
+  // Slumpa nya städer
+  this.assignCities(lobbyID);
+
+  return lobby;
+};
+
 export { Data };

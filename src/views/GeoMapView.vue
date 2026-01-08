@@ -207,6 +207,18 @@ export default {
       this.participants = participants;
     });
   },
+  beforeUnmount() {
+    // Sluta lyssna på servern när vi lämnar kartan
+    // Annars kan gamla timers eller lyssnare ligga kvar och störa nästa runda
+    socket.off("gameData");
+    socket.off("participantsUpdate");
+    socket.off("resultsView");
+    
+    
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+    }
+  },
 
   methods: {
     startNextRound() {

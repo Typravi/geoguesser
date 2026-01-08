@@ -8,13 +8,18 @@
       <main>
         <div class="ResultListArea">
           <ul class="finalResultList">
-            <li v-for="(p, index) in finalResults" :key="p.playerName">
-              <!--uiLabels.rankLabels?.[index] här har vi ett ? för annars kraschar koden när uiLabels är undefined-->
-              <!--hmm men u har jagt till fem st ranklabels nu hade vi kunnat ta bort det, men kanske ha kvar för stabilitet?-->
+            <li 
+              v-for="(p, index) in finalResults" 
+              :key="p.playerName"
+              :class="{ 
+                'gold-rank': index === 0, 
+                'silver-rank': index === 1, 
+                'bronze-rank': index === 2 
+              }"
+            >
               <span class="ranking"> {{ uiLabels.rankLabels?.[index] }}</span>
               <span class="nameInRankingList"> {{ p.playerName }} </span>
-              <!-- <span class="scoreInRankingList">{{ p.totalScore }} Score </span> -->
-              <!--Jag tycker inte att poänget(score) behövs? eller vill man se det?-->
+              <span class="scoreInRankingList">{{ p.totalScore }} p </span>
             </li>
           </ul>
         </div>
@@ -22,9 +27,17 @@
     </div>
     <div class="rightArea">
       <div class="buttonArea">
-        <router-link to="/" class="button quitButton">
-          {{ uiLabels.quitLabel }}
-        </router-link>
+  <button class="button quitButton" @click="quitGame">
+    {{ uiLabels.quitLabel }}
+  </button>
+  
+  <button 
+    v-if="playerName === hostName" 
+    @click="playAgain" 
+    class="button playAgainButton">
+    {{ uiLabels.playAgainLabel }}
+  </button>
+</div>
       </div>
     </div>
 
@@ -35,7 +48,7 @@
         </div>
       </footer>
     </div>
-  </div>
+  
 </template>
 
 <script>
@@ -53,7 +66,10 @@ export default {
       participants: [],
       playerName: "",
       lobbyID: null,
+      hostName: "",
     };
+
+    
   },
   created() {
     socket.on("uiLabels", (labels) => (this.uiLabels = labels));
@@ -64,10 +80,45 @@ export default {
 
     socket.emit("joinGame", this.lobbyID);
 
-    socket.on("participantsUpdate", (participants) => {
+    socket.once("participantsUpdate", (participants) => {
       this.participants = participants;
+    
     });
+
+    socket.on("gameData", (lobby) => {
+    this.hostName = lobby.hostName; 
+  });
+
+    socket.on("gameReset", (lobby) => {
+  this.$router.push(`/lobby/${this.lobbyID}/${this.playerName}`);
+});
   },
+
+    //ser till att gamla spelomgångar inte spökar för den nya.
+  beforeUnmount() {
+
+    socket.off("gameReset");
+    socket.off("participantsUpdate");
+    socket.off("gameData");
+  },
+
+  methods: {
+  playAgain() {
+    socket.emit("playAgain", this.lobbyID);
+  },
+
+  quitGame() {
+ 
+    socket.emit("playerLeaveLobby", {
+      lobbyID: this.lobbyID,
+      playerName: this.playerName
+    });
+
+
+    this.$router.push("/");
+  }
+  
+},
   // Förklaring till Computed: anv pga då görs den bara när just participants körs/ändras, method hade körts varje rendering
   // https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Frameworks_libraries/Vue_computed_properties
   //[...]--> skapar kopia ist för ändra orginal arrayen
@@ -172,12 +223,34 @@ header {
 .nameInRankingList {
   flex: 1;
 }
+
+.gold-rank {
+  color: #ffd700; 
+  text-shadow: 1px 1px 0px #b8860b; 
+  font-weight: 900; 
+  transform: scale(1.1); 
+}
+
+.silver-rank {
+  color: #c0c0c0;
+  text-shadow: 1px 1px 0px #808080; 
+  font-weight: bold;
+}
+
+
+.bronze-rank {
+  color: #cd7f32; 
+  text-shadow: 1px 1px 0px #8b4513; 
+  font-weight: bold;
+}
+
 .buttonArea {
   margin-top: auto;
   padding-bottom: 2rem;
 }
 
-.quitButton {
+.quitButton,
+.playAgainButton {
   display: inline-block;
   width: 6rem;
   padding: 0.8rem 2rem;
@@ -190,4 +263,11 @@ header {
   margin: 2rem 2rem 2rem 2rem;
   background-color: rgba(0, 0, 139, 0.511);
 }
+
+.playAgainButton {
+  width: 10rem;
+  background-color: var(--joinbutton-color);
+}
+
+
 </style>
