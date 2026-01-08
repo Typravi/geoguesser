@@ -1,5 +1,5 @@
 <template>
-  <div class="gridstyleWrapper">
+  <div class="app-header">
     <!--wrapper till gridlayouten-->
     <header class="header">
       <div class="header-lang">
@@ -38,8 +38,8 @@ import LogoComponent from "../components/LogoComponent.vue";
 import LanguageComponent from "../components/LanguageComponent.vue";
 import FAQComponent from "../components/FAQComponent.vue";
 import io from "socket.io-client";
-//sessionStorage.setItem("dataServer", "192.168.0.33:3000"); // lägger till dataseverns IP-adress i sessionStorage Ivars hemma wiFi
-sessionStorage.setItem("dataServer", "localhost:3000"); // för testning på lokal dator
+sessionStorage.setItem("dataServer", "192.168.0.33:3000"); // lägger till dataseverns IP-adress i sessionStorage Ivars hemma wiFi
+//sessionStorage.setItem("dataServer", "localhost:3000"); // för testning på lokal dator
 const socket = io(sessionStorage.getItem("dataServer")); // ändrat från localhost till min lokala IP-adress
 
 export default {
@@ -80,15 +80,7 @@ export default {
 <style scoped>
 /*------------------------------------------------------------------------------------------------ */
 
-.gridstyleWrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: auto 1fr;
-  grid-template-areas:
-    "header header header"
-    "leftGridColumn mainArea rightGridColumn";
-  min-height: 100vh;
-}
+
 
 .leftGridColumn {
   grid-area: leftGridColumn;
@@ -110,36 +102,6 @@ export default {
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-end;
-}
-/*------------------------------------------------------------------------------------------------ */
-
-.header {
-  grid-area: header;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  padding: 1rem 2rem;
-  position: relative;
-}
-
-.header-lang {
-  position: absolute; 
-  left: 2rem;        
-  top: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-}
-
-
-.header-faq {
-  position: absolute; 
-  right: 2rem;        
-  top: 50%;          
-  top: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
 }
 
 /*------------------------------------------------------------------------------------------------ */

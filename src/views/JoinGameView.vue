@@ -1,5 +1,5 @@
 <template>
-  <div class="flexWrapper">
+  <div class="app-header">
     <header class="header">
       <div class="header-lang">
         <LanguageComponent :lang="lang" @switchLang="switchLanguage" />
@@ -130,39 +130,12 @@ export default {
 </script>
 
 <style>
-.flexWrapper {
+.app-header {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   gap: 4rem;
-}
-.header {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  padding: 1rem 2rem;
-  position: relative;
-}
-
-.header-lang {
-  position: absolute; 
-  left: 2rem;        
-  top: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-}
-
-
-.header-faq {
-  position: absolute; 
-  right: 2rem;        
-  top: 50%;          
-  top: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
 }
 
 .innerWrapper {

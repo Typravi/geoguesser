@@ -41,9 +41,15 @@ export default {
 @media screen and (max-width: 50em) {
   .logo {
     font-size: 5vw;
-    display: flex;
-    align-items: center;
+    letter-spacing: 0.15em;
     justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.4em;
+  }
+
+  .logo img {
+    height: 5vw;
+    margin: 0 0.6em;
   }
 }
 </style>
