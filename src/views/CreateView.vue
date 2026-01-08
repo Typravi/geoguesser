@@ -10,6 +10,14 @@
       </div>
     </header>
     <div class="responsive-row">
+      <div class="numberArea">
+        <p class="uiLabNumQ">{{ uiLabels.numOfQuestions }}</p>
+        <div class="numberButtons">
+          <button class="button minusButton" @click="decreaseAmount">-</button>
+          <p>{{ numberOfQuestions }} </p>
+          <button class="button plusButton" @click="increaseAmount">+</button>
+        </div>
+      </div>
       <div class="continentArea">
         <p>{{ uiLabels.chooseContinent }}</p>
         <div class="continentChooserButton">
@@ -25,15 +33,6 @@
           &gt;
         </button>
     </div>
-      </div>
-
-      <div class="numberArea">
-        <p class="uiLabNumQ">{{ uiLabels.numOfQuestions }}</p>
-        <div class="numberButtons">
-          <button class="button minusButton" @click="decreaseAmount">-</button>
-          <p>{{ numberOfQuestions }} </p>
-          <button class="button plusButton" @click="increaseAmount">+</button>
-        </div>
       </div>
  <!--Tillagd knapp för timer -->
       <div class="numberTimeArea">
