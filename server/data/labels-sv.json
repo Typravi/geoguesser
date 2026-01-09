@@ -46,6 +46,8 @@
   "seeResultsText": "Se resultat",
   "distInPix": "Avstånd i pixlar:",
   "scorePanelTitle": "Resultattavla",
+  "player": "Spelare",      
+  "total": "Total",
   "wellDone": "Bra jobbat!",
   "rankLabels": ["🏅1a", "🥈2a", "🥉3a", " 4a", " 5a"], 
    "numOfTime" : "Tid per runda:", 
