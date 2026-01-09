@@ -46,6 +46,8 @@
   "seeResultsText": "See results",
   "distInPix": "Distance in pixels:",
   "scorePanelTitle": "Leaderboard",
+  "player": "Player",      
+  "total": "Total",
   "wellDone": "Well done!",
   "rankLabels": ["🏅1st", "🥈2nd", "🥉3rd", "4th", "5th"], 
   "numOfTime" : "Time per round:", 

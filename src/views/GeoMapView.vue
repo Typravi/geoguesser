@@ -94,6 +94,8 @@
         :participants="participants"
         :currentPlayerName="playerName"
         :title="uiLabels.scorePanelTitle"
+        :uiLabels="uiLabels" 
+        
       />
     </div>
     <footer>
@@ -303,6 +305,18 @@ export default {
 </script>
 
 <style scoped>
+
+.score-panel {
+  position: absolute;       
+  top: 100px;             
+  left: 15px;             
+  width: auto;
+  z-index: 10;
+  pointer-events: none;    
+  display: flex;
+  justify-content: flex-end;
+}
+
 .outerWrapperGeo {
   min-height: 100vh;
 
@@ -333,6 +347,19 @@ export default {
   position: absolute;
   justify-content: center;
   margin: 30px;
+}
+
+@media (max-width: 50em) {
+  .score-panel {
+    position: static;       /* Slutar flyta, lägger sig i flödet under kartan */
+    width: 100%;            /* Tar hela bredden */
+    margin: 0;
+    padding: 10px 0;        /* Lite luft */
+    
+    display: flex;
+    justify-content: center; /* Centrerar boxen */
+    pointer-events: auto;    /* Vanlig klickbarhet */
+  }
 }
 
 .button {
