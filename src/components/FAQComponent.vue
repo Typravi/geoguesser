@@ -4,7 +4,7 @@
       {{ uiLabels.FAQ || "FAQ" }}
     </button>
 
-    <div v-if="open" class="overlay" @click.self="closeFAQ">
+    <div v-if="open" class="FAQ-overlay" @click.self="closeFAQ">
       <div class="FAQmodal">
         <h3>{{ uiLabels.FAQ || "FAQ" }}</h3>
         <div class="FAQaccordion">
@@ -66,22 +66,15 @@ export default {
 </script>
 
 <style scoped>
-.button {
-  display: inline-block;
+/*---FAQ-component startar här--------------------------------------------------------------------------------------------- */
+.FAQ-button {
   width: 10rem;
-  padding: 0.8rem 2rem;
-  color: var(--button-textcolor);
-  border-radius: 10px;
-  text-decoration: none; /* tar bort blå underline */
   font-size: 1rem;
   font-weight: bold;
-  transition: 0.2s ease;
-}
-
-.FAQ-button {
   background-color: var(--button-purplecolor);
   margin: 2rem;
 }
+
 .FAQ-button:hover {
   background-color: var(--button-purplecolor-hover);
 }
@@ -92,11 +85,11 @@ export default {
   border-radius: 34px;
   margin: 2rem;
   display: flex;
-  align-items: center; /* vertical centering */
-  justify-content: center; /* horizontal centering */
+  align-items: center; 
+  justify-content: center; 
 }
 
-.overlay {
+.FAQ-overlay {
   position: fixed;
   inset: 0;
   background: var(--overlay-BG); /* genomskinlig */
@@ -171,5 +164,5 @@ export default {
   background: var(--FAQ-closebutton-hover-color);
 }
 
-/*------------------------------------------------------------------------------------------------ */
+/*--FAQ component slutar här---------------------------------------------------------------------------------------------- */
 </style>

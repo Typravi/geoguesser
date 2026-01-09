@@ -45,7 +45,7 @@
       </div>
 
     </div>
-    <div class="flexInnerWrapper2">
+    <div class="CreateView-flexInnerWrapper2">
       <div class="nameArea">
         <p>
           <label for="name">{{ uiLabels.yourName }}</label
@@ -206,39 +206,12 @@ export default {
 
 <style>
 
-.flexInnerWrapper2 {
+/*------Behövs denna fortfarande? inget verkar ändras när jag kommenterar ut den
+.CreateView-flexInnerWrapper2 {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
-
-.leftArrow,
-.rightArrow,
-.minusButton,
-.plusButton, 
-.minusButtonTime, 
-.plusButtonTime {
-  background-color: var(--button-purplecolor);
-  margin: 1rem;
-  width: 1.5em;
-  height: 1.5em;
-  padding: 0;
-  color: black;
-  border-radius: 50%;
-  font-size: 1.2rem;
-}
-
-.continent-text {
-  display: inline-block;
-  width: 7rem;         
-  text-align: center;   
-}
-
-.numberButtons, 
-.timerButtons {
-  display: flex;
-  flex-direction: row;
-}
-
+------ */
 
 </style>
