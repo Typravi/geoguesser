@@ -127,6 +127,9 @@ export default {
     else if (this.continent === "Planet earth") {
       return this.uiLabels.planetEarth || "Planet Earth";
     }
+    else if (this.continent === "asia") {
+      return this.uiLabels.asia || "Asia";
+    }
     return this.continent; 
   }
 },
