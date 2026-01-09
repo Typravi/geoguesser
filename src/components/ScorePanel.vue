@@ -1,6 +1,6 @@
 <template>
   <div class="ScorePanel">
-    <h3>{{ title }}</h3>
+    <h3>{{ uiLabels?.scorePanelTitle || 'Leaderboard' }}</h3>
     
     <div class="list-header">
       <span class="col-name">{{ uiLabels?.player || 'Player' }}</span>
@@ -44,7 +44,6 @@ export default {
   props: {
   participants: Array,
   currentPlayerName: String,
-  title: String,
   uiLabels: Object,
 },
   computed: {

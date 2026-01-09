@@ -93,7 +93,6 @@
         v-if="!timerActive"
         :participants="participants"
         :currentPlayerName="playerName"
-        :title="uiLabels.scorePanelTitle"
         :uiLabels="uiLabels" 
         
       />
