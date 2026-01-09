@@ -10,11 +10,12 @@
       </div>
     </header>
     <div class="responsive-row">
-      <div class="enterNameArea">
+      <div class="nameArea">
         <p>
           <label for="name">{{ uiLabels.yourName }}</label
           ><br />
           <input
+            class="inputNameBox"
             type="text"
             v-model="playerName"
             id="playerName"
@@ -22,15 +23,17 @@
           />
         </p>
       </div>
-      <div class="game-IDArea">
+      <div class="nameArea">
         <p>
           <label for="lobbyID"> {{ uiLabels.gameID }} </label><br />
           <input
+          class="inputNameBox"
             type="text"
             @input="checkgameID"
             id="lobbyID"
             v-model="lobbyID"
             :placeholder="uiLabels.enterGameID"
+            maxlength="6"
           />
         </p>
       </div>
@@ -131,21 +134,6 @@ export default {
 
 <style>
 
-.enterNameArea {
-  border-radius: 10%;
-  padding: 1em;
-  margin: 1em;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(6px);
-}
-
-.game-IDArea {
-  padding: 1em;
-  margin: 1em;
-  border-radius: 10%;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(6px);
-}
 
 .joinButton {
   width: 12rem;

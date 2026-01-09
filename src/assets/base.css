@@ -91,7 +91,7 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: stretch;
-
+  margin-top: 4rem;
   gap: 1rem;
   flex-wrap: wrap;
 
@@ -100,6 +100,57 @@ body {
   margin-inline: auto;
   padding-inline: 1rem;
 }
+
+.nameArea {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem; 
+  width: 100%;
+}
+
+
+.nameArea label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase; 
+  letter-spacing: 1px;
+  color: white;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+}
+
+
+.inputNameBox {
+  display: block; 
+  width: 14rem;   
+  padding: 12px 20px;
+  margin-top: 8px;
+  
+  background: rgba(255, 255, 255, 0.15); 
+  border: 1px solid rgba(255, 255, 255, 0.3); 
+  border-radius: 30px; 
+  
+  color: white;
+  font-size: 1rem;
+  text-align: center; 
+  outline: none; 
+  transition: all 0.3s ease;
+}
+
+
+.inputNameBox::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: normal;
+}
+
+
+.inputNameBox:focus {
+  background: rgba(255, 255, 255, 0.25); 
+  border-color: #fff;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2); 
+  transform: scale(1.02); 
+}
+
 
 /* Stack on small screens */
 @media (max-width: 50em) {

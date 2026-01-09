@@ -195,6 +195,8 @@ export default {
 
 <style>
 
+
+
 .flexInnerWrapper2 {
   display: flex;
   flex-direction: column;
@@ -298,10 +300,7 @@ export default {
   flex-direction: row;
 }
 
-.inputNameBox {
-  color: black;
-  background-color: rgb(222, 211, 238);
-}
+
 
 .createGameButton {
   margin-top: 2rem;
@@ -333,5 +332,7 @@ export default {
   margin-top: 6rem;
   background-color: rgba(0, 0, 139, 0.25);
 }
+
+
 
 </style>
