@@ -4,12 +4,16 @@
   --foreground-color: red;
   --background-color: green;
   --main-background: radial-gradient(#477952, #2d3ce7);
+
   --logo-font: atop;
   --logo-color: rgb(120, 159, 211);
+
   --joinbutton-color: rgb(57, 142, 57, 0.75);
   --joinbutton-color-hover: rgb(57, 142, 57, 1);
+
   --createbutton-color: rgb(85, 85, 170, 0.75);
   --createbutton-color-hover: rgb(85, 85, 170, 1);
+
   --button-textcolor: white;
   --button-purplecolor: rgb(205, 202, 229, 0.565);
   --button-purplecolor-hover: rgb(205, 202, 229, 1);
@@ -23,10 +27,20 @@
   --FAQ-closebutton-color: #6c5ce7;
   --FAQ-closebutton-textcolor: white;
   --FAQ-closebutton-hover-color: #5a4bd6;
+
   --overlay-BG: rgba(0, 0, 0, 0.55);
+
   --languageSwitch-BG: #cdcae5;
   --languageSwitch-circle: #ffffff;
+
+  --ranking-gold-color: #ffd700;
+  --ranking-gold-shadow: 1px 1px 0px #b8860b;
+  --ranking-silver-color: #c0c0c0;
+  --ranking-silver-shadow: 1px 1px 0px #808080;
+  --ranking-bronze-color: #cd7f32;
+  --ranking-bronze-shadow: 1px 1px 0px #8b4513;
 }
+
 body {
   margin: 0;
   padding: 0;
@@ -89,18 +103,18 @@ h4 {
   transition: all 0.3s ease;
 }
 .button:disabled {
-  padding: 0.8rem 2rem;   
-  background-color: #bbb;  
-  opacity: 0.5;            
-  cursor: not-allowed;    
-  box-shadow: none;      
-  transform: none;        
+  padding: 0.8rem 2rem;
+  background-color: #bbb;
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
 }
 .button:disabled:hover {
-  background-color: gray; 
-  transform: none;        
-  box-shadow: none;      
-  cursor: not-allowed;    
+  background-color: gray;
+  transform: none;
+  box-shadow: none;
+  cursor: not-allowed;
 }
 
 .button:hover {
@@ -156,8 +170,8 @@ h4 {
 (flyttas annars beroende av kontinentnamnets längd */
 .CreateView .continent-text {
   display: inline-block;
-  width: 7rem;         
-  text-align: center;   
+  width: 7rem;
+  text-align: center;
 }
 
 /* ---------------------------------------------- */
@@ -277,11 +291,20 @@ h4 {
   margin-inline: auto;
   padding-inline: 1rem;
 }
+
+/* Stack on small screens */
+@media (max-width: 50em) {
+  .responsive-row {
+    flex-direction: column;
+    align-items: center;
+    max-width: 34rem;
+  }
+}
 /* Global reusable responsive row slutar här*/
 
+/* ---------------------------------------------- */
 
-/* ---------------------------------------------- */
-/* ---------------------------------------------- */
+/* Name Area startar------------------------------------- */
 /* ---------------------------------------------- */
 .nameArea {
   display: flex;
@@ -335,17 +358,72 @@ h4 {
   margin-bottom: 0;
 }
 
+/* Name Area slutar------------------------------------- */
+/* ---------------------------------------------- */
 
+/* ------------------------------------------------------------------------------------------------------------------------------------------ */
 
-/* Stack on small screens */
-@media (max-width: 50em) {
-  .responsive-row {
-    flex-direction: column;
-    align-items: center;
-    max-width: 34rem;
-  }
+/* Resultatlistan på ResultView börjar här------------------------------------- */
+/* ---------------------------------------------- */
+.ResultListArea {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 0.5em;
+  min-width: 10em;
+  min-height: 10em;
+  border-radius: 10%;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+  font-family: monospace;
+  font-weight: bold;
+  font-size: 1.4rem;
+  color: rgba(0, 0, 136, 0.668);
+}
+.finalResultList {
+  list-style: none;
+  padding: 1rem 2rem;
+  margin: 0;
+}
+.finalResultList li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 0;
+}
+.ranking {
+  width: 4rem;
+  flex-shrink: 0;
+}
+.nameInRankingList,
+.scoreInRankingList {
+  font-variant: small-caps;
+}
+/*Nedan ser till att olika långa namn nt skapar kaoz i listan m.a.p bredd*/
+.nameInRankingList {
+  flex: 1;
 }
 
-/*------------------------------------------------------------------------------------------------ */
-/*--Create view börjar här---------------------------------------------------------------------------------------------- */
-/*------------------------------------------------------------------------------------------------ */
+.gold-rank {
+  color: var(--ranking-gold-color);
+  text-shadow: var(--ranking-gold-shadow);
+  font-weight: 900;
+  transform: scale(1.1);
+}
+
+.silver-rank {
+  color: var(--ranking-silver-color);
+  text-shadow: var(--ranking-silver-shadow);
+  font-weight: bold;
+}
+
+.bronze-rank {
+  color: var(--ranking-bronze-color);
+  text-shadow: var(--ranking-bronze-shadow);
+  font-weight: bold;
+}
+
+/* Resultatlistan på ResultView börjar här------------------------------------- */
+/* ---------------------------------------------- */
+/* ------------------------------------------------------------------------------------------------------------------------------------------ */
