@@ -372,22 +372,19 @@ export default {
 
 .timerBox {
   position: absolute;
-  top: clamp(8px, 1.6vw, 16px);
+  top: 50px;
+  left: 75%;
+  transform: translateX(calc(var(--hud-offset) * 1));
 
-  /* Ankare i mitten */
-  left: 50%;
-  transform: translateX(clamp(140px, 22vw, 260px));
-
-  width: clamp(44px, 7vw, 72px);
-  height: clamp(44px, 7vw, 72px);
-  font-size: clamp(1.2rem, 3.5vw, 2.5rem);
+  width: 8rem;
+  height: 8rem;
+  font-size: 4rem;
 
   display: grid;
   place-items: center;
 
-  background: rgba(0, 0, 0, 0.8);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(7, 27, 156, 0.8);
+  border-radius: 20%;
   color: white;
 }
 
@@ -412,30 +409,22 @@ export default {
   100% {
     transform: translateX(0);
   }
+  
 }
 
 .whichRound {
   position: absolute;
-  top: clamp(8px, 1.6vw, 16px);
-
-  left: 25%;
+  top: 50px;
+  right: 75%; 
   transform: translateX(calc(var(--hud-offset) * -1));
-
-  width: clamp(52px, 8vw, 86px);
-  height: clamp(52px, 8vw, 86px);
-
-  background: rgba(0, 0, 0, 0.8);
-  border-radius: 100%;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 7rem;
+  height: 7rem;
+  background: rgba(7, 27, 156, 0.8);
+  border-radius: 50%;
+  font-size: 1.5rem;
   color: white;
-
   display: grid;
   place-items: center;
-  text-align: center;
-
-  font-size: clamp(0.85rem, 1.3vw, 1rem);
-  font-weight: 1000;
-  padding: 0;
 }
 
 /* Bara för att få texten snyggt centrerad */
@@ -445,12 +434,45 @@ export default {
 }
 
 .whichCity {
-  color: white;
-  font-size: 1.5rem;
   margin: 0 auto;
-  line-height: 0.01;
-  letter-spacing: 0.05em;
-  opacity: 0.9;
-  width: fit-content;
+  max-width: calc(100% - 3rem); /*hela headerns bredd - 12 rem*/
+  line-height: 1.1;
+  color: white;
+  font-size: 2rem;
+  font-family: var(--logo-font), system-ui, sans-serif;
+
+
 }
+
+@media (max-width: 50em) {
+
+  .timerBox{
+    top: 12px;
+    left: 60%; 
+    width: 4rem;
+    height: 4rem;
+    font-size: 2rem;
+  }
+
+  .whichRound {
+    top: 12px;
+    right: 60%; 
+    width: 4rem;
+    height: 4rem;
+    font-size: 0.95rem;
+  }
+
+  .whichCity{
+    max-width: calc(100% - 6.5rem); /* justera vid behov */
+    margin: 0 auto;
+    text-align: center;
+    font-size: 1.5rem;
+  }
+
+  
+
+  
+}
+
+
 </style>
