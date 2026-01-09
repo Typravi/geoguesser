@@ -59,6 +59,8 @@
   "europe": "Europa",
   "asia": "Asien",
   "oceania": "Oceanien",
+  "southAmerica": "Sydamerika",
+  "northAmerica": "Nordamerika",
   "planetEarth": "Hela planeten",
 
   "cityNamesLang": {

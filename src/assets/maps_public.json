@@ -2,5 +2,7 @@
   "europe": { "image": "/img/Europe_map.png", "originalWidth": 2395, "originalHeight": 2049 },
   "africa": { "image": "/img/africa.png", "originalWidth": 1500, "originalHeight": 1522 },
   "asia": { "image": "/img/asia-blank_map.png", "originalWidth": 1700, "originalHeight": 1482 },
-  "oceania": { "image": "/img/Oceania.png", "originalWidth": 1700, "originalHeight": 1482 }
+  "oceania": { "image": "/img/Oceania.png", "originalWidth": 1700, "originalHeight": 1482 },
+  "south_america": { "image": "/img/South_America.png", "originalWidth": 1396, "originalHeight": 2048 },
+  "north_america": { "image": "/img/North_America.png", "originalWidth": 2040, "originalHeight": 2047 }
 }

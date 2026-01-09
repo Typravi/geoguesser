@@ -118,6 +118,12 @@ export default {
     else if (this.continent === "oceania") {
       return this.uiLabels.oceania || "Oceania";
     }
+    else if (this.continent === "south_america") {
+      return this.uiLabels.southAmerica || "South America";
+    }
+    else if (this.continent === "north_america") {
+      return this.uiLabels.northAmerica || "North America";
+    }
     return this.continent; // Fallback om något går fel
   }
 },
@@ -166,14 +172,14 @@ export default {
       }
     },
     chooseNextContinent() {
-      const continents = ["africa", "europe", "Planet earth", "asia", "oceania"];
+      const continents = ["africa", "europe", "Planet earth", "asia", "oceania", "south_america", "north_america"];
       const currentIndex = continents.indexOf(this.continent);
       const nextIndex = (currentIndex + 1) % continents.length;
       this.continent = continents[nextIndex];
     },
 
     choosePreviousContinent() {
-  const continents = ["africa", "europe", "Planet earth", "asia", "oceania"];
+  const continents = ["africa", "europe", "Planet earth", "asia", "oceania", "south_america", "north_america"];
   const currentIndex = continents.indexOf(this.continent);
   const prevIndex = (currentIndex - 1 + continents.length) % continents.length;
   this.continent = continents[prevIndex];

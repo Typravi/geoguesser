@@ -117,5 +117,41 @@
         "Wellington": { "x": 1080, "y": 1160.5133 }
       
     }
-  }
+  },
+  "south_america": {
+    "image": "/img/South_America.png",
+    "originalWidth": 1396,
+    "originalHeight": 2048,
+    "cities": {
+        "Rio de Janeiro": { "x": 1250, "y": 1400 },
+        "Buenos Aires":   { "x": 900,  "y": 1800 },
+        "Santiago":       { "x": 750,  "y": 1780 },
+        "Lima":           { "x": 450,  "y": 1000 },
+        "Bogotá":         { "x": 600,  "y": 450 },
+        "São Paulo":      { "x": 1200, "y": 1450 },
+        "Caracas":        { "x": 700,  "y": 300 },
+        "La Paz":         { "x": 800,  "y": 1100 },
+        "Quito":          { "x": 450,  "y": 600 },
+        "Montevideo":     { "x": 950,  "y": 1820 },
+        "Brasilia":       { "x": 1100, "y": 1150 },
+        "Asunción":       { "x": 1000, "y": 1500 }
+    }
+},
+"north_america": {
+    "image": "/img/North_America.png",
+    "originalWidth": 2040,
+    "originalHeight": 2047,
+    "cities": {
+        "New York":    { "x": 1450, "y": 750 },
+        "Los Angeles": { "x": 300,  "y": 1000 },
+        "Chicago":     { "x": 1150, "y": 780 },
+        "Toronto":     { "x": 1250, "y": 700 },
+        "Vancouver":   { "x": 320,  "y": 450 },
+        "Mexico City": { "x": 750,  "y": 1600 },
+        "Miami":       { "x": 1350, "y": 1250 },
+        "Montreal":    { "x": 1400, "y": 650 },
+        "Seattle":     { "x": 350,  "y": 500 },
+        "Havana":      { "x": 1380, "y": 1350 }
+    }
+}
 }
