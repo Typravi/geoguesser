@@ -302,7 +302,7 @@ h1 {
 /* --- SETTINGS BOX (HÖGER) --- */
 
 .big-text {
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   font-weight: bold;
   margin: 0;
 }

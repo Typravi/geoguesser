@@ -11,7 +11,7 @@
     </header>
     <div class="responsive-row">
       <div class="numberArea">
-        <p class="uiLabNumQ">{{ uiLabels.numOfQuestions }}</p>
+        <h4>{{ uiLabels.numOfQuestions }}</h4>
         <div class="numberButtons">
           <button class="button minusButton" @click="decreaseAmount">-</button>
           <p>{{ numberOfQuestions }} </p>
@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="continentArea">
-        <p>{{ uiLabels.chooseContinent }}</p>
+        <h4>{{ uiLabels.chooseContinent }}</h4>
         <div class="continentChooserButton">
           <button class="button leftArrow" @click="choosePreviousContinent">
             &lt;
@@ -36,7 +36,7 @@
       </div>
  <!--Tillagd knapp för timer -->
       <div class="numberTimeArea">
-        <p class="uiLabNumT">{{ uiLabels.numOfTime }}</p>
+        <h4 >{{ uiLabels.numOfTime }}</h4>
         <div class="timerButtons">
           <button class="button minusButtonTime" @click="decreaseTime">-</button>
           <p>{{ numOfTime }} s</p>
@@ -206,18 +206,11 @@ export default {
 
 <style>
 
-
-
 .flexInnerWrapper2 {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
-.uiLabNumQ {
-  margin: 1em;
-}
-
-
 
 .leftArrow,
 .rightArrow,
@@ -235,53 +228,45 @@ export default {
   font-size: 1.2rem;
 }
 
-.numberArea {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-width: 12rem;
-  border-radius: 10%;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(6px);
-}
-
-.continentArea {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 10%;
-  min-width: 12rem;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(6px);
-}
-
-.continent-text {
-  display: inline-block;
-  width: 7rem;         
-  text-align: center;   
-  
-
-}
-
-/* Området för timer rutan */
+.numberArea, 
+.continentArea, 
 .numberTimeArea {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
-  min-width: 12rem;
-  border-radius: 10%;
+  min-width: 12rem; 
+  min-height: 6rem;
+  padding: 1rem; 
+  
+  border-radius: 20px;
   background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(6px)
+  backdrop-filter: blur(6px);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.continent-text {
+  display: inline-block;
+  width: 7rem;         
+  text-align: center;   
 }
 
 .numberButtons, 
 .timerButtons {
   display: flex;
   flex-direction: row;
+}
+
+h4 {
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  opacity: 0.8;
+  font-weight: bold;
+  color: #fff;
+  
 }
 </style>
