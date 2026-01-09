@@ -10,47 +10,51 @@
       </div>
     </header>
 
-    <div class="leftGridUpper">
-      <div class="hasJoinedList">
+    <div class="responsive-row">
+      
+      <div class="lobby-box">
         <h4>{{ uiLabels.whoHasJoined }}</h4>
-        <ul>
+        <ul class="participants-list">
           <li v-for="p in participants" :key="p.playerName" class="participant">
-            <span
-              class="color-dot"
-              :style="{ backgroundColor: p.color }"
-            ></span>
+            <span class="color-dot" :style="{ backgroundColor: p.color }"></span>
             {{ p.playerName }}
           </li>
         </ul>
       </div>
-    </div>
 
-    <div class="middleGridUpper">
-      <div class="showID">
-        <h1>{{ uiLabels.gameID }}: {{ lobbyID }}</h1>
-      </div>
-      <div class="hostArea">
-        <div v-if="playerName != hostName">
-          <p>{{ uiLabels.showHostName }} {{ hostName }}</p>
-          <p>{{ uiLabels.showYourName }} {{ playerName }}</p>
+      <div class="lobby-box">
+        <div class="showID">
+          <p class="label-text">{{ uiLabels.gameID }}</p>
+          <h1>{{ lobbyID }}</h1>
         </div>
-        <div v-else>
-          <p>{{ hostName }} {{ uiLabels.uAreHost }}</p>
+        <div class="hostArea">
+          <hr>
+          <div v-if="playerName != hostName">
+            <p>{{ uiLabels.showHostName }} {{ hostName }}</p>
+            <p>{{ uiLabels.showYourName }} {{ playerName }}</p>
+          </div>
+          <div v-else>
+            <p>{{ uiLabels.showYourName }}{{ hostName }} ({{ uiLabels.uAreHost }})</p>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="rightGridUpper">
-      <div class="infoArea">
+      <div class="lobby-box">
         <h4>{{ uiLabels.contPlayed }}</h4>
-        <p>{{translatedContinent}}</p>
-        <h4>{{ uiLabels.numOfQuestions }}</h4>
-        <p>{{ numberOfQuestions }}</p>
-        <h4>{{ uiLabels.numOfTime }}</h4>
-        <p>{{ numOfTime }} s</p>
+        <p class="big-text">{{ translatedContinent }}</p>
+        
+        <div class="small-info">
+          <div>
+            <h4>{{ uiLabels.numOfQuestions }}</h4>
+            <p class="big-text">{{numberOfQuestions }}</p>
+          </div>
+          <div>
+            <h4>{{ uiLabels.numOfTime }}</h4>
+            <p class="big-text">{{ numOfTime }} s</p>
+          </div>
+        </div>
       </div>
-    </div>
-
+</div>
     <div class="middleGridLower">
       <button
         class="button startGameButton"
@@ -225,141 +229,171 @@ export default {
 };
 </script>
 <style scoped>
-/* Notera att...
-
-  padding: 1em;
-  margin: 1em;
-  border-radius: 10%;
+/* Behåll din blurrade bakgrundseffekt */
+.lobby-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  
+  min-width: 14rem;
+  min-height: 18rem; /* Ökade höjden lite så innehållet får plats luftigt */
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  
+  border-radius: 20px;
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  text-align: center; /* Centrerar all text i boxarna */
+}
 
-  ...är det som gör den blurrade bakgrunden
+
+h4 {
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  opacity: 0.8;
+  font-weight: bold;
+}
+
+
+.showID {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.label-text {
+
+  font-size: 0.9rem; 
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.8;
+  font-weight: bold;
+  margin: 0 0 0.5rem 0; /* Lite avstånd ner till siffrorna */
+}
+
+h1 {
+  font-size: 3.5rem; /* Stora siffror */
+  margin: 0;
+  line-height: 1;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.hostArea {
+  margin-top: auto; 
+  width: 100%;
+}
+
+.hostArea hr {
+  border: 0;
+  border-top: 1px solid rgba(255,255,255,0.4);
+  margin: 1rem 0 0.5rem 0;
+  width: 50%; /* Linjen blir inte lika bred som rutan */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* --- SETTINGS BOX (HÖGER) --- */
+
+.big-text {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.small-info {
+  display: flex;
+  flex-direction: column; 
+  gap: 1rem;
+  width: 100%;
   
-  Detta kanske vi inte vill ha på hela gridArean som de är nu?
-  Men den får ligga där sålänge*/
+  
+  gap: 2.5rem;    
+  margin-top: 3rem
+}
 
-.outerWrapperLobby {
-  min-height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: auto auto 1fr;
-  grid-template-areas:
-    "header header header"
-    "leftGridUpper middleGridUpper rightGridUpper"
-    "leftGridLower middleGridLower rightGridLower";
+´
+.small-info h4 {
+  font-size: 0.75rem; 
+  margin-bottom: 0.2rem;
+  opacity: 0.7;
+}
+
+.small-info .big-text {
+  font-size: 1.4rem; 
+}
+
+
+.participants-list {
+  list-style: none;
+  padding: 0;
+  
+  
+  width: fit-content; 
+  margin: 0 auto;
 }
 
 .participant {
   display: flex;
-  align-items: baseline;
-}
-
-.leftGridUpper {
-  grid-area: leftGridUpper;
-  display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 1em;
-  margin: 1em;
-  border-radius: 10%;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(6px);
-}
+  
 
-.middleGridUpper {
-  grid-area: middleGridUpper;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 1em;
-  margin: 1em;
-  border-radius: 10%;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(6px);
-}
-
-.rightGridUpper {
-  grid-area: rightGridUpper;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1em;
-  margin: 1em;
-  border-radius: 10%;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(6px);
-}
-
-.leftGridLower {
-  grid-area: leftGridLower;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-}
-
-.middleGridLower {
-  grid-area: middleGridLower;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.hasJoinedList {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
-
-.waitForHost {
-  color: lightskyblue;
+  justify-content: flex-start; 
+  
+  margin-bottom: 0.8rem; 
+  font-weight: bold;
+  font-size: 1.1rem;
+  width: 100%;
 }
 
 .color-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  margin-right: 6px;
-  background-color: var(--player-color);
-}
-.button {
   display: inline-block;
-  padding: 0.8rem 2rem;
-  color: var(--button-textcolor);
-  background-color: var(--button-purplecolor);
-  border-radius: 10px;
-  text-decoration: none; /* tar bort blå underline */
-  font-size: 1.2rem;
-  font-weight: bold;
-  transition: 0.2s ease;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 10px;
+  border: 1px solid white;
 }
 
-.leaveLobbyButton {
-  width: 6rem;
-  text-decoration: none; /*  font-weight: normal; */
-  transition: 0.2s ease;
-  margin-bottom: 2rem;
-  font-size: smaller;
-  background-color: rgba(0, 0, 139, 0.25);
-}
-.discardLobbyButton {
-  display: inline-block;
-  width: 8rem;
-  padding: 0.8rem 0.8rem;
-  color: var(--button-textcolor);
-  border-radius: 10px;
-  text-decoration: none; /* tar bort blå underline */
-  font-weight: normal;
-  font-size: smaller;
-  transition: 0.2s ease;
-  margin-bottom: 2rem;
-  background-color: rgba(0, 0, 139, 0.25);
-}
+
 .startGameButton {
   background-color: var(--createbutton-color);
+  width: 14rem;
+  font-size: 1.3rem;
+  padding: 1rem;
+  margin-top: 1rem;
 }
 .startGameButton:hover {
   background-color: var(--createbutton-color-hover);
+}
+
+.leave-area {
+  margin-top: 1rem;
+}
+
+.leaveLobbyButton, 
+.discardLobbyButton {
+  background-color: rgba(255, 255, 255, 0.15); 
+  border: 1px solid rgba(255,255,255,0.3);
+  color: white;
+  width: auto;
+  min-width: 10rem;
+  padding: 0.8rem;
+}
+.leaveLobbyButton:hover, 
+.discardLobbyButton:hover {
+  background-color: rgba(255, 0, 0, 0.4);
+}
+
+.waitForHost {
+  color: #fff;
+  font-style: italic;
+  margin-top: 1rem;
 }
 </style>
