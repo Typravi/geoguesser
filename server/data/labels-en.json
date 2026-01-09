@@ -56,6 +56,7 @@
   "africa": "Africa",
   "europe": "Europe",
   "asia": "Asia",
+  "oceania": "Oceania",
   "planetEarth": "Planet Earth",
 
   "cityNamesLang": {
@@ -140,6 +141,17 @@
       "Riyadh": "Riyadh",
       "Teheran": "Tehran",
       "Karachi": "Karachi",
-      "Lahore": "Lahore"
+      "Lahore": "Lahore",
+
+      "Sydney": "Sydney",
+      "Melbourne": "Melbourne",
+      "Brisbane": "Brisbane",
+      "Auckland": "Auckland",
+      "Wellington": "Wellington",
+      "Perth": "Perth",
+      "Adelaide": "Adelaide",
+      "Canberra": "Canberra",
+      "Darwin": "Darwin",
+      "Hobart": "Hobart"
    }
 }

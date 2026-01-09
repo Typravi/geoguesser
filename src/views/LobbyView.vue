@@ -130,6 +130,9 @@ export default {
     else if (this.continent === "asia") {
       return this.uiLabels.asia || "Asia";
     }
+    else if (this.continent === "Oceania") {
+      return this.uiLabels.Oceania || "Oceania";
+    }
     return this.continent; 
   }
 },
