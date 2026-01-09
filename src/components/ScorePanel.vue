@@ -45,6 +45,7 @@ export default {
   participants: Array,
   currentPlayerName: String,
   title: String,
+  uiLabels: Object,
 },
   computed: {
   sortedParticipants() {
