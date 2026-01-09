@@ -55,6 +55,7 @@
   "playAgainLabel": "Play Again",
   "africa": "Africa",
   "europe": "Europe",
+  "asia": "Asia",
   "planetEarth": "Planet Earth",
 
   "cityNamesLang": {
@@ -125,6 +126,20 @@
       "Porto-Novo": "Porto-Novo", 
       "Windhoek": "Windhoek", 
       "Yamoussoukro": "Yamoussoukro", 
-      "Yaoundé": "Yaoundé"
+      "Yaoundé": "Yaoundé",
+
+      "Peking": "Beijing",
+      "Tokyo": "Tokyo",
+      "Seoul": "Seoul",
+      "Nya Delhi": "New Delhi",
+      "Bangkok": "Bangkok",
+      "Jakarta": "Jakarta",
+      "Kuala Lumpur": "Kuala Lumpur",
+      "Manila": "Manila",
+      "Hanoi": "Hanoi",
+      "Riyadh": "Riyadh",
+      "Teheran": "Tehran",
+      "Karachi": "Karachi",
+      "Lahore": "Lahore"
    }
 }

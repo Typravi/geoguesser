@@ -53,6 +53,7 @@
   "playAgainLabel": "Spela igen",
    "africa": "Afrika",
   "europe": "Europa",
+  "asia": "Asien",
   "planetEarth": "Hela planeten",
 
    "cityNamesLang": {
@@ -123,7 +124,21 @@
       "Porto-Novo": "Porto-Novo", 
       "Windhoek": "Windhoek", 
       "Yamoussoukro": "Yamoussoukro", 
-      "Yaoundé": "Yaoundé"
+      "Yaoundé": "Yaoundé",
+
+      "Beijing": "Peking",
+      "Tokyo": "Tokyo",
+      "Seoul": "Seoul",
+      "New Delhi": "Nya Delhi",
+      "Bangkok": "Bangkok",
+      "Jakarta": "Jakarta",
+      "Kuala Lumpur": "Kuala Lumpur",
+      "Manila": "Manila",
+      "Hanoi": "Hanoi",
+      "Riyadh": "Riyadh",
+      "Tehran": "Teheran",
+      "Karachi": "Karachi",
+      "Lahore": "Lahore"
     }
   }
   
