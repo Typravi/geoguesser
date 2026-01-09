@@ -30,9 +30,7 @@
         </div>
       </div>
     </main>
-    <div class="rightGridColumn">
-      
-    </div>
+   
   </div>
 </template>
 
@@ -84,27 +82,8 @@ export default {
 /*------------------------------------------------------------------------------------------------ */
 
 
-
-.leftGridColumn {
-  grid-area: leftGridColumn;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-start;
-}
 .mainArea {
-  grid-area: mainArea;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-}
-.rightGridColumn {
-  grid-area: rightGridColumn;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-end;
+  margin-top: 70px;
 }
 
 /*------------------------------------------------------------------------------------------------ */
