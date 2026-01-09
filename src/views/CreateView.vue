@@ -10,7 +10,7 @@
       </div>
     </header>
     <div class="responsive-row">
-      <div class="numberArea">
+      <div class="glassBox">
         <h4>{{ uiLabels.numOfQuestions }}</h4>
         <div class="numberButtons">
           <button class="button minusButton" @click="decreaseAmount">-</button>
@@ -18,7 +18,7 @@
           <button class="button plusButton" @click="increaseAmount">+</button>
         </div>
       </div>
-      <div class="continentArea">
+      <div class="glassBox">
         <h4>{{ uiLabels.chooseContinent }}</h4>
         <div class="continentChooserButton">
           <button class="button leftArrow" @click="choosePreviousContinent">
@@ -35,7 +35,7 @@
     </div>
       </div>
  <!--Tillagd knapp för timer -->
-      <div class="numberTimeArea">
+      <div class="glassBox">
         <h4 >{{ uiLabels.numOfTime }}</h4>
         <div class="timerButtons">
           <button class="button minusButtonTime" @click="decreaseTime">-</button>
@@ -228,25 +228,6 @@ export default {
   font-size: 1.2rem;
 }
 
-.numberArea, 
-.continentArea, 
-.numberTimeArea {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  min-width: 12rem; 
-  min-height: 6rem;
-  padding: 1rem; 
-  
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(6px);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
 .continent-text {
   display: inline-block;
   width: 7rem;         
@@ -259,14 +240,5 @@ export default {
   flex-direction: row;
 }
 
-h4 {
-  margin: 0 0 1rem 0;
-  text-transform: uppercase;
-  font-size: 0.9rem;
-  letter-spacing: 1px;
-  opacity: 0.8;
-  font-weight: bold;
-  color: #fff;
-  
-}
+
 </style>

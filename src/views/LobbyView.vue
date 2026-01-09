@@ -12,7 +12,7 @@
 
     <div class="responsive-row">
       
-      <div class="lobby-box">
+      <div class="glassBox">
         <h4>{{ uiLabels.whoHasJoined }}</h4>
         <ul class="participants-list">
           <li v-for="p in participants" :key="p.playerName" class="participant">
@@ -22,7 +22,7 @@
         </ul>
       </div>
 
-      <div class="lobby-box">
+      <div class="glassBox">
         <div class="showID">
           <p class="label-text">{{ uiLabels.gameID }}</p>
           <h1>{{ lobbyID }}</h1>
@@ -39,7 +39,7 @@
         </div>
       </div>
 
-      <div class="lobby-box">
+      <div class="glassBox">
         <h4>{{ uiLabels.contPlayed }}</h4>
         <p class="big-text">{{ translatedContinent }}</p>
         
@@ -250,14 +250,7 @@ export default {
 }
 
 
-h4 {
-  margin: 0 0 1rem 0;
-  text-transform: uppercase;
-  font-size: 0.9rem;
-  letter-spacing: 1px;
-  opacity: 0.8;
-  font-weight: bold;
-}
+
 
 
 .showID {
