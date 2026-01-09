@@ -181,7 +181,7 @@ export default {
     },
 
     choosePreviousContinent() {
-  const continents = ["africa", "europe", "Planet earth", "asia", "oceania"];
+  const continents = ["africa", "europe", "Planet earth", "asia", "oceania", "south_america", "north_america"];
   const currentIndex = continents.indexOf(this.continent);
   const prevIndex = (currentIndex - 1 + continents.length) % continents.length;
   this.continent = continents[prevIndex];
