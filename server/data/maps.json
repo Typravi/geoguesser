@@ -99,5 +99,23 @@
       "Karachi": { "x": 440, "y": 615.38 },
       "Lahore": { "x": 534.285, "y": 904.0625 }
     }
+  },
+  "oceania": {
+    "image": "/img/Oceania.png",
+    "originalWidth": 1700,
+    "originalHeight": 1482,
+    "cities": {
+        "Sydney":     { "x": 1080, "y": 790 },
+        "Melbourne":  { "x": 1040, "y": 850 },
+        "Brisbane":   { "x": 1110, "y": 705 },
+        "Canberra":   { "x": 1060, "y": 815 },
+        "Adelaide":   { "x": 950,  "y": 845 },
+        "Perth":      { "x": 520,  "y": 830 },
+        "Darwin":     { "x": 880,  "y": 570 },
+        "Hobart":     { "x": 1075, "y": 915 },
+        "Auckland":   { "x": 1320, "y": 830 },
+        "Wellington": { "x": 1350, "y": 885 }
+      
+    }
   }
 }

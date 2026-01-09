@@ -1,15 +1,13 @@
 <template>
   <div class="faq-wrapper">
-    
     <button class="button FAQ-button" @click="open = true">
       {{ uiLabels.FAQ || "FAQ" }}
     </button>
 
     <div v-if="open" class="overlay" @click.self="closeFAQ">
       <div class="FAQmodal">
-        <h3>{{ uiLabels.FAQ || "FAQ"}}</h3>
+        <h3>{{ uiLabels.FAQ || "FAQ" }}</h3>
         <div class="FAQaccordion">
-
           <button class="FAQquestion" @click="FAQtoggle(0)">
             {{ uiLabels.gameInstructionsQ || "Instructions" }}
           </button>
@@ -18,9 +16,16 @@
           </div>
 
           <button class="FAQquestion" @click="FAQtoggle(1)">
-            {{ uiLabels.creditsQ || "Credits" }}
+            {{ uiLabels.numOfPlayersQ || "No. of players" }}
           </button>
           <div v-show="active === 1" class="FAQanswer">
+            {{ uiLabels.numOfPlayersA }}
+          </div>
+
+          <button class="FAQquestion" @click="FAQtoggle(2)">
+            {{ uiLabels.creditsQ || "Credits" }}
+          </button>
+          <div v-show="active === 2" class="FAQanswer">
             {{ uiLabels.creditsA }}
           </div>
 
@@ -39,8 +44,8 @@ export default {
   props: {
     uiLabels: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   data() {
     return {
@@ -61,7 +66,6 @@ export default {
 </script>
 
 <style scoped>
-
 .button {
   display: inline-block;
   width: 10rem;
@@ -77,7 +81,6 @@ export default {
 .FAQ-button {
   background-color: var(--button-purplecolor);
   margin: 2rem;
-  
 }
 .FAQ-button:hover {
   background-color: var(--button-purplecolor-hover);
@@ -89,11 +92,9 @@ export default {
   border-radius: 34px;
   margin: 2rem;
   display: flex;
-  align-items: center;      /* vertical centering */
-  justify-content: center;  /* horizontal centering */
-  
+  align-items: center; /* vertical centering */
+  justify-content: center; /* horizontal centering */
 }
-
 
 .overlay {
   position: fixed;
