@@ -26,12 +26,6 @@
         </p>
       </div>
 
-      <!-- Gamla timern ifall den föredras 
-      <div class="timerShower">
-        <p v-if="timerActive">{{ uiLabels.timeText }} {{ timeLeft }}</p>
-      </div>
-      -->
-
       <div class="initiateNew">
         <button
           class="button nextRoundButton"
@@ -93,8 +87,7 @@
         v-if="!timerActive"
         :participants="participants"
         :currentPlayerName="playerName"
-        :uiLabels="uiLabels" 
-        
+        :uiLabels="uiLabels"
       />
     </div>
     <footer>
@@ -248,9 +241,6 @@ export default {
       // this.timerActive = false; // timern försvinner
 
       this.lastClick = pos; //--> senaste klicket sparas lokalt
-
-      // this.correctLocation = this.currentMap.cities[this.cityToFind];
-      // this.distance = calculateDistance(this.lastClick, this.correctLocation);
     },
 
     startTimer() {
@@ -304,14 +294,13 @@ export default {
 </script>
 
 <style scoped>
-
 .score-panel {
-  position: absolute;       
-  top: 100px;             
-  left: 15px;             
+  position: absolute;
+  top: 100px;
+  left: 15px;
   width: auto;
   z-index: 10;
-  pointer-events: none;    
+  pointer-events: none;
   display: flex;
   justify-content: flex-end;
 }
@@ -320,7 +309,7 @@ export default {
   min-height: 100vh;
 
   display: flex;
-  flex-direction: column; /* header överst, karta i mitten, coords nederst */
+  flex-direction: column;
 }
 
 /* Rubrik + current continent-text */
@@ -335,9 +324,9 @@ export default {
 /*I CSS koden nedan centreras kartan*/
 .map-area {
   flex: 1; /* tar upp allt ledigt utrymme mellan header och footer */
-  display: flex; /* flex-container */
-  justify-content: center; /* centrerar horisontellt */
-  align-items: center; /* centrerar vertikalt */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 16px;
   position: relative; /*tillagd för att timern ska få plats*/
 }
@@ -350,14 +339,14 @@ export default {
 
 @media (max-width: 50em) {
   .score-panel {
-    position: static;       /* Slutar flyta, lägger sig i flödet under kartan */
-    width: 100%;            /* Tar hela bredden */
+    position: static; /* Slutar flyta, lägger sig i flödet under kartan */
+    width: 100%; /* Tar hela bredden */
     margin: 0;
-    padding: 10px 0;        /* Lite luft */
-    
+    padding: 10px 0; /* Lite luft */
+
     display: flex;
     justify-content: center; /* Centrerar boxen */
-    pointer-events: auto;    /* Vanlig klickbarhet */
+    pointer-events: auto; /* Vanlig klickbarhet */
   }
 }
 
@@ -368,7 +357,7 @@ export default {
   color: var(--button-textcolor);
   background-color: var(--button-purplecolor);
   border-radius: 10px;
-  text-decoration: none; /* tar bort blå underline */
+  text-decoration: none;
   font-size: 1.1rem;
   font-weight: bold;
   transition: 0.2s ease;

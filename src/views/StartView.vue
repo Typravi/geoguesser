@@ -92,15 +92,6 @@ export default {
   font-size: smaller;
 }
 
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: var(--overlay-BG); /* genomskinlig */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000; /* undvika problem me att saker hamnar över, kan ev tas bort i slutversion */
-}
 
 
 

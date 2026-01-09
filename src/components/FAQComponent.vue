@@ -66,7 +66,6 @@ export default {
 </script>
 
 <style scoped>
-/*---FAQ-component startar här--------------------------------------------------------------------------------------------- */
 .FAQ-button {
   width: 10rem;
   font-size: 1rem;
@@ -85,8 +84,8 @@ export default {
   border-radius: 34px;
   margin: 2rem;
   display: flex;
-  align-items: center; 
-  justify-content: center; 
+  align-items: center;
+  justify-content: center;
 }
 
 .FAQ-overlay {
@@ -163,6 +162,4 @@ export default {
 .closeFAQbutton:hover {
   background: var(--FAQ-closebutton-hover-color);
 }
-
-/*--FAQ component slutar här---------------------------------------------------------------------------------------------- */
 </style>

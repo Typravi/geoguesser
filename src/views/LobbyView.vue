@@ -11,12 +11,14 @@
     </header>
 
     <div class="responsive-row">
-      
       <div class="glassBox">
         <h4>{{ uiLabels.whoHasJoined }}</h4>
         <ul class="participants-list">
           <li v-for="p in participants" :key="p.playerName" class="participant">
-            <span class="color-dot" :style="{ backgroundColor: p.color }"></span>
+            <span
+              class="color-dot"
+              :style="{ backgroundColor: p.color }"
+            ></span>
             {{ p.playerName }}
           </li>
         </ul>
@@ -28,13 +30,17 @@
           <h1>{{ lobbyID }}</h1>
         </div>
         <div class="hostArea">
-          <hr>
+          <hr />
           <div v-if="playerName != hostName">
             <p>{{ uiLabels.showHostName }} {{ hostName }}</p>
             <p>{{ uiLabels.showYourName }} {{ playerName }}</p>
           </div>
           <div v-else>
-            <p>{{ uiLabels.showYourName }}{{ hostName }} ({{ uiLabels.uAreHost }})</p>
+            <p>
+              {{ uiLabels.showYourName }}{{ hostName }} ({{
+                uiLabels.uAreHost
+              }})
+            </p>
           </div>
         </div>
       </div>
@@ -42,11 +48,11 @@
       <div class="glassBox">
         <h4>{{ uiLabels.contPlayed }}</h4>
         <p class="big-text">{{ translatedContinent }}</p>
-        
+
         <div class="small-info">
           <div>
             <h4>{{ uiLabels.numOfQuestions }}</h4>
-            <p class="big-text">{{numberOfQuestions }}</p>
+            <p class="big-text">{{ numberOfQuestions }}</p>
           </div>
           <div>
             <h4>{{ uiLabels.numOfTime }}</h4>
@@ -54,7 +60,7 @@
           </div>
         </div>
       </div>
-</div>
+    </div>
     <div class="middleGridLower">
       <button
         class="button startGameButton"
@@ -101,10 +107,9 @@ const socket = io(sessionStorage.getItem("dataServer")); // ändrat från localh
 
 import Swal from "sweetalert2";
 
-
 export default {
   name: "LobbyView",
-  components: { LogoComponent, LanguageComponent, FAQComponent},
+  components: { LogoComponent, LanguageComponent, FAQComponent },
   data: function () {
     return {
       playerName: "",
@@ -119,27 +124,22 @@ export default {
       numOfTime: 0,
     };
   },
-   computed: {
-    
-  translatedContinent() {
-    if (this.continent === "africa") {
-      return this.uiLabels.africa || "Africa";
-    } 
-    else if (this.continent === "europe") {
-      return this.uiLabels.europe || "Europe";
-    } 
-    else if (this.continent === "Planet earth") {
-      return this.uiLabels.planetEarth || "Planet Earth";
-    }
-    else if (this.continent === "asia") {
-      return this.uiLabels.asia || "Asia";
-    }
-    else if (this.continent === "Oceania") {
-      return this.uiLabels.Oceania || "Oceania";
-    }
-    return this.continent; 
-  }
-},
+  computed: {
+    translatedContinent() {
+      if (this.continent === "africa") {
+        return this.uiLabels.africa || "Africa";
+      } else if (this.continent === "europe") {
+        return this.uiLabels.europe || "Europe";
+      } else if (this.continent === "Planet earth") {
+        return this.uiLabels.planetEarth || "Planet Earth";
+      } else if (this.continent === "asia") {
+        return this.uiLabels.asia || "Asia";
+      } else if (this.continent === "Oceania") {
+        return this.uiLabels.Oceania || "Oceania";
+      }
+      return this.continent;
+    },
+  },
   created() {
     this.lobbyID = this.$route.params.lobbyID;
     this.playerName = this.$route.params.playerID;
@@ -191,10 +191,10 @@ export default {
       socket.emit("startGame", this.lobbyID); //skickar "startGame" till server med aktuell lobby
     },
 
-    playerLeaveLobby(){
+    playerLeaveLobby() {
       socket.emit("playerLeaveLobby", {
         lobbyID: this.lobbyID,
-        playerName: this.playerName
+        playerName: this.playerName,
       });
     },
     //Se länken nedan för förklaring
@@ -229,29 +229,24 @@ export default {
 };
 </script>
 <style scoped>
-/* Behåll din blurrade bakgrundseffekt */
 .lobby-box {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  
+
   min-width: 14rem;
-  min-height: 18rem; /* Ökade höjden lite så innehållet får plats luftigt */
+  min-height: 18rem;
   padding: 1.5rem;
   margin-bottom: 1rem;
-  
+
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(6px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: white;
-  text-align: center; /* Centrerar all text i boxarna */
+  text-align: center;
 }
-
-
-
-
 
 .showID {
   display: flex;
@@ -261,8 +256,7 @@ export default {
 }
 
 .label-text {
-
-  font-size: 0.9rem; 
+  font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 1px;
   opacity: 0.8;
@@ -279,13 +273,13 @@ h1 {
 }
 
 .hostArea {
-  margin-top: auto; 
+  margin-top: auto;
   width: 100%;
 }
 
 .hostArea hr {
   border: 0;
-  border-top: 1px solid rgba(255,255,255,0.4);
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
   margin: 1rem 0 0.5rem 0;
   width: 50%; /* Linjen blir inte lika bred som rutan */
   margin-left: auto;
@@ -302,44 +296,39 @@ h1 {
 
 .small-info {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   gap: 1rem;
   width: 100%;
-  
-  
-  gap: 2.5rem;    
-  margin-top: 3rem
+
+  gap: 2.5rem;
+  margin-top: 3rem;
 }
 
-´
-.small-info h4 {
-  font-size: 0.75rem; 
+´ .small-info h4 {
+  font-size: 0.75rem;
   margin-bottom: 0.2rem;
   opacity: 0.7;
 }
 
 .small-info .big-text {
-  font-size: 1.4rem; 
+  font-size: 1.4rem;
 }
-
 
 .participants-list {
   list-style: none;
   padding: 0;
-  
-  
-  width: fit-content; 
+
+  width: fit-content;
   margin: 0 auto;
 }
 
 .participant {
   display: flex;
   align-items: center;
-  
 
-  justify-content: flex-start; 
-  
-  margin-bottom: 0.8rem; 
+  justify-content: flex-start;
+
+  margin-bottom: 0.8rem;
   font-weight: bold;
   font-size: 1.1rem;
   width: 100%;
@@ -353,7 +342,6 @@ h1 {
   margin-right: 10px;
   border: 1px solid white;
 }
-
 
 .startGameButton {
   background-color: var(--createbutton-color);
@@ -370,16 +358,16 @@ h1 {
   margin-top: 1rem;
 }
 
-.leaveLobbyButton, 
+.leaveLobbyButton,
 .discardLobbyButton {
-  background-color: rgba(255, 255, 255, 0.15); 
-  border: 1px solid rgba(255,255,255,0.3);
+  background-color: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   color: white;
   width: auto;
   min-width: 10rem;
   padding: 0.8rem;
 }
-.leaveLobbyButton:hover, 
+.leaveLobbyButton:hover,
 .discardLobbyButton:hover {
   background-color: rgba(255, 0, 0, 0.4);
 }
