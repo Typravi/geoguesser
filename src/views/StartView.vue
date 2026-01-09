@@ -18,13 +18,16 @@
         <h2>{{ uiLabels.subHeading }}</h2>
       </div>
 
-      <div class="Game-buttons">
-        <router-link to="/JoinGameView/" class="button join-button">
-          {{ uiLabels.joinGame }}
-        </router-link>
-        <router-link to="/create/" class="button create-button">
-          {{ uiLabels.createGame }}
-        </router-link>
+
+      <div class="buttonArea">
+        <div class="Game-buttons">
+          <router-link to="/JoinGameView/" class="button join-button">
+            {{ uiLabels.joinGame }}
+          </router-link>
+          <router-link to="/create/" class="button create-button">
+            {{ uiLabels.createGame }}
+          </router-link>
+        </div>
       </div>
     </main>
     <div class="rightGridColumn">
@@ -109,42 +112,6 @@ export default {
 .greeting {
   font-size: smaller;
 }
-/*------------------------------------------------------------------------------------------------ */
-
-.Game-buttons {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
-.button {
-  display: inline-block;
-  width: 10rem;
-  padding: 0.8rem 2rem;
-  color: var(--button-textcolor);
-  border-radius: 10px;
-  text-decoration: none; /* tar bort blå underline */
-  font-size: 1.2rem;
-  font-weight: bold;
-  transition: 0.2s ease;
-}
-
-.create-button {
-  background-color: var(--createbutton-color);
-}
-.create-button:hover {
-  background-color: var(--createbutton-color-hover);
-}
-.join-button {
-  background-color: var(--joinbutton-color);
-}
-.join-button:hover {
-  background-color: var(--joinbutton-color-hover);
-}
-/*------------------------------------------------------------------------------------------------ */
 
 .overlay {
   position: fixed;

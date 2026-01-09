@@ -61,13 +61,15 @@
       </div>
 
       <div class="buttonArea">
-        <button
-          class="button createGameButton"
-          v-on:click="goToLobby"
-          :disabled="!playerName.trim()"
-        >
-          {{ uiLabels.createGame }}
-        </button>
+        <div class="Game-buttons">
+          <button
+            class="button create-button"
+            v-on:click="goToLobby"
+            :disabled="!playerName.trim()"
+          >
+            {{ uiLabels.createGame }}
+          </button>
+        </div>
         <router-link to="/" class="button goBackButton">
           {{ uiLabels.goBack }}
         </router-link>
@@ -173,11 +175,11 @@ export default {
     },
 
     choosePreviousContinent() {
-  const continents = ["africa", "europe", "Planet earth", "asia", "oceania"];
-  const currentIndex = continents.indexOf(this.continent);
-  const prevIndex = (currentIndex - 1 + continents.length) % continents.length;
-  this.continent = continents[prevIndex];
-},
+      const continents = ["africa", "europe", "Planet earth", "asia", "oceania"];
+      const currentIndex = continents.indexOf(this.continent);
+      const prevIndex = (currentIndex - 1 + continents.length) % continents.length;
+      this.continent = continents[prevIndex];
+    },
 
     increaseTime() {
       if (this.numOfTime< 60) {  //maxgräns på 1 min
@@ -207,32 +209,6 @@ export default {
 }
 .uiLabNumQ {
   margin: 1em;
-}
-
-/*-------- Nedan har använts för att underlätta styling, låt gärna ligga kvar tills vi är helt klara 
-.nameArea {
-  background-color: aliceblue;
-}
-.continentArea {
-  background-color: aqua;
-}
-.numberArea {
-  background-color: yellow;
-}
-
-.createArea {
-  background-color: blue;
-}
-*/
-
-.button {
-  width: 12rem;
-  padding: 0.8rem 2rem;
-  color: var(--button-textcolor);
-  border-radius: 10px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  transition: 0.2s ease;
 }
 
 
@@ -302,40 +278,4 @@ export default {
   display: flex;
   flex-direction: row;
 }
-
-
-
-.createGameButton {
-  margin-top: 2rem;
-  background-color: var(--createbutton-color);
-}
-.createGameButton:hover {
-  background-color: var(--createbutton-color-hover);
-}
-
-.buttonArea {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: auto;
-  padding-bottom: 2rem;
-}
-
-.goBackButton {
-  display: inline-block;
-  width: 6rem;
-  padding: 0.8rem 2rem;
-  color: var(--button-textcolor);
-  border-radius: 10px;
-  text-decoration: none; /* tar bort blå underline */
-  font-size: 1.2rem;
-  font-weight: normal;
-  transition: 0.2s ease;
-  margin-top: 6rem;
-  background-color: rgba(0, 0, 139, 0.25);
-}
-
-
-
 </style>

@@ -36,6 +36,19 @@ html,
 body {
   overflow-x: hidden;
 }
+/*-----------------------------------------------------------------------------------------*/
+/* Globalt knappfix */
+.button {
+  display: inline-block;
+  width: 10rem;
+  padding: 0.8rem 2rem;
+  color: var(--button-textcolor);
+  border-radius: 10px;
+  text-decoration: none; /* tar bort blå underline */
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: 0.2s ease;
+}
 
 .button:hover {
   transform: scale(1.1);
@@ -48,6 +61,54 @@ body {
 .header-faq .button {
   transform-origin: right center;
 }
+.buttonArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-bottom: 2rem;
+}
+
+.StartView .Game-buttons,
+.JoinGameView .Game-buttons,
+.CreateView .Game-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.join-button {
+  background-color: var(--joinbutton-color);
+}
+.join-button:hover {
+  background-color: var(--joinbutton-color-hover);
+}
+.create-button {
+  background-color: var(--createbutton-color);
+}
+.create-button:hover {
+  background-color: var(--createbutton-color-hover);
+}
+
+.goBackButton {
+  display: inline-block;
+  width: 6rem;
+  padding: 0.8rem 2rem;
+  color: var(--button-textcolor);
+  border-radius: 10px;
+  text-decoration: none; /* tar bort blå underline */
+  font-size: 1.2rem;
+  font-weight: normal;
+  transition: 0.2s ease;
+  margin-top: 6rem;
+  background-color: rgba(0, 0, 139, 0.25);
+}
+
+
+/*-----------------------------------------------------------------------------------------*/
 
 /* Global header layout */
 .app-header {

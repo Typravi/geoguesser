@@ -44,13 +44,14 @@
       </div>
     </div>
     <div class="buttonArea">
-      <button
-        class="button joinButton"
-        v-on:click="joinGame"
-        :disabled="!gameExists || !gameIsChecked || !playerName.trim()"
-      >
-        {{ uiLabels.joinGame }}
-      </button>
+      <div class="Game-buttons">
+        <button class="button join-button"
+          v-on:click="joinGame"
+          :disabled="!gameExists || !gameIsChecked || !playerName.trim()"
+        >
+          {{ uiLabels.joinGame }}
+        </button>
+      </div>
       <router-link to="/" class="button goBackButton">
         {{ uiLabels.goBack }}
       </router-link>
@@ -132,42 +133,3 @@ export default {
 };
 </script>
 
-<style>
-
-
-.joinButton {
-  width: 12rem;
-  padding: 0.8rem 2rem;
-  color: var(--button-textcolor);
-  border-radius: 10px;
-  text-decoration: none; /* tar bort blå underline */
-  font-size: 1.2rem;
-  font-weight: bold;
-  background-color: var(--joinbutton-color);
-}
-.joinButton:hover {
-  background-color: var(--joinbutton-color-hover);
-}
-
-.buttonArea {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: auto;
-  padding-bottom: 2rem;
-}
-
-.goBackButton {
-  display: inline-block;
-  width: 6rem;
-  padding: 0.8rem 2rem;
-  color: var(--button-textcolor);
-  border-radius: 10px;
-  text-decoration: none; /* tar bort blå underline */
-  font-size: 1.2rem;
-  font-weight: normal;
-  margin-top: 6rem;
-  background-color: rgba(0, 0, 139, 0.25);
-}
-</style>
