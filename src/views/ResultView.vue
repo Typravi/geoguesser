@@ -24,22 +24,25 @@
           </ul>
         </div>
       </main>
-    </div>
-    <div class="rightArea">
-      <div class="buttonArea">
-  <button class="button quitButton" @click="quitGame">
-    {{ uiLabels.quitLabel }}
-  </button>
-  
-  <button 
-    v-if="playerName === hostName" 
-    @click="playAgain" 
-    class="button playAgainButton">
-    {{ uiLabels.playAgainLabel }}
-  </button>
+    
+  <div class="buttonArea">
+  <div class="Game-buttons">
+    <button 
+      v-if="playerName === hostName" 
+      @click="playAgain" 
+      class="button playAgainButton">
+      {{ uiLabels.playAgainLabel }}
+    </button>
+    <button class="button quitButton" @click="quitGame">
+      {{ uiLabels.quitLabel }}
+    </button>
+  </div>
+  </div>
 </div>
-      </div>
-    </div>
+
+</div>
+
+
 
     <div class="footerArea">
       <footer>
@@ -147,7 +150,7 @@ export default {
 }
 
 .wellDone {
-  font-size: larger;
+  font-size: 2.5rem;
 }
 
 .leftArea {
@@ -157,7 +160,16 @@ export default {
 .middleArea {
   grid-area: middleArea;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* "Starta i toppen" istället för "center" */
+  padding-top: 2rem;
+  
+}
+
+.middleArea .buttonArea {
+  margin-top: 2rem;   
+  padding-bottom: 0; 
 }
 
 .rightArea {
@@ -169,11 +181,18 @@ export default {
 
 .footerArea {
   grid-area: footerArea;
+
+  
 }
 
 footer {
   width: 100%;
   flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0;
+  
   /*Tar annars större plats än jag vill vill*/
 }
 
@@ -183,7 +202,7 @@ header {
 }
 
 .ResultListArea {
-  margin-top: 6rem;
+  margin-top: 1rem;
   display: flex;
   justify-content: center;
   width: 100%;
@@ -212,8 +231,7 @@ header {
 .ranking {
   width: 4rem;
   flex-shrink: 0;
-  /*En bestämd width o flexshrink noll "reserverar" plats så namnen 
-  utanför pallen hamnar centrerat med de på pallen */
+  
 }
 .nameInRankingList,
 .scoreInRankingList {
@@ -237,37 +255,10 @@ header {
   font-weight: bold;
 }
 
-
 .bronze-rank {
   color: #cd7f32; 
   text-shadow: 1px 1px 0px #8b4513; 
   font-weight: bold;
 }
-
-.buttonArea {
-  margin-top: auto;
-  padding-bottom: 2rem;
-}
-
-.quitButton,
-.playAgainButton {
-  display: inline-block;
-  width: 6rem;
-  padding: 0.8rem 2rem;
-  color: var(--button-textcolor);
-  border-radius: 10px;
-  text-decoration: none; /* tar bort blå underline */
-  font-size: 1.2rem;
-  font-weight: bold;
-  transition: 0.2s ease;
-  margin: 2rem 2rem 2rem 2rem;
-  background-color: rgba(0, 0, 139, 0.511);
-}
-
-.playAgainButton {
-  width: 10rem;
-  background-color: var(--joinbutton-color);
-}
-
 
 </style>
