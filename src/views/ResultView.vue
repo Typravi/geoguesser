@@ -54,6 +54,8 @@
 <script>
 import LogoComponent from "../components/LogoComponent.vue";
 import io from "socket.io-client";
+import Swal from "sweetalert2";
+
 
 const socket = io(sessionStorage.getItem("dataServer")); // ändrat från localhost till min lokala IP-adress
 
@@ -67,6 +69,7 @@ export default {
       playerName: "",
       lobbyID: null,
       hostName: "",
+      allowRouteLeave: false
     };
   },
   created() {
@@ -90,6 +93,18 @@ export default {
       this.$router.push(`/lobby/${this.lobbyID}/${this.playerName}`);
     });
   },
+  beforeRouteLeave(to, from, next) {
+  if (this.allowRouteLeave) return next();
+  next(false);
+
+  Swal.fire({
+    icon: "info",
+    title: this.uiLabels.sorryGameEndedTitle,
+    text: this.uiLabels.sorryGameEndedText,
+    confirmButtonText: this.uiLabels.ok
+  });
+},
+
 
   //ser till att gamla spelomgångar inte spökar för den nya.
   beforeUnmount() {
@@ -100,10 +115,12 @@ export default {
 
   methods: {
     playAgain() {
+      this.allowRouteLeave = true;    
       socket.emit("playAgain", this.lobbyID);
     },
 
     quitGame() {
+      this.allowRouteLeave = true;    
       socket.emit("playerLeaveLobby", {
         lobbyID: this.lobbyID,
         playerName: this.playerName,

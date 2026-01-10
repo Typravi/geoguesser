@@ -50,6 +50,11 @@
   "leaveLobbyConfirmButton": "Ja, lämna lobby",
   "leaveGameConfirmButton": "Ja, lämna spelet",
   "playerLeftGame": "har lämnat spelet",
+
+  "sorryGameEndedTitle": "Tyvärr, spelet är slut",
+  "sorryGameEndedText": "Du kan inte gå tillbaka till föregående spel, men du kan klicka på spela igen eller avsluta",
+  "ok": "ok",
+
   "clickOn": "Klicka på: ",
   "contPlayed": "Världsdel: ",
   "timeText": "Tid kvar...",
