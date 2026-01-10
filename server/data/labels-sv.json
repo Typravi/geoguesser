@@ -40,6 +40,8 @@
   "discardLobbyDoneTitle": "Lobbyn skrotad",
   "discardLobbyDoneTextHost": "Du raderade lobbyn",
   "discardLobbyDoneTitleParticipant": "Lobbyn skrotades av hosten",
+  "leaveLobbyInfo": "Detta innebär att du lämnar lobbyn",
+  "leaveLobbyConfirmButton": "Ja, lämna lobby",
   "clickOn": "Klicka på: ",
   "contPlayed": "Världsdel: ",
   "timeText": "Tid kvar...",

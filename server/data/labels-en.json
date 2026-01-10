@@ -40,6 +40,8 @@
   "discardLobbyDoneTitle": "Lobby discarded",
   "discardLobbyDoneTextHost": "You deleted the lobby",
   "discardLobbyDoneTitleParticipant": "The host closed the lobby",
+  "leaveLobbyInfo": "This cancels the game for you and you wont be able to regret this!",
+  "leaveLobbyConfirmButton": "Yes, leave lobby",
   "clickOn": "Click on: ",
   "contPlayed": "Continent: ",
   "timeText": "Time left...",

@@ -122,6 +122,8 @@ export default {
       continent: "",
       cities: [],
       numOfTime: 0,
+      discardConfirm: false,
+      leaveConfirm: false
     };
   },
   computed: {
@@ -176,11 +178,33 @@ export default {
         text: this.uiLabels.discardLobbyDoneTitleParticipant,
         icon: "info",
       }).then(() => {
+        this.leaveConfirm = true; 
         this.$router.push("/");
       });
     });
   
   },
+
+  beforeRouteLeave(to, from, next) { 
+    //Så att start - game knappen släpps igenom 
+    if(to.path.startsWith("/GeoMapView")) return next();
+
+        //-- HOST -- 
+      if (this.playerName == this.hostName) {
+      //om discardknappen klickats direkt 
+      if(this.discardConfirm) return next(); 
+      //--> om man klickar på tillbaka knappen 
+      next(false); 
+      this.confirmDiscardLobby();
+      return;
+    }
+    
+    // -- PLAYER -
+      if(this.leaveConfirm) return next();
+      next(false)
+      this.confirmLeaveLobby();
+  },
+
 
   beforeUnmount() {
     // VIKTIGT: Stäng av lyssnarna så de inte lever kvar när vi byter sida
@@ -188,6 +212,7 @@ export default {
     socket.off("participantsUpdate");
     socket.off("gameData");
     socket.off("lobbyDiscardedByHost");
+    socket.off("uiLabels"); 
   },
   
   methods: {
@@ -201,12 +226,7 @@ export default {
       socket.emit("startGame", this.lobbyID); //skickar "startGame" till server med aktuell lobby
     },
 
-    playerLeaveLobby() {
-      socket.emit("playerLeaveLobby", {
-        lobbyID: this.lobbyID,
-        playerName: this.playerName,
-      });
-    },
+    
     //Se länken nedan för förklaring
     // https://sweetalert2.github.io/
     confirmDiscardLobby() {
@@ -221,6 +241,7 @@ export default {
         cancelButtonText: this.uiLabels.cancel,
       }).then((result) => {
         if (result.isConfirmed) {
+          this.discardConfirm = true; 
           socket.emit("discardLobby", this.lobbyID);
 
           Swal.fire({
@@ -231,10 +252,32 @@ export default {
             showConfirmButton: false,
           });
 
-          this.$router.push("/");
-        }
+          this.$router.push("/"); } 
+          else this.discardConfirm = false
       });
     },
+    confirmLeaveLobby() {
+      Swal.fire({
+        title: this.uiLabels.uSure,
+        text: this.uiLabels.leaveLobbyInfo,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "hotpink",
+        cancelButtonColor: "#d33",
+        confirmButtonText: this.uiLabels.leaveLobbyConfirmButton,
+        cancelButtonText: this.uiLabels.cancel,
+      }).then((result) => {
+        if (result.isConfirmed) {
+        this.leaveConfirm = true;
+        socket.emit( "playerLeaveLobby", {
+        lobbyID: this.lobbyID,
+        playerName: this.playerName,
+      });
+      this.$router.push("/"); } 
+      else this.leaveConfirm = false
+      });
+    },
+    
   },
 };
 </script>
