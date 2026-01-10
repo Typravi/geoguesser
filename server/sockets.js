@@ -15,11 +15,9 @@ function sockets(io, socket, data) {
     );
     data.assignCities(d.lobbyID);
 
-    const lobby = data.getGame(d.lobbyID);
-    lobby.roundEndsAt = Date.now() + lobby.time*1000; //timestamp för att synka timern 
     // Join room and emit data
     socket.join(d.lobbyID);
-    io.to(d.lobbyID).emit("gameData", {...lobby, serverNow: Date.now(), });
+    io.to(d.lobbyID).emit("gameData", data.getGame(d.lobbyID));
 
     console.log("gameData sent for", d.lobbyID);
   });
@@ -27,7 +25,7 @@ function sockets(io, socket, data) {
   socket.on("joinGame", function (lobbyID) {
     socket.join(lobbyID);
     const lobby = data.getGame(lobbyID);
-    socket.emit("gameData", {...lobby, serverNow: Date.now()});
+    socket.emit("gameData", {...lobby});
     socket.emit("participantsUpdate", data.getParticipants(lobbyID)); //skicka med time stamp till join
   });
   socket.on("participateInGame", function (d) {
@@ -110,11 +108,11 @@ function sockets(io, socket, data) {
     //starta spelet
     const lobby = data.getGame(lobbyID);
     console.log("startGame to server", lobbyID); //check
-    lobby.roundEndsAt = Date.now() + lobby.time * 1000;
+    lobby.roundEndsAt = Date.now() + lobby.time * 1000; //timestamp som gör att timern inte tickar ner utan "slutar" vid ett exakt klockslag
     lobby.locked = true;
     lobby.started = true;
 
-    io.to(lobbyID).emit("gameStart", {...lobby, serverNow: Date.now()}); //ändrat från io.to(lobbyID).emit("gameStart", lobbyID)
+    io.to(lobbyID).emit("gameStart", {...lobby}); //ändrat från io.to(lobbyID).emit("gameStart", lobbyID)
   });
 
   socket.on(
@@ -137,10 +135,9 @@ function sockets(io, socket, data) {
 
     if (lobby.cities && lobby.round < lobby.cities.length) {
       lobby.round += 1;
-
     lobby.roundEndsAt = Date.now() + lobby.time * 1000; //ny timestamp för nästa runda 
 
-      io.to(d.lobbyID).emit("gameData", {...lobby, serverNow: Date.now()});
+      io.to(d.lobbyID).emit("gameData", {...lobby});
     } else {
       io.to(d.lobbyID).emit("resultsView", data.getGame(d.lobbyID));
     }

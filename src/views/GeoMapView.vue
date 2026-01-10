@@ -132,16 +132,15 @@ export default {
       cities: [],
       playerName: "",
       numberOfQuestions: null,
-      timePerRound: 10, //default
       timeLeft: null,
       timerInterval: null,
       timerActive: true,
+      roundEndsAt: null,
       participants: [],
       hostName: "",
       round: null,
       roundScore: 0,
-      roundEndsAt: null, 
-
+      hasSentFinalClick: false,
     };
   },
 
@@ -186,7 +185,6 @@ export default {
       this.numberOfQuestions = lobby?.numberOfQuestions ?? null;
       this.cities = Array.isArray(lobby?.cities) ? lobby.cities : [];
       this.round = Number(lobby?.round) || 1;
-      this.timePerRound = lobby?.time ?? 10;
       this.roundEndsAt = lobby?.roundEndsAt ?? null;
 
       const idx = this.round - 1;
@@ -195,6 +193,9 @@ export default {
       this.cityToFind = city?.name ?? null;
       this.correctLocation = city?.coordinates ?? null;
 
+      this.lastClick = null;
+      this.distance = null;
+      this.hasSentFinalClick = false; 
       // Only start timer when we actually have round data
       if (this.cityToFind && this.correctLocation && this.roundEndsAt) {
         this.startTimer();
@@ -253,52 +254,59 @@ export default {
       }
 
       this.timerActive = true;
-/* räknar ut tiden från deadline*/
       const update = () => {
-      if (!this.roundEndsAt) return;
-        const msLeft = this.roundEndsAt - Date.now();
-        const secondsLeft = Math.max(0, Math.ceil(msLeft / 1000));
-        this.timeLeft = secondsLeft;
-
-      if (secondsLeft <= 0) {
-        clearInterval(this.timerInterval);
-        this.timerInterval = null;
-        this.timerActive = false;
+        if (!this.roundEndsAt) return;
         
-//----
-        if (this.lastClick) {
-            this.distance = calculateDistance(
-            this.lastClick,
-            this.correctLocation
-            );
+        const msLeft = this.roundEndsAt - Date.now(); //antal minisekunder kvar av klockan
+        this.timeLeft = Math.max(0, Math.ceil(msLeft / 1000)); //gör om millisekudner till sekunder
 
-        socket.emit("finalClick", {
-            lobbyID: this.lobbyID,
-            playerName: this.playerName,
-            locationGuess: this.lastClick,
-            roundScore: Math.round(this.distance),
-            });
-          } else {
-            const maxDistance = Math.sqrt(
-              this.currentMap.originalWidth ** 2 +
-                this.currentMap.originalHeight ** 2
-            );
-            const noClickScore = calculatePunishment(maxDistance);
-
-            socket.emit("finalClick", {
-              lobbyID: this.lobbyID,
-              playerName: this.playerName,
-              locationGuess: null,
-              roundScore: noClickScore,
-            });
-          }
+      if (this.timeLeft == 0) {
+        this.stopTimer();
+        this.finishRound();
         }
       };
-    
       update();
-      this.timerInterval = setInterval(update, 250);
-},
-  }
+      this.timerInterval = setInterval(update,250);}, //uppdaterar så att tiden "tickar" ner
+
+    stopTimer(){ 
+      if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+      this.timerInterval = null;
+      }
+      
+      this.timerActive = false;
+      },
+
+    finishRound(){
+      if (this.timerInterval) {
+      clearInterval(this.timerInterval);        this.timerInterval = null;
+      }
+      if(this.lastClick){
+        this.distance = calculateDistance(
+          this.lastClick,
+          this.correctLocation
+          );
+
+          socket.emit("finalClick", {
+          lobbyID: this.lobbyID,
+          playerName: this.playerName,
+          locationGuess: this.lastClick,
+          roundScore: Math.round(this.distance),
+          });
+          return;
+        }
+        const maxDistance = Math.sqrt(
+          this.currentMap.originalWidth ** 2 + this.currentMap.originalHeight ** 2);
+          const noClickScore = calculatePunishment(maxDistance);
+
+        socket.emit("finalClick", {
+          lobbyID: this.lobbyID,
+          playerName: this.playerName,
+          locationGuess: null,
+          roundScore: noClickScore,
+          });
+        },
+      },
 }; 
 </script>
 
