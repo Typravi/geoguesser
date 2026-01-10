@@ -1,12 +1,12 @@
 "use strict";
 import { readFileSync } from "fs";
 
+/*************** CONSTANTS ***************/
+
 const continentData = JSON.parse(
   readFileSync(new URL("./data/maps.json", import.meta.url), "utf-8")
 );
-function randomInt(max) {
-  return Math.floor(Math.random() * max);
-}
+
 
 const playerColors = [
   "#e6194b", // röd
@@ -16,7 +16,13 @@ const playerColors = [
   "#911eb4", // lila
 ];
 
-// Store data in an object to keep the global namespace clean. In an actual implementation this would be interfacing a database...
+/*************** Help functions ***************/
+function randomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
+/*************** DATA CLASS ***************/
+
 function Data() {
   this.lobbies = {};
   this.lobbies["test"] = {
@@ -27,16 +33,13 @@ function Data() {
     participants: [],
   };
 }
-
 /***********************************************
 For performance reasons, methods are added to the
 prototype of the Data object/class
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
 ***********************************************/
 
-Data.prototype.gameExists = function (lobbyID) {
-  return typeof this.lobbies[lobbyID] !== "undefined";
-};
+/*************** UI LABELS ***************/
 
 Data.prototype.getUILabels = function (lang) {
   //check if lang is valid before trying to load the dictionary file
@@ -44,6 +47,21 @@ Data.prototype.getUILabels = function (lang) {
   const labels = readFileSync("./server/data/labels-" + lang + ".json");
   return JSON.parse(labels);
 };
+
+/*************** LOBBY ACCESS (EXISTS / GET) ***************/
+
+Data.prototype.gameExists = function (lobbyID) {
+  return typeof this.lobbies[lobbyID] !== "undefined";
+};
+
+Data.prototype.getGame = function (lobbyID) {
+  if (this.gameExists(lobbyID)) {
+    return this.lobbies[lobbyID];
+  }
+  return [];
+};
+
+/*************** LOBBY CREATION ***************/
 
 Data.prototype.createGame = function (
   lobbyID,
@@ -86,12 +104,7 @@ Data.prototype.createGame = function (
   return this.lobbies[lobbyID];
 };
 
-Data.prototype.getGame = function (lobbyID) {
-  if (this.gameExists(lobbyID)) {
-    return this.lobbies[lobbyID];
-  }
-  return {};
-};
+/*************** PARTICIPANTS (ADD/GET/REMOVE) ***************/
 
 Data.prototype.participateInGame = function (lobbyID, playerName) {
   console.log("participant will be added to", lobbyID, playerName);
@@ -112,14 +125,32 @@ Data.prototype.participateInGame = function (lobbyID, playerName) {
     lobby.participants.push(player);
   }
 };
+
+Data.prototype.getParticipants = function (lobbyID) {
+  console.log("participants requested for", lobbyID);
+  if (this.gameExists(lobbyID)) {
+    return this.lobbies[lobbyID].participants;
+  }
+  return [];
+};
+
+Data.prototype.removeParticipant = function (lobbyID, playerName) {
+  if (!this.gameExists(lobbyID)) return;
+
+  const lobby = this.lobbies[lobbyID];
+  lobby.participants = lobby.participants.filter(
+    (p) => p.playerName !== playerName
+  );
+};
+
+/*************** CITIES (GENERATE/ASSIGN) ***************/
+
 Data.prototype.generateCitiesForLobby = function (
   continent,
   numberOfQuestions
 ) {
   const isPlanetEarth = continent === "Planet earth";
-
   const allContinents = Object.keys(continentData);
-
   const citiesOut = [];
 
   // helper to pick one city from a specific continent
@@ -157,9 +188,9 @@ Data.prototype.generateCitiesForLobby = function (
     used.add(key);
     citiesOut.push(city);
   }
-
   return citiesOut;
 };
+
 
 Data.prototype.assignCities = function (lobbyID) {
   if (!this.gameExists(lobbyID)) return;
@@ -171,23 +202,7 @@ Data.prototype.assignCities = function (lobbyID) {
   );
 };
 
-Data.prototype.getParticipants = function (lobbyID) {
-  const lobby = this.lobbies[lobbyID];
-  console.log("participants requested for", lobbyID);
-  if (this.gameExists(lobbyID)) {
-    return this.lobbies[lobbyID].participants;
-  }
-  return [];
-};
-
-Data.prototype.removeParticipant = function (lobbyID, playerName) {
-  if (!this.gameExists(lobbyID)) return;
-
-  const lobby = this.lobbies[lobbyID];
-  lobby.participants = lobby.participants.filter(
-    (p) => p.playerName !== playerName
-  );
-};
+/*************** GAME RESET  ***************/
 
 Data.prototype.resetGame = function (lobbyID) {
   const lobby = this.lobbies[lobbyID];
