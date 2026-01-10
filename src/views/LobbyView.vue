@@ -82,7 +82,7 @@
           to="/"
           class="button leaveLobbyButton"
           v-if="playerName != hostName"
-          @click="playerLeaveLobby"
+          @click="confirmLeaveLobby"
         >
           {{ uiLabels.leaveLobby }}
         </router-link>
