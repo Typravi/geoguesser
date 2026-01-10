@@ -49,7 +49,7 @@
     <div class="CreateView-flexInnerWrapper2">
       <div class="nameArea">
         <p>
-          <label for="name">{{ uiLabels.yourName }}</label
+          <label for="playerName">{{ uiLabels.yourName }}</label
           ><br />
           <input
             class="inputNameBox"
@@ -213,13 +213,3 @@ export default {
   },
 };
 </script>
-
-<style>
-/*------Behövs denna fortfarande? inget verkar ändras när jag kommenterar ut den
-.CreateView-flexInnerWrapper2 {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
------- */
-</style>

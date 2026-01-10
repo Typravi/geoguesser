@@ -12,7 +12,7 @@
     <div class="responsive-row">
       <div class="nameArea">
         <p>
-          <label for="name">{{ uiLabels.yourName }}</label
+          <label for="playerName">{{ uiLabels.yourName }}</label
           ><br />
           <input
             class="inputNameBox"
