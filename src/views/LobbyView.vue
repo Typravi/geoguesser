@@ -179,7 +179,17 @@ export default {
         this.$router.push("/");
       });
     });
+  
   },
+
+  beforeUnmount() {
+    // VIKTIGT: Stäng av lyssnarna så de inte lever kvar när vi byter sida
+    socket.off("gameStart");
+    socket.off("participantsUpdate");
+    socket.off("gameData");
+    socket.off("lobbyDiscardedByHost");
+  },
+  
   methods: {
     switchLanguage: function () {
       this.lang = this.lang === "sv" ? "en" : "sv"; //kollar om SV isf EN annars SV (vid klick)
