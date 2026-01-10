@@ -15,17 +15,20 @@ function sockets(io, socket, data) {
     );
     data.assignCities(d.lobbyID);
 
+    const lobby = data.getGame(d.lobbyID);
+    lobby.roundEndsAt = Date.now() + lobby.time*1000; //timestamp för att synka timern 
     // Join room and emit data
     socket.join(d.lobbyID);
-    io.to(d.lobbyID).emit("gameData", data.getGame(d.lobbyID));
+    io.to(d.lobbyID).emit("gameData", {...lobby, serverNow: Date.now(), });
 
     console.log("gameData sent for", d.lobbyID);
   });
 
   socket.on("joinGame", function (lobbyID) {
     socket.join(lobbyID);
-    socket.emit("gameData", data.getGame(lobbyID));
-    socket.emit("participantsUpdate", data.getParticipants(lobbyID));
+    const lobby = data.getGame(lobbyID);
+    socket.emit("gameData", {...lobby, serverNow: Date.now()});
+    socket.emit("participantsUpdate", data.getParticipants(lobbyID)); //skicka med time stamp till join
   });
   socket.on("participateInGame", function (d) {
     const lobby = data.getGame(d.lobbyID);
@@ -107,10 +110,11 @@ function sockets(io, socket, data) {
     //starta spelet
     const lobby = data.getGame(lobbyID);
     console.log("startGame to server", lobbyID); //check
+    lobby.roundEndsAt = Date.now() + lobby.time * 1000;
     lobby.locked = true;
     lobby.started = true;
 
-    io.to(lobbyID).emit("gameStart", lobby); //ändrat från io.to(lobbyID).emit("gameStart", lobbyID)
+    io.to(lobbyID).emit("gameStart", {...lobby, serverNow: Date.now()}); //ändrat från io.to(lobbyID).emit("gameStart", lobbyID)
   });
 
   socket.on(
@@ -134,7 +138,9 @@ function sockets(io, socket, data) {
     if (lobby.cities && lobby.round < lobby.cities.length) {
       lobby.round += 1;
 
-      io.to(d.lobbyID).emit("gameData", data.getGame(d.lobbyID));
+    lobby.roundEndsAt = Date.now() + lobby.time * 1000; //ny timestamp för nästa runda 
+
+      io.to(d.lobbyID).emit("gameData", {...lobby, serverNow: Date.now()});
     } else {
       io.to(d.lobbyID).emit("resultsView", data.getGame(d.lobbyID));
     }

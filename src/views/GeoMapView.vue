@@ -140,6 +140,8 @@ export default {
       hostName: "",
       round: null,
       roundScore: 0,
+      roundEndsAt: null, 
+
     };
   },
 
@@ -185,6 +187,7 @@ export default {
       this.cities = Array.isArray(lobby?.cities) ? lobby.cities : [];
       this.round = Number(lobby?.round) || 1;
       this.timePerRound = lobby?.time ?? 10;
+      this.roundEndsAt = lobby?.roundEndsAt ?? null;
 
       const idx = this.round - 1;
       const city = this.cities[idx];
@@ -193,7 +196,7 @@ export default {
       this.correctLocation = city?.coordinates ?? null;
 
       // Only start timer when we actually have round data
-      if (this.cityToFind && this.correctLocation) {
+      if (this.cityToFind && this.correctLocation && this.roundEndsAt) {
         this.startTimer();
       }
 
@@ -248,26 +251,32 @@ export default {
         clearInterval(this.timerInterval);
         this.timerInterval = null;
       }
-      this.timeLeft = this.timePerRound;
+
       this.timerActive = true;
+/* räknar ut tiden från deadline*/
+      const update = () => {
+      if (!this.roundEndsAt) return;
+        const msLeft = this.roundEndsAt - Date.now();
+        const secondsLeft = Math.max(0, Math.ceil(msLeft / 1000));
+        this.timeLeft = secondsLeft;
 
-      this.timerInterval = setInterval(() => {
-        if (this.timeLeft <= 0) {
-          clearInterval(this.timerInterval);
-          this.timerInterval = null;
-          this.timerActive = false;
-
-          if (this.lastClick) {
+      if (secondsLeft <= 0) {
+        clearInterval(this.timerInterval);
+        this.timerInterval = null;
+        this.timerActive = false;
+        
+//----
+        if (this.lastClick) {
             this.distance = calculateDistance(
-              this.lastClick,
-              this.correctLocation
+            this.lastClick,
+            this.correctLocation
             );
 
-            socket.emit("finalClick", {
-              lobbyID: this.lobbyID,
-              playerName: this.playerName,
-              locationGuess: this.lastClick,
-              roundScore: Math.round(this.distance),
+        socket.emit("finalClick", {
+            lobbyID: this.lobbyID,
+            playerName: this.playerName,
+            locationGuess: this.lastClick,
+            roundScore: Math.round(this.distance),
             });
           } else {
             const maxDistance = Math.sqrt(
@@ -283,14 +292,14 @@ export default {
               roundScore: noClickScore,
             });
           }
-
-          return;
         }
-        this.timeLeft--;
-      }, 1000);
-    },
-  },
-};
+      };
+    
+      update();
+      this.timerInterval = setInterval(update, 250);
+},
+  }
+}; 
 </script>
 
 <style scoped>
