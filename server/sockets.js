@@ -154,6 +154,7 @@ function sockets(io, socket, data) {
     socket.leave(lobbyID);
 
     io.to(lobbyID).emit("participantsUpdate", data.getParticipants(lobbyID));
+    io.to(lobbyID).emit("playerLeft", { playerName });
   });
 
   socket.on("playAgain", (lobbyID) => {

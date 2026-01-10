@@ -109,6 +109,9 @@ import { calculatePunishment } from "../assets/logic";
 import io from "socket.io-client";
 const socket = io(sessionStorage.getItem("dataServer")); // ändrat från localhost till min lokala IP-adress
 
+import Swal from "sweetalert2";
+
+
 export default {
   name: "GeoMapView",
 
@@ -141,6 +144,8 @@ export default {
       round: null,
       roundScore: 0,
       hasSentFinalClick: false,
+      leaveConfirm: false,
+      hostDiscardConfirm: false,
     };
   },
 
@@ -215,13 +220,58 @@ export default {
     socket.on("participantsUpdate", (participants) => {
       this.participants = participants;
     });
+
+    socket.on("lobbyDiscardedByHost", () => {
+      Swal.fire({
+        title: this.uiLabels.discardGameDoneTitle,
+        text: this.uiLabels.discardGameDoneTitleParticipant,
+        icon: "info",
+      }).then(() => {
+        this.leaveConfirm = true; 
+        this.$router.push("/");
+      });
+    }); 
+
+    socket.on("playerLeft", ({playerName}) => {
+      const host = this.participants?.[0]?.playerName;
+      if (this.playerName !== host) return; 
+
+      Swal.fire({
+        text: playerName + this.uiLabels.playerLeftGame,
+        toast: true, 
+        position: "top-start",
+        icon: "info",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    });
   },
+
+  beforeRouteLeave(to, from, next) {
+    if (to.path.startsWith("/ResultsView")) return next();
+    const host = this.participants?.[0]?.playerName;
+    //HOST
+    if (this.playerName === host ){
+      if (this.discardConfirm) return next();
+      next(false);
+      this.confirmDiscardGame();
+      return;
+    }
+    //PLAYER
+    if (this.leaveConfirm) return next();
+    next(false);
+    this.confirmLeaveGame();
+  },
+
   beforeUnmount() {
     // Sluta lyssna på servern när vi lämnar kartan
     // Annars kan gamla timers eller lyssnare ligga kvar och störa nästa runda
     socket.off("gameData");
     socket.off("participantsUpdate");
     socket.off("resultsView");
+    socket.off("lobbyDiscardedByHost");
+    socket.off("playerLeft");
+
 
     if (this.timerInterval) {
       clearInterval(this.timerInterval);
@@ -306,7 +356,56 @@ export default {
           roundScore: noClickScore,
           });
         },
-      },
+        
+        confirmDiscardGame(){
+          Swal.fire({
+          title: this.uiLabels.uSure,
+          text: this.uiLabels.discardGameInfo,
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "hotpink",
+          cancelButtonColor: "#d33",
+          confirmButtonText: this.uiLabels.discardGameConfirmButton,
+          cancelButtonText: this.uiLabels.cancel,
+          }).then((result) => {
+          if (result.isConfirmed) {
+          this.discardConfirm = true; 
+          socket.emit("discardLobby", this.lobbyID);
+
+          Swal.fire({
+            title: this.uiLabels.discardGameDoneTitle,
+            text: this.uiLabels.discardGameDoneTextHost,
+            icon: "success",
+            timer: 1500,
+            showConfirmButton: false,
+          });
+
+          this.$router.push("/"); } 
+          else this.discardConfirm = false
+      });
+    },
+        confirmLeaveGame() {
+        Swal.fire({
+        title: this.uiLabels.uSure,
+        text: this.uiLabels.leaveGameInfo,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "hotpink",
+        cancelButtonColor: "#d33",
+        confirmButtonText: this.uiLabels.leaveGameConfirmButton,
+        cancelButtonText: this.uiLabels.cancel,
+      }).then((result) => {
+        if (result.isConfirmed) {
+        this.leaveConfirm = true;
+        socket.emit( "playerLeaveLobby", {
+        lobbyID: this.lobbyID,
+        playerName: this.playerName,
+      });
+      this.$router.push("/"); } 
+      else this.leaveConfirm = false
+      });
+    },
+   }
 }; 
 </script>
 
