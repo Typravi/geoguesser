@@ -136,8 +136,8 @@ export default {
         return this.uiLabels.planetEarth || "Planet Earth";
       } else if (this.continent === "asia") {
         return this.uiLabels.asia || "Asia";
-      } else if (this.continent === "Oceania") {
-        return this.uiLabels.Oceania || "Oceania";
+      } else if (this.continent === "oceania") {
+        return this.uiLabels.oceania || "Oceania";
       } else if (this.continent === "north_america") {
         return this.uiLabels.northAmerica || "North America";
       } else if (this.continent === "south_america") {
