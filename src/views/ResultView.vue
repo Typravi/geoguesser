@@ -93,18 +93,6 @@ export default {
       this.$router.push(`/lobby/${this.lobbyID}/${this.playerName}`);
     });
   },
-  beforeRouteLeave(to, from, next) {
-  if (this.allowRouteLeave) return next();
-  next(false);
-
-  Swal.fire({
-    icon: "info",
-    title: this.uiLabels.sorryGameEndedTitle,
-    text: this.uiLabels.sorryGameEndedText,
-    confirmButtonText: this.uiLabels.ok
-  });
-},
-
 
   //ser till att gamla spelomgångar inte spökar för den nya.
   beforeUnmount() {

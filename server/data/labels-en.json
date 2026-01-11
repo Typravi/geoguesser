@@ -51,10 +51,7 @@
   "leaveGameConfirmButton": "Yes, leave the game",
   "playerLeftGame": "has left the game",
 
-  "sorryGameEndedTitle": "Sorry, the game is over",
-  "sorryGameEndedText": "You can not go back to the game, however you can choose to play again or quit",
-  "ok": "ok",
-
+  
   "clickOn": "Click on: ",
   "contPlayed": "Continent: ",
   "timeText": "Time left...",
