@@ -32,19 +32,7 @@ function sockets(io, socket, data) {
 
   socket.on("participateInGame", function (d) {
     const lobby = data.getGame(d.lobbyID);
-    //Kollar om playerName redan finns i participate och släpper isf igenom (så man kan refresh/reconnect utan att blockas av låst lobby)
-    const existing = lobby.participants.find(
-      (p) => p.playerName === d.playerName
-    );
-    if (existing) {
-      socket.join(d.lobbyID);
-      socket.emit("playerJoined");
-      io.to(d.lobbyID).emit(
-        "participantsUpdate",
-        data.getParticipants(d.lobbyID)
-      );
-      return;
-    }
+    
     if (lobby.locked) {
       socket.emit(
         "lobbyError",
