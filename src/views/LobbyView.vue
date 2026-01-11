@@ -138,6 +138,10 @@ export default {
         return this.uiLabels.asia || "Asia";
       } else if (this.continent === "Oceania") {
         return this.uiLabels.Oceania || "Oceania";
+      } else if (this.continent === "north_america") {
+        return this.uiLabels.northAmerica || "North America";
+      } else if (this.continent === "south_america") {
+        return this.uiLabels.southAmerica || "South America";
       }
       return this.continent;
     },
