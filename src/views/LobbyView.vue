@@ -217,8 +217,6 @@ export default {
     startGame() {
       socket.emit("startGame", this.lobbyID); //skickar "startGame" till server med aktuell lobby
     },
-
-    
     //Se länken nedan för förklaring
     // https://sweetalert2.github.io/
     confirmDiscardLobby() {
@@ -269,7 +267,6 @@ export default {
       else this.leaveConfirm = false
       });
     },
-    
   },
 };
 </script>
