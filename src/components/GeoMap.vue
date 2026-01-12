@@ -149,13 +149,7 @@ export default {
       this.$emit("map-click", { x, y });
     },
 
-    handleMapClick(pos) {
-      socket.emit("mapClick", {
-        lobbyID: this.lobbyID,
-        playerName: this.playerName,
-        locationGuess: pos,
-      });
-    },
+    
   },
 };
 </script>
