@@ -253,7 +253,7 @@ export default {
         showCancelButton: true,
         confirmButtonColor: "hotpink",
         cancelButtonColor: "#d33",
-        confirmButtonText: this.uiLabels.leaveLobbyConfirmButton,
+        confirmButtonText: this.uiLabels.leaveGameConfirmButton,
         cancelButtonText: this.uiLabels.cancel,
       }).then((result) => {
         if (result.isConfirmed) {
