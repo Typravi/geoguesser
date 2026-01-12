@@ -186,6 +186,7 @@ export default {
   background-size: cover;
   background-repeat: no-repeat;
   position: relative;
+  cursor: crosshair;
 }
 
 .guessMarker {

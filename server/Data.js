@@ -100,20 +100,31 @@ Data.prototype.participateInGame = function (lobbyID, playerName) {
   const lobby = this.lobbies[lobbyID];
 
   if (this.gameExists(lobbyID)) {
-    const index = lobby.participants.length; // 0,1,2,...
-    const color = playerColors[index % playerColors.length];
+    // Ta fram upptagna färger
+    const takenColors = lobby.participants.map((p) => p.color);
+
+    // Hitta en ledig färg
+    let availableColor = playerColors.find((c) => !takenColors.includes(c));
+
+    // Fallbackbasera på index
+    if (!availableColor) {
+      const index = lobby.participants.length;
+      availableColor = playerColors[index % playerColors.length];
+    }
 
     const player = {
       playerName: playerName,
-      color: color,
+      color: availableColor,
       latestClick: null,
       totalScore: 0,
       roundScore: 0,
     };
 
+    // 5. Lägg till i lobbyn
     lobby.participants.push(player);
   }
 };
+
 
 Data.prototype.getParticipants = function (lobbyID) {
   if (this.gameExists(lobbyID)) {
