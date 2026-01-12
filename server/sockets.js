@@ -20,7 +20,6 @@ function sockets(io, socket, data) {
     // Join room and emit data
     socket.join(d.lobbyID);
     io.to(d.lobbyID).emit("gameData", data.getGame(d.lobbyID));
-    console.log("gameData sent for", d.lobbyID);
   });
 
   socket.on("joinGame", function (lobbyID) {
@@ -43,7 +42,6 @@ function sockets(io, socket, data) {
     //Kollar så att max antal (5) spelare ej är uppnått, ifall det är uppnåt får man nt gå med
     if (lobby.participants.length >= 5) {
       socket.emit("lobbyError", "Lobby is full (max 5 players)");
-      console.log("Lobby full:", d.lobbyID);
       return;
     }
     //Kollar så att ingen spelare försöker ha samma playerName som en annan
@@ -52,19 +50,12 @@ function sockets(io, socket, data) {
     );
     if (nameTaken) {
       socket.emit("lobbyError", "Name already taken");
-      console.log(
-        "Name taken:",
-        d.playerName,
-        "is already used in lobby:",
-        d.lobbyID
-      );
       return;
     }
     //Lägger till spelaren i participants om inte något av de ovan har nekat/låst ute spelaren
     data.participateInGame(d.lobbyID, d.playerName);
     socket.join(d.lobbyID);
     socket.emit("playerJoined");
-    console.log("adding participant", d.playerName, "to", d.lobbyID);
     io.to(d.lobbyID).emit(
       "participantsUpdate",
       data.getParticipants(d.lobbyID)
@@ -73,18 +64,10 @@ function sockets(io, socket, data) {
 
 /*************** Validation ***************/
   socket.on("validateLobbyID", (lobbyID, callback) => {
-    console.log("[sockets] validateLobbyID received:", lobbyID);
     if (typeof lobbyID !== "string" || lobbyID.trim() === "") {
-      console.log("[sockets] validateLobbyID invalid input");
       return callback(false);
     }
     const gameExists = data.gameExists(lobbyID);
-    console.log(
-      "[sockets] validateLobbyID result for",
-      lobbyID,
-      "=",
-      gameExists
-    );
     callback(gameExists);
   });
 
@@ -92,7 +75,6 @@ function sockets(io, socket, data) {
   socket.on("startGame", (lobbyID) => {
     //starta spelet
     const lobby = data.getGame(lobbyID);
-    console.log("startGame to server", lobbyID); //check
     lobby.roundEndsAt = Date.now() + lobby.time * 1000; //timestamp som gör att timern inte tickar ner utan "slutar" vid ett exakt klockslag
     lobby.locked = true;
     lobby.started = true;
@@ -138,7 +120,6 @@ function sockets(io, socket, data) {
   /*************** Discard / leave Lobby ***************/  
 
   socket.on("discardLobby", (lobbyID) => {
-    console.log("Host discarded lobby", lobbyID);
     io.to(lobbyID).emit("lobbyDiscardedByHost");
   });
 

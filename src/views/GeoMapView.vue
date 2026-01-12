@@ -131,10 +131,7 @@ export default {
       timerActive: true,
       roundEndsAt: null,
       participants: [],
-      hostName: "",
       round: null,
-      roundScore: 0,
-      hasSentFinalClick: false,
       leaveConfirm: false,
       hostDiscardConfirm: false,
     };
@@ -165,8 +162,7 @@ export default {
 
     socket.emit("joinGame", this.lobbyID);
 
-    socket.on("resultsView", (lobby) => {
-      console.log("Going to ResultsView", lobby);
+    socket.on("resultsView", () => {
       this.$router.push(`/ResultsView/${this.lobbyID}/${this.playerName}`);
     });
 
@@ -263,7 +259,7 @@ export default {
 
     handleMapClick(pos) {
       this.lastClick = pos; 
-      console.log(pos);
+      console.log(pos);//--> senaste klicket sparas lokalt
     },
 
     startTimer() {
@@ -307,15 +303,12 @@ export default {
           this.lastClick,
           this.correctLocation
           );
-          console.log
-
           socket.emit("finalClick", {
           lobbyID: this.lobbyID,
           playerName: this.playerName,
           locationGuess: this.lastClick,
           roundScore: Math.round(this.distance),
           });
-          console.log("Last click sent to server", this.lastClick);
           return;
         }
         const maxDistance = Math.sqrt(

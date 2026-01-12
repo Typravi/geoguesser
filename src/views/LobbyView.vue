@@ -154,7 +154,6 @@ export default {
       this.cities = lobby.cities;
       this.round = lobby.round;
       this.numOfTime = lobby.time;
-      console.log("lista med städer lobby view", this.cities);
     });
     socket.on("uiLabels", (labels) => (this.uiLabels = labels));
     socket.on("participantsUpdate", (p) => {
