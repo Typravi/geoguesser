@@ -25,13 +25,6 @@ function randomInt(max) {
 
 function Data() {
   this.lobbies = {};
-  this.lobbies["test"] = {
-    lang: "en",
-    questions: [],
-    answers: [],
-    currentQuestion: 0,
-    participants: [],
-  };
 }
 /***********************************************
 For performance reasons, methods are added to the
@@ -80,8 +73,6 @@ Data.prototype.createGame = function (
       continent: continent,
       cities: [],
       round: round,
-      questions: [],
-      answers: [],
       participants: [
         {
           playerName: hostName,
