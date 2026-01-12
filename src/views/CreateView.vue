@@ -98,7 +98,15 @@ export default {
       numOfTime: 10,
       lobbyID: null,
       continent: "europe",
-      round: null,
+      continents: [
+        "africa",
+        "europe",
+        "Planet earth",
+        "asia",
+        "oceania",
+        "south_america",
+        "north_america",
+      ],
     };
   },
 
@@ -127,9 +135,9 @@ export default {
   created: function () {
     socket.on("uiLabels", (labels) => (this.uiLabels = labels));
     socket.on("gameData", (data) => {
-      console.log("Lobby created:", data);
       this.$router.push(`/lobby/${this.lobbyID}/${data.hostName}`);
     });
+    //lyssna först ropa sen
 
     socket.emit("getUILabels", this.lang);
   },
@@ -169,34 +177,16 @@ export default {
       }
     },
     chooseNextContinent() {
-      const continents = [
-        "africa",
-        "europe",
-        "Planet earth",
-        "asia",
-        "oceania",
-        "south_america",
-        "north_america",
-      ];
-      const currentIndex = continents.indexOf(this.continent);
-      const nextIndex = (currentIndex + 1) % continents.length;
-      this.continent = continents[nextIndex];
+      const currentIndex = this.continents.indexOf(this.continent);
+      const nextIndex = (currentIndex + 1) % this.continents.length;
+      this.continent = this.continents[nextIndex];
     },
 
     choosePreviousContinent() {
-      const continents = [
-        "africa",
-        "europe",
-        "Planet earth",
-        "asia",
-        "oceania",
-        "south_america",
-        "north_america",
-      ];
-      const currentIndex = continents.indexOf(this.continent);
+      const currentIndex = this.continents.indexOf(this.continent);
       const prevIndex =
-        (currentIndex - 1 + continents.length) % continents.length;
-      this.continent = continents[prevIndex];
+        (currentIndex - 1 + this.continents.length) % this.continents.length;
+      this.continent = this.continents[prevIndex];
     },
 
     increaseTime() {

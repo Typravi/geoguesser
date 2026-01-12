@@ -51,9 +51,6 @@ export default {
     return {
       uiLabels: {},
       lang: localStorage.getItem("lang") || "en",
-      hideNav: true,
-      open: false,
-      active: null,
     };
   },
   created: function () {
@@ -65,16 +62,6 @@ export default {
       this.lang = this.lang === "sv" ? "en" : "sv"; //kollar om SV isf EN annars SV (vid klick)
       localStorage.setItem("lang", this.lang);
       socket.emit("getUILabels", this.lang);
-    },
-    toggleNav: function () {
-      this.hideNav = !this.hideNav;
-    },
-    FAQtoggle: function (i) {
-      this.active = this.active === i ? null : i;
-    },
-    closeFAQ: function () {
-      this.open = false;
-      this.active = null;
     },
   },
 };

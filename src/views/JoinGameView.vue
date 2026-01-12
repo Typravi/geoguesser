@@ -37,11 +37,6 @@
           />
         </p>
       </div>
-      <div class="joinArea">
-        <p v-if="gameIsChecked && !gameExists" class="error-message">
-          <!--  lägg till felmedellande här-->
-        </p>
-      </div>
     </div>
     <div class="buttonArea">
       <div class="Game-buttons">
@@ -81,16 +76,14 @@ export default {
   },
   created: function () {
     socket.on("uiLabels", (labels) => (this.uiLabels = labels));
-    socket.emit("getUILabels", this.lang);
-
     socket.on("playerJoined", () => {
       this.$router.push(`/lobby/${this.lobbyID}/${this.playerName}`);
     });
-
     socket.on("lobbyError", (msg) => {
-      console.log("Lobby error:", msg);
       alert(msg);
     });
+    //lyssna först ropa sen
+    socket.emit("getUILabels", this.lang);
   },
   methods: {
     switchLanguage: function () {
@@ -98,31 +91,18 @@ export default {
       localStorage.setItem("lang", this.lang);
       socket.emit("getUILabels", this.lang);
     },
-
     checkgameID() {
       this.lobbyID = this.lobbyID.replace(/\D/g, "");
-
-      console.log("[JoinGameView] checkgameID, lobbyID=", this.lobbyID);
-
       if (this.lobbyID.length < 6) {
         this.gameIsChecked = false;
       }
       if (this.lobbyID.length === 6) {
-        console.log(
-          "[JoinGameView] emitting validateLobbyID for",
-          this.lobbyID
-        );
         socket.emit("validateLobbyID", this.lobbyID, (exists) => {
-          console.log(
-            "[JoinGameView] validateLobbyID callback, exists=",
-            exists
-          );
           this.gameExists = exists;
           this.gameIsChecked = true;
         });
       }
     },
-
     joinGame() {
       socket.emit("participateInGame", {
         lobbyID: this.lobbyID,
