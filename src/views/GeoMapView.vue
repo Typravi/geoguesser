@@ -269,7 +269,8 @@ export default {
       // }
       // this.timerActive = false; // timern försvinner
 
-      this.lastClick = pos; //--> senaste klicket sparas lokalt
+      this.lastClick = pos; 
+      console.log(pos);//--> senaste klicket sparas lokalt
     },
 
     startTimer() {
@@ -311,6 +312,7 @@ export default {
           this.lastClick,
           this.correctLocation
           );
+          console.log
 
           socket.emit("finalClick", {
           lobbyID: this.lobbyID,
