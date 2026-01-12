@@ -11,12 +11,7 @@
     <div class="mapWrapper">
       <div class="map" ref="map" @click="onClick">
         <svg class="svgLayerOnMap">
-          <!--"v if" nedan för å kolla att vi har klickat(o har en korrekt koordinat med)-->
-
-          <template v-if="!timerActive && correctLocation">
-            <!--en extra <template> tillåter oss att ha både vif och vfor-->
-            <!--participantsWhoHasClicked är den "städade" participants listan och fixas i computed-->
-
+          <g v-if="!timerActive && correctLocation">
             <line
               class="lineBetweenDots"
               v-for="p in participantsWhoHasClicked"
@@ -27,15 +22,11 @@
               :y2="p.latestClick.y"
               :style="{ stroke: p.color }"
             />
-          </template>
+          </g>
         </svg>
       </div>
+      
       <div id="dots">
-        <!--skillnad från burger:
-    1. v-if gör så att ingen markör skrivs ut om klick ej skett (i burger va den uppe t vänster)
-    ? Jag undrar om man bör använda svg circle nedan istället för en vanlig div med border radius 50%??
-    https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/circle-->
-
         <div
           v-if="timerActive && locationGuess.x !== null"
           class="guessMarker"
@@ -56,7 +47,6 @@
             }"
             :title="p.playerName"
           >
-            <!--det är denna diven som ritar ut den färgade pricken på ens sista klick, efter tiden gått ut-->
           </div>
 
           <div
@@ -70,19 +60,6 @@
           >
             {{ p.playerName }}
           </div>
-          <!-- Nu har jag kommenterat bort detta. Jag tycker inte alls att vi borde ha kvar det, eftersom vi visar omgångens resultat i leaderboard.
-
-          <div
-            v-if="p.latestClick && !timerActive && locationGuess.x !== null"
-            class="distanceLabel"
-            :style="{
-              left: p.latestClick.x + 'px',
-              top: p.latestClick.y + 'px',
-              backgroundColor: p.color,
-            }"
-          >
-            Avstånd {{ distance }} **i pixlar**
-          </div> -->
         </template>
 
         <div

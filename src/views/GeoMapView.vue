@@ -262,15 +262,8 @@ export default {
     },
 
     handleMapClick(pos) {
-      // Stoppa timern
-      // if (this.timerInterval) {
-      //   clearInterval(this.timerInterval);
-      //   this.timerInterval = null;
-      // }
-      // this.timerActive = false; // timern försvinner
-
       this.lastClick = pos; 
-      console.log(pos);//--> senaste klicket sparas lokalt
+      console.log(pos);
     },
 
     startTimer() {
@@ -305,8 +298,10 @@ export default {
 
     finishRound(){
       if (this.timerInterval) {
-      clearInterval(this.timerInterval);        this.timerInterval = null;
+      clearInterval(this.timerInterval);        
+      this.timerInterval = null;
       }
+      
       if(this.lastClick){
         this.distance = calculateDistance(
           this.lastClick,
