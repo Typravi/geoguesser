@@ -40,14 +40,13 @@
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="footerArea">
+     <div class="footerArea">
     <footer>
       <div class="footerLogo">
         <LogoComponent :text="uiLabels.ourName" />
       </div>
     </footer>
+  </div>
   </div>
 </template>
 
