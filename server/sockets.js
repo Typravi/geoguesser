@@ -25,8 +25,8 @@ function sockets(io, socket, data) {
   socket.on("joinGame", function (lobbyID) {
     socket.join(lobbyID);
     const lobby = data.getGame(lobbyID);
-    socket.emit("gameData", {...lobby}); // ... "kopierar" innehållet så att timeStamp blir samma för alla
-    socket.emit("participantsUpdate", data.getParticipants(lobbyID)); //skicka med time stamp till join
+    socket.emit("gameData", {...lobby});
+    socket.emit("participantsUpdate", data.getParticipants(lobbyID)); 
   });
 
   socket.on("participateInGame", function (d) {
