@@ -1,7 +1,7 @@
 {
   "ourName": "Cityguesser",
   "sales-pitch": "Gissa rätt koordinater och klå dina vänner!",
-  "subHeading": "Gå med i ett spel eller starta ett eget. Lägst poäng vinner.",
+  "subHeading": "Gå med i ett spel eller starta ett eget.",
   "createGame": "Skapa spel",
   "joinGame": "Gå med i spel",
   "quitLabel": "Lämna",
@@ -72,7 +72,7 @@
   "oceania": "Oceanien",
   "southAmerica": "Sydamerika",
   "northAmerica": "Nordamerika",
-  "planetEarth": "Hela planeten",
+  "planetEarth": "Alla världsdelar",
 
   "cityNamesLang": {
     "Stockholm": "Stockholm",
@@ -167,6 +167,33 @@
     "Adelaide": "Adelaide",
     "Canberra": "Canberra",
     "Darwin": "Darwin",
-    "Hobart": "Hobart"
+    "Hobart": "Hobart",
+
+    "Rio de Janeiro": "Rio de Janeiro",
+    "Buenos Aires":   "Buenos Aires",
+    "Santiago":  "Santiago de Chile",
+    "Lima":   "Lima",
+    "Bogotá":  "Bogotá",
+    "São Paulo":   "São Paulo",
+    "Caracas":  "Caracas",
+    "La Paz":  "La Paz",
+    "Quito":   "Quito",
+    "Montevideo":    "Montevideo",
+    "Brasilia":   "Brasilia",
+    "Asunción":    "Asunción",
+
+    "New york":  "New york",
+    "Los Angeles": "Los Angeles",
+    "Chicago":   "Chicago",
+    "Toronto":   "Toronto",
+    "Vancouver": "Vancouver",
+    "Mexico City": "Mexico City",
+    "Miami":    "Miami",
+    "Montreal":    "Montreal",
+    "Seattle":  "Seattle",
+    "Havana":  "Havanna"
+
+
+
   }
 }

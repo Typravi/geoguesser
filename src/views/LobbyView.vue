@@ -9,7 +9,6 @@
         <FAQComponent :uiLabels="uiLabels" />
       </div>
     </header>
-
     <div class="responsive-row">
       <div class="glassBox">
         <h4>{{ uiLabels.whoHasJoined }}</h4>
@@ -23,7 +22,6 @@
           </li>
         </ul>
       </div>
-
       <div class="glassBox">
         <div class="showID">
           <p class="label-text">{{ uiLabels.gameID }}</p>
@@ -44,7 +42,6 @@
           </div>
         </div>
       </div>
-
       <div class="glassBox">
         <h4>{{ uiLabels.contPlayed }}</h4>
         <p class="big-text">{{ translatedContinent }}</p>
@@ -151,7 +148,6 @@ export default {
     this.playerName = this.$route.params.playerID;
 
     socket.on("gameData", (lobby) => {
-      console.log("Lobby data received:", lobby);
       this.hostName = lobby.hostName;
       this.numberOfQuestions = lobby.numberOfQuestions;
       this.continent = lobby.continent;
@@ -160,19 +156,16 @@ export default {
       this.numOfTime = lobby.time;
       console.log("lista med städer lobby view", this.cities);
     });
-
     socket.on("uiLabels", (labels) => (this.uiLabels = labels));
     socket.on("participantsUpdate", (p) => {
       this.participants = p;
-      console.log("Received participants:", p);
     });
-
     socket.emit("getUILabels", this.lang);
+    //joinGame skickar ut "gamedata" till alla i lobbyn och "participantsUpdate"
     socket.emit("joinGame", this.lobbyID);
 
     socket.on("gameStart", (lobbyID) => {
       //startar spelet - från servern
-      console.log("Game start for lobby", lobbyID); //check
       this.$router.push(`/GeoMapView/${this.lobbyID}/${this.playerName}`); //pushar alla spelare till GeoMapView
     });
 
@@ -188,7 +181,6 @@ export default {
     });
   
   },
-
   beforeRouteLeave(to, from, next) { 
     //Så att start - game knappen släpps igenom 
     if(to.path.startsWith("/GeoMapView")) return next();
@@ -202,14 +194,11 @@ export default {
       this.confirmDiscardLobby();
       return;
     }
-    
     // -- PLAYER -
       if(this.leaveConfirm) return next();
       next(false)
       this.confirmLeaveLobby();
   },
-
-
   beforeUnmount() {
     // VIKTIGT: Stäng av lyssnarna så de inte lever kvar när vi byter sida
     socket.off("gameStart");
@@ -226,11 +215,8 @@ export default {
       socket.emit("getUILabels", this.lang);
     },
     startGame() {
-      console.log("Start game by clicking"); //check
       socket.emit("startGame", this.lobbyID); //skickar "startGame" till server med aktuell lobby
     },
-
-    
     //Se länken nedan för förklaring
     // https://sweetalert2.github.io/
     confirmDiscardLobby() {
@@ -281,7 +267,6 @@ export default {
       else this.leaveConfirm = false
       });
     },
-    
   },
 };
 </script>

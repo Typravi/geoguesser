@@ -72,7 +72,7 @@
   "oceania": "Oceania",
   "southAmerica": "South America",
   "northAmerica": "North America",
-  "planetEarth": "Planet Earth",
+  "planetEarth": "All continents",
 
   "cityNamesLang": {
     "Stockholm": "Stockholm",
@@ -167,6 +167,33 @@
     "Adelaide": "Adelaide",
     "Canberra": "Canberra",
     "Darwin": "Darwin",
-    "Hobart": "Hobart"
+    "Hobart": "Hobart",
+
+    "Rio de Janeiro": "Rio de Janeiro",
+    "Buenos Aires":   "Buenos Aires",
+    "Santiago":  "Santiago de Chile",
+    "Lima":   "Lima",
+    "Bogotá":  "Bogotá",
+    "São Paulo":   "São Paulo",
+    "Caracas":  "Caracas",
+    "La Paz":  "La Paz",
+    "Quito":   "Quito",
+    "Montevideo":    "Montevideo",
+    "Brasilia":   "Brasilia",
+    "Asunción":    "Asunción",
+
+    "New york":  "New York",
+    "Los Angeles": "Los Angeles",
+    "Chicago":   "Chicago",
+    "Toronto":   "Toronto",
+    "Vancouver": "Vancouver",
+    "Mexico City": "Mexico City",
+    "Miami":    "Miami",
+    "Montreal":    "Montreal",
+    "Seattle":  "Seattle",
+    "Havana":  "Havana"
+
+
+
   }
 }

@@ -135,7 +135,6 @@ export default {
   created: function () {
     socket.on("uiLabels", (labels) => (this.uiLabels = labels));
     socket.on("gameData", (data) => {
-      console.log("Lobby created:", data);
       this.$router.push(`/lobby/${this.lobbyID}/${data.hostName}`);
     });
     //lyssna först ropa sen
