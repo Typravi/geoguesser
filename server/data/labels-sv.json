@@ -14,7 +14,7 @@
   "startGame": "Starta spel",
   "FAQ": "F&S",
   "gameInstructionsQ": "Hur spelar man?",
-  "gameInstructionsA": "Klicka på kartan där du tror att staden som efterfrågas ligger. Du kan klicka flera gånger sålänge tiden inte gått ut. Alla spelare får poäng utifrån hur nära de var, närmast är bäst! Tiden spelar ingen roll. Den sammanlagda poängen efter samtliga frågor räknas ihop och den med längst poäng koras som vinnare!",
+  "gameInstructionsA": "Klicka på kartan där du tror att staden som efterfrågas ligger. Du kan klicka flera gånger sålänge tiden inte gått ut. Alla spelare får poäng utifrån hur nära de var, närmast är bäst! Tiden spelar ingen roll. Den sammanlagda poängen efter samtliga frågor räknas ihop och den spelare med längst poäng koras som vinnare!",
   "numOfPlayersQ": "Hur många kan man spela?",
   "numOfPlayersA": "1-5 spelare kan spela mot varandra samtidigt",
   "creditsQ": "Vem har skapat detta spel?",

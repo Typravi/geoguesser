@@ -621,10 +621,9 @@ h4 {
   margin-top: 1rem;
 }
 
-/* GeoMapView styles (scoped via .outerWrapperGeo wrapper)                                    */
-/* ----------------------------------------------------------------------------------------- */
+/* GeoMapView */
 
-/* Score panel positioning */
+
 .outerWrapperGeo .score-panel {
   position: absolute;
   top: 100px;
@@ -635,18 +634,17 @@ h4 {
   display: flex;
   justify-content: flex-end;
 
-  /* Your second definition had these; keep them here to preserve intent */
+  
   margin: 30px;
 }
 
-/* Main wrapper */
+/* Döpa om? */
 .outerWrapperGeo {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* Header */
 .outerWrapperGeo .header {
   color: #dbc3c3;
   text-align: center;
@@ -655,7 +653,6 @@ h4 {
   --hud-offset: clamp(90px, 14vw, 170px);
 }
 
-/* Center map */
 .outerWrapperGeo .map-area {
   flex: 1;
   display: flex;
@@ -665,7 +662,6 @@ h4 {
   position: relative;
 }
 
-/* Mobile: score panel drops into flow */
 @media (max-width: 50em) {
   .outerWrapperGeo .score-panel {
     position: static;
@@ -679,7 +675,6 @@ h4 {
   }
 }
 
-/* IMPORTANT: keep this scoped so it doesn't override global .button */
 .outerWrapperGeo .button {
   display: inline-block;
   width: 12rem;
