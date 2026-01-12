@@ -51,9 +51,6 @@ export default {
     return {
       uiLabels: {},
       lang: localStorage.getItem("lang") || "en",
-      hideNav: true,
-      open: false,
-      active: null,
     };
   },
   created: function () {
