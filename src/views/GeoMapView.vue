@@ -10,7 +10,6 @@
           <span class="cityName">{{ displayCityName }}</span>
         </p>
       </div>
-
       <div
         class="timerBox"
         v-if="timerActive && timeLeft !== null"
@@ -18,14 +17,12 @@
       >
         <span class="timerInner">{{ timeLeft }}</span>
       </div>
-
       <div class="whichRound" v-if="round && numberOfQuestions && timerActive">
         <p>
           {{ uiLabels.whichRound }} <br />
           {{ round }} / {{ numberOfQuestions }}
         </p>
       </div>
-
       <div class="initiateNew">
         <button
           class="button nextRoundButton"
@@ -49,7 +46,6 @@
         >
           {{ uiLabels.seeResultsText }}
         </button>
-
         <div class="waitForHostNewRound">
           <p
             v-if="
@@ -64,7 +60,6 @@
         </div>
       </div>
     </header>
-
     <main class="map-area">
       <GeoMap
         :key="round"
@@ -105,22 +100,18 @@ import LogoComponent from "../components/LogoComponent.vue";
 import continentData from "../assets/maps_public.json";
 import { calculateDistance } from "../assets/logic";
 import { calculatePunishment } from "../assets/logic";
+import Swal from "sweetalert2";
 
 import io from "socket.io-client";
 const socket = io(sessionStorage.getItem("dataServer")); // ändrat från localhost till min lokala IP-adress
 
-import Swal from "sweetalert2";
-
-
 export default {
   name: "GeoMapView",
-
   components: {
     GeoMap,
     ScorePanel,
     LogoComponent,
   },
-
   data() {
     return {
       lang: localStorage.getItem("lang") || "en",
@@ -148,22 +139,17 @@ export default {
       hostDiscardConfirm: false,
     };
   },
-
   computed: {
     currentMap() {
       if (!this.continent) return null;
-
       if (this.continent === "Planet earth") {
         const idx = (Number(this.round) || 1) - 1;
         const city = this.cities?.[idx];
         if (!city?.continent) return null;
-
         return continentData[city.continent] ?? null;
       }
-
       return continentData[this.continent] ?? null;
     },
-
     displayCityName() {
       const cityNames = this.uiLabels?.cityNamesLang;
       if (!cityNames || !this.cityToFind) return this.cityToFind || "";
@@ -205,17 +191,6 @@ export default {
       if (this.cityToFind && this.correctLocation && this.roundEndsAt) {
         this.startTimer();
       }
-
-      console.log(
-        "GeoMapView created for lobby",
-        this.lobbyID,
-        "and player",
-        this.playerName,
-        "in continent",
-        this.continent,
-        "with the cities:",
-        this.cities
-      );
     });
     socket.on("participantsUpdate", (participants) => {
       this.participants = participants;
@@ -345,6 +320,7 @@ export default {
           locationGuess: this.lastClick,
           roundScore: Math.round(this.distance),
           });
+          console.log("Last click sent to server", this.lastClick);
           return;
         }
         const maxDistance = Math.sqrt(
