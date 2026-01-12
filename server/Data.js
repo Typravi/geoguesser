@@ -90,7 +90,6 @@ Data.prototype.createGame = function (
       started: false,
     };
     this.lobbies[lobbyID] = lobby;
-    console.log("lobby created", lobbyID, lobby);
   }
   return this.lobbies[lobbyID];
 };
@@ -98,7 +97,6 @@ Data.prototype.createGame = function (
 /*************** PARTICIPANTS (ADD/GET/REMOVE) ***************/
 
 Data.prototype.participateInGame = function (lobbyID, playerName) {
-  console.log("participant will be added to", lobbyID, playerName);
   const lobby = this.lobbies[lobbyID];
 
   if (this.gameExists(lobbyID)) {
@@ -118,7 +116,6 @@ Data.prototype.participateInGame = function (lobbyID, playerName) {
 };
 
 Data.prototype.getParticipants = function (lobbyID) {
-  console.log("participants requested for", lobbyID);
   if (this.gameExists(lobbyID)) {
     return this.lobbies[lobbyID].participants;
   }
