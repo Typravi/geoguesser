@@ -18,7 +18,6 @@
         <h2>{{ uiLabels.subHeading }}</h2>
       </div>
 
-
       <div class="buttonArea">
         <div class="Game-buttons">
           <router-link to="/JoinGameView/" class="button join-button">
@@ -30,7 +29,6 @@
         </div>
       </div>
     </main>
-   
   </div>
 </template>
 
@@ -41,12 +39,13 @@ import FAQComponent from "../components/FAQComponent.vue";
 import io from "socket.io-client";
 //sessionStorage.setItem("dataServer", "192.168.0.33:3000"); // lägger till dataseverns IP-adress i sessionStorage Ivars hemma wiFi
 //sessionStorage.setItem("dataServer", "192.168.0.101:3000"); - sandras IP
-sessionStorage.setItem("dataServer", "localhost:3000"); // för testning på lokal dator
+sessionStorage.setItem("dataServer", "192.168.0.6:3000"); //Ronjas hemma wifi
+//sessionStorage.setItem("dataServer", "localhost:3000"); // för testning på lokal dator
 const socket = io(sessionStorage.getItem("dataServer")); // ändrat från localhost till min lokala IP-adress
 
 export default {
   name: "StartView",
-  components: { LogoComponent , LanguageComponent, FAQComponent},
+  components: { LogoComponent, LanguageComponent, FAQComponent },
   data: function () {
     return {
       uiLabels: {},
